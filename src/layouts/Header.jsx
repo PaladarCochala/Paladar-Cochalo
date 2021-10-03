@@ -27,10 +27,10 @@ const Search = styled('div')(({ theme }) => ({
   display: 'flex',
   alignItems: 'left',
   maxWidth: '1430 px',
-  marginRight: theme.spacing(2),
-  width: '100%',
+  //marginRight: theme.spacing(6),
+  width: '80%',
   [theme.breakpoints.up('sm')]: {
-    marginLeft: theme.spacing(3),
+    marginLeft: theme.spacing(1),
   },
 }));
 
@@ -59,7 +59,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-export default function PrimarySearchAppBar() {
+export default function Navbar({ item }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
@@ -181,22 +181,18 @@ export default function PrimarySearchAppBar() {
           </Search>
           <Box sx={{ flexGrow: 4 }} />
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-          <Button variant="contained" disableElevation>
-                Ingresar
-              </Button>
-              <Button variant="contained" disableElevation>
-                Crear cuenta
-              </Button>
-            <IconButton
-              size="large"
-              edge="end"
-              aria-label="account of current user"
-              aria-controls={menuId}
-              aria-haspopup="true"
-              onClick={handleProfileMenuOpen}
-              color="inherit"
-            >
-            </IconButton>
+            <Button
+              variant="text"
+              size="small"
+              style={{
+                color: "white"
+            }}
+            >Ingresar</Button>
+            <Button
+              variant="text"
+              size="small"
+              style={{color: "white"}}
+              >Crear cuenta</Button>
           </Box>
           <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
             <IconButton
