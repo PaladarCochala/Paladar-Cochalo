@@ -1,9 +1,11 @@
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
-import { createMuiTheme, ThemeProvider } from '@material-ui/core';
-import Restaurantes from './components/Restaurante/Restaurantes';
-import Restaurante from './components/Restaurante/Restaurante';
+import { createTheme, ThemeProvider } from '@material-ui/core';
+import Restaurantes from './Components/Restaurante/Restaurantes';
+import Restaurante from './Components/Restaurante/Restaurante';
+import Footer from './layouts/Footer'
+import Home from './Components/Home/Home';
 
-const theme = createMuiTheme({
+const theme = createTheme({
   palette: {
     type: 'dark',
     primary: {
@@ -38,6 +40,8 @@ const theme = createMuiTheme({
 })
 
 
+
+
 function App() {
   return (
     <Router>
@@ -48,10 +52,14 @@ function App() {
             path="/"
           >
             <Redirect
-              to="/restaurantes"
+              to="/home"
             />
           </Route>
-          
+          <Route
+            exact
+            path="/home"
+            component={Home}
+          />
           <Route
             exact
             path="/restaurantes"
@@ -63,8 +71,9 @@ function App() {
             component={Restaurante}
           />
         </Switch>
-        
+        <Footer />
       </ThemeProvider>
+     
     </Router>
   );
 }
