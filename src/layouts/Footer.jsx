@@ -13,8 +13,8 @@ export default function Footer() {
         <>
             <AppBar position="static" style={{ background: '#000000' }}>
                 <Container>
-                        <Typography  style={{ marginTop: '4em', padding: '1em' }} variant="body1" color="inherit"  >
-                            <div style={{ padding: '0.5em' }}>
+                        <Typography  style={{ marginTop: '4em',textAlign: 'center', padding: '1em' }} variant="body1" color="inherit"  >
+                            <div style={{ padding: '0.5em'}}>
                             Copyright © 2021 PALADAR COCHALO. Todos los derechos reservados
                             </div>
                             <Divider style={{ backgroundColor: 'white' }} variant='fullWidth' />
@@ -42,10 +42,7 @@ export default function Footer() {
                                 </div>
                             </div>
                         </Typography>
-                        
-                        
-                        
-            
+                 
                 </Container>
             </AppBar> 
         </>

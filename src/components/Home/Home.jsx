@@ -9,9 +9,9 @@ export default function MediaCard() {
     }, []);
   
     return (
-  
-      <div className={classes.root}>
+        <>
         <Header item={'Home'} />
-      </div>
+        <p> lista restaurantes</p>
+        </>
     );
   }

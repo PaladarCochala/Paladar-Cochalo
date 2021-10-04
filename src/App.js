@@ -1,9 +1,11 @@
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
-import { createMuiTheme, ThemeProvider } from '@material-ui/core';
-import Restaurantes from './components/Restaurante/Restaurantes';
-import Restaurante from './components/Restaurante/Restaurante';
+import { createTheme, ThemeProvider } from '@material-ui/core';
+import Restaurantes from './Components/Restaurante/Restaurantes';
+import Restaurante from './Components/Restaurante/Restaurante';
+import Footer from './layouts/Footer'
+import Home from './Components/Home/Home';
 
-const theme = createMuiTheme({
+const theme = createTheme({
   palette: {
     type: 'dark',
     primary: {
@@ -38,30 +40,10 @@ const theme = createMuiTheme({
 })
 
 
-import Footer from './layouts/Footer'
+
 
 function App() {
   return (
-<<<<<<< HEAD
-    <div className="App">
-      <Header/>
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-      <Footer/>
-    </div>
-=======
     <Router>
       <ThemeProvider theme={theme}>
         <Switch>
@@ -70,10 +52,14 @@ function App() {
             path="/"
           >
             <Redirect
-              to="/restaurantes"
+              to="/home"
             />
           </Route>
-          
+          <Route
+            exact
+            path="/home"
+            component={Home}
+          />
           <Route
             exact
             path="/restaurantes"
@@ -85,10 +71,10 @@ function App() {
             component={Restaurante}
           />
         </Switch>
-        
+        <Footer />
       </ThemeProvider>
+     
     </Router>
->>>>>>> 751cba39ac392eefac17c3d194d97777cb75d135
   );
 }
 
