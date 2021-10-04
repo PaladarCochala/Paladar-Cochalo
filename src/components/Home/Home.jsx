@@ -10,8 +10,7 @@ export default function MediaCard() {
   
     return (
         <>
-        <Header item={'Home'} />
-        <p> lista restaurantes</p>
+       
         </>
     );
   }
