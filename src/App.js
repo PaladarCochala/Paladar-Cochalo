@@ -1,9 +1,9 @@
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 import { createTheme, ThemeProvider } from '@material-ui/core';
-import Restaurantes from './Components/Restaurante/Restaurantes';
-import Restaurante from './Components/Restaurante/Restaurante';
+import Restaurantes from './components/Restaurante/Restaurantes';
+import Restaurante from './components/Restaurante/Restaurante';
 import Footer from './layouts/Footer'
-import Home from './Components/Home/Home';
+import Home from './components/Home/Home';
 
 const theme = createTheme({
   palette: {
