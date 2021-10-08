@@ -40,28 +40,33 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     width: "100%",
     padding: theme.spacing(0.5, 1, 0.5, 0),
     marginLeft: '50px',
-    
+
 }));
 export default function Navbar({ item }) {
     return (
         <Grid>
-            <AppBar position="static" style={{ background: '#B82601', width: "100%"}}>
+            <AppBar position="static" style={{ background: '#B82601', width: "100%" }}>
                 <Toolbar style={{
                     padding: 0,
                     width: "100%",
                     textAlign: "center"
                 }}>
-                    <Grid style= {{ width: "5%"}}>
+                    <Grid style={{ width: "5%" }}>
                         <MenuIcon />
                     </Grid>
                     <Grid
-                        style= {{ width: "5%"}} >
-                        <FoodBankIcon
-                            size="large"
-                            edge="start"
-                            color="inherit"
-                            aria-label="open drawer">
-                        </FoodBankIcon>
+                        style={{ width: "5%" }} >
+                        <Button
+                            component={Link}
+                            to="/restaurantes">
+                            <FoodBankIcon
+                                size="large"
+                                edge="start"
+                                color="inherit"
+                                aria-label="open drawer"
+                            >
+                            </FoodBankIcon>
+                        </Button>
                     </Grid>
                     <Search>
                         <SearchIconWrapper>
@@ -83,8 +88,10 @@ export default function Navbar({ item }) {
                     <Button
                         variant="text"
                         size="small"
-                        style={{ color: "white",
-                        width: "10%" }}
+                        style={{
+                            color: "white",
+                            width: "10%"
+                        }}
                     >Crear cuenta</Button>
                 </Toolbar>
             </AppBar>
