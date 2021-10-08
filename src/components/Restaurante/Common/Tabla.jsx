@@ -34,36 +34,36 @@ export default function TablaRestaurantes({ restaurante }) {
             >
                 <TableContainer >
                     <Table className={classes.table} aria-label="simple table">
-                        <TableBody>
+                        <TableBody >
 
                             {restaurante.nombre ?
-                                <TableRow className={classes.row} key='size'>
-                                    <TableCell align="left" component="th" scope="row" className={classes.text}  >Nombre</TableCell>
-                                    <TableCell align="left" className={classes.text} color={"00000"}>{restaurante.nombre}</TableCell>
+                                <TableRow className={classes.row} key='size' >
+                                    <TableCell align="left" component="th" scope="row" className={classes.text} style={{color:"black"}} >Nombre</TableCell>
+                                    <TableCell align="left" className={classes.text} color={"00000"} style={{color:"black"}}>{restaurante.nombre}</TableCell>
                                 </TableRow>
                                 : null
                             }
 
                             {restaurante.ubicacion ?
                                 <TableRow className={classes.row} key='weight'>
-                                    <TableCell align="left" className={classes.text} >ubicacion</TableCell>
-                                    <TableCell align="left" className={classes.text} >{restaurante.ubicacion}</TableCell>
+                                    <TableCell align="left" className={classes.text} style={{color:"black"}}>ubicacion</TableCell>
+                                    <TableCell align="left" className={classes.text} style={{color:"black"}}>{restaurante.ubicacion}</TableCell>
                                 </TableRow>
                                 : null
                             }
 
                             {restaurante.promedioSabor ?
                                 <TableRow className={classes.row} key='colors'>
-                                    <TableCell align="left" component="th" scope="row" className={classes.text} >Promedio Sabor</TableCell>
-                                    <TableCell align="left" className={classes.text} >{restaurante.promedioSabor}</TableCell>
+                                    <TableCell align="left" component="th" scope="row" className={classes.text} style={{color:"black"}}>Promedio Sabor</TableCell>
+                                    <TableCell align="left" className={classes.text} style={{color:"black"}}>{restaurante.promedioSabor}</TableCell>
                                 </TableRow>
                                 : null
                             }
 
                             {restaurante.promedioServicio ?
                                 <TableRow className={classes.row} key='controls'>
-                                    <TableCell align="left" component="th" scope="row" className={classes.text} >Promedio Servicio</TableCell>
-                                    <TableCell align="left" className={classes.text} >{restaurante.promedioServicio}</TableCell>
+                                    <TableCell align="left" component="th" scope="row" className={classes.text} style={{color:"black"}}>Promedio Servicio</TableCell>
+                                    <TableCell align="left" className={classes.text} style={{color:"black"}}>{restaurante.promedioServicio}</TableCell>
                                 </TableRow>
                                 : null
                             }
