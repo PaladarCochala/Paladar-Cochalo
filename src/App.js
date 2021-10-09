@@ -4,6 +4,7 @@ import Restaurantes from './components/Restaurante/Restaurantes';
 import Restaurante from './components/Restaurante/Restaurante';
 import Footer from './layouts/Footer';
 import Header from './layouts/Header';
+import ListaRestaurantesVistaAdmin from './components/Admin/ListaRestaurantesVistaAdmin';
 
 import Home from './components/Home/Home';
 
@@ -73,6 +74,11 @@ function App() {
             exact
             path="/restaurantes/:id"
             component={Restaurante}
+          />
+          <Route
+            exact
+            path="/panel-administrador/restaurantes"
+            component={ListaRestaurantesVistaAdmin}
           />
         </Switch>
         <Footer />
