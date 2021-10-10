@@ -1,106 +1,49 @@
-
-import React, { Component,useEffect } from "react";
-import { Dimmer, Header, Loader, Message, Icon, Table, Divider, Grid } from "semantic-ui-react";
-import RestauranteVistaAdmin from "../Admin/RestauranteVistaAdmin";
+import React, { Component, useEffect, useState } from 'react'
 import { getRestaurantes } from '../../services/restaurante';
 
-class ListaRestaurantesVistaAdmin extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      restaurantes: [],
-      mostrarBotonDeCarga: true,
-      restaurantesSeleccionados: [],
-      prueba: []
-    };
-  }
+
+import { DataGrid } from '@material-ui/data-grid'
+const columns = [
+  { field: 'id', headerName: 'ID', width: 70 , headerAlign: 'center'},
+  { field: 'Logotipo', headerName: 'Logotipo', width: 160,headerAlign: 'center' },
+  { field: 'Nombre', headerName: 'Nombre', width: 160, headerAlign: 'center'},
   
+];
 
-  iconoDeCarga() {
-    return (
-      this.state.mostrarBotonDeCarga === true && (
-        <Dimmer active inverted>
-          <Loader inverted>Cargando</Loader>
-        </Dimmer>
-      )
-    );
-  }
-  
+export default function ListaRestaurantesVistaAdmin() {
 
-    componentDidMount(){
-        getRestaurantes()
-        .then((response) => {
-            return response.data;
-        })
-        .then((response) => {
-            this.setState({
-                restaurantes: response.response
-              });
-            //console.log(response.response)
-            
-        })
-    }
+  const [restaurantes, setRestaurantes] = useState([]);
+  useEffect(() => {
+    getDataRestaurantes();
+  }, []);
 
-
-  listaRestaurantes() {
-      this.prueba= this.mapeoListaRestaurantes(this.state.restaurantes);
-      console.log(this.prueba);
-    return this.prueba;
-  }
- 
-  mapeoListaRestaurantes(listaRestaurantes) {
-    return listaRestaurantes.map((restaurante, contador) => {
-         <RestauranteVistaAdmin item={restaurante}
-          numeracion={contador + 1} />;
-    });
-  }
-  listaVacia() {
-    return <Message
-        icon="warning sign"
-        warning
-        header={"Lo sentimos, por el momento no tenemos alumnes disponibles."}
-        content={"Intenta mas tarde. Gracias"}
-      />
+  function getDataRestaurantes() {
+    getRestaurantes()
+      .then((response) => {
+        return response.data;
+      })
+      .then((response) => {
+        console.log(response.response)
+        setRestaurantes(response.response);
+      })
   }
 
-  
-
-
-  render() {
-    
-    return (
-      <div>
-        <Grid centered>
-          <Header as='h2' textAlign='center' style={{ marginTop: '20px', marginBottom: '20px' }}>
-            <Header.Content>Lista Restaurantes</Header.Content>
-          </Header>
-        </Grid>
-        <Divider />
-
-        <div style={{ overflowX: "auto" }}>
-          <Table singleLine selectable striped unstackable>
-            <Table.Header>
-              <Table.Row>
-                <Table.HeaderCell textAlign="center">
-                  <input
-                    type="checkbox"
-                    name="checkbox"
-                    //onClick={() => this.seleccionarTodosLosAlumes()}
-                    style={{ transform: "scale(1.4)" }}
-                  />
-                </Table.HeaderCell>
-                <Table.HeaderCell>Logotipo</Table.HeaderCell>
-                <Table.HeaderCell>Nombre</Table.HeaderCell>
-                <Table.HeaderCell textAlign="center">Acciones</Table.HeaderCell>
-              </Table.Row>
-            </Table.Header>
-            {/* {this.state.restaurantes.length === 0 ? this.listaVacia(): */}
-            <Table.Body>{this.listaRestaurantes()}</Table.Body>
-          </Table>
-
-        </div>
+  return (
+    <div>
+      <br/>
+      <div style={{ height: 650, width: '100%'}}>
+        <DataGrid
+          rows={restaurantes.map((restaurante) => ({ id: restaurante.id, Nombre: restaurante.nombre , Logotipo: restaurante.logo }))}
+          columns={columns}
+          pageSize={10}
+          rowsPerPageOptions={[5]}
+          checkboxSelection
+          style={{
+            color: "black"
+          }}
+        />
       </div>
-    );
-  }
+    </div>
+  )
+
 }
-export default ListaRestaurantesVistaAdmin;
