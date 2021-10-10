@@ -2,7 +2,9 @@ import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-d
 import { createTheme, ThemeProvider } from '@material-ui/core';
 import Restaurantes from './components/Restaurante/Restaurantes';
 import Restaurante from './components/Restaurante/Restaurante';
-import Footer from './layouts/Footer'
+import Footer from './layouts/Footer';
+import Header from './layouts/Header';
+
 import Home from './components/Home/Home';
 
 const theme = createTheme({
@@ -45,14 +47,16 @@ const theme = createTheme({
 function App() {
   return (
     <Router>
+       <Header item={'Home'} />
       <ThemeProvider theme={theme}>
+        
         <Switch>
           <Route
             exact
             path="/"
           >
             <Redirect
-              to="/home"
+              to="/restaurantes"
             />
           </Route>
           <Route
