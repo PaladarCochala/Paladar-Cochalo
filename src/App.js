@@ -5,7 +5,6 @@ import Restaurante from './components/Restaurante/Restaurante';
 import ListaRestaurantesVistaAdmin from './components/Admin/ListaRestaurantesVistaAdmin';
 import Footer from './layouts/Footer';
 import Header from './layouts/Header';
-import ListaRestaurantesVistaAdmin from './components/Admin/ListaRestaurantesVistaAdmin';
 
 import Home from './components/Home/Home';
 
