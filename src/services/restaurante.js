@@ -12,8 +12,13 @@ function deleteRestauranteById(id) {
     return axios.delete(`${BASE_ROUTE}/restaurantes/${id}`);
 }
 
+function crearRestaurante(body){
+    return axios.post(`${BASE_ROUTE}/restaurantes`, body);
+}
+
 export { 
     getRestaurantes, 
     getRestaurantesById,
-    deleteRestauranteById
+    deleteRestauranteById,
+    crearRestaurante 
 };
