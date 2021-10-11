@@ -1,24 +1,96 @@
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
+import { createTheme, ThemeProvider } from '@material-ui/core';
+import Restaurantes from './components/Restaurante/Restaurantes';
+import Restaurante from './components/Restaurante/Restaurante';
+import ListaRestaurantesVistaAdmin from './components/Admin/ListaRestaurantesVistaAdmin';
+import NuevoRestaurante from './components/Restaurante/NuevoRestaurante';
+import Footer from './layouts/Footer';
+import Header from './layouts/Header';
+
+import Home from './components/Home/Home';
+
+const theme = createTheme({
+  palette: {
+    type: 'dark',
+    primary: {
+      light: '#A9A9A9',
+      main: '#151515',
+      dark: '#464646'
+    },
+    secondary: {
+      light: '#EB8D70',
+      main: '#E5704B',
+      dark: '#C7522D'
+    },
+    divider: 'rgb(171, 171, 171)',
+    background: {
+      paper: '#EBEBEB',
+      default: '#151515',
+    },
+    text: {
+      primary: '#EBEBEB',
+      secondary: '#ABABAB',
+    },
+    action: {
+      disabled: '#D1D1D1',
+    }
+  },
+  typography: {
+    fontFamily: 'Open+Sans',
+    fontWeightLight: 200,
+    fontWeightRegular: 300,
+    fontWeightMedium: 400,
+  }
+})
+
+
+
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+       <Header item={'Home'} />
+      <ThemeProvider theme={theme}>
+        
+        <Switch>
+          <Route
+            exact
+            path="/"
+          >
+            <Redirect
+              to="/restaurantes"
+            />
+          </Route>
+          <Route
+            exact
+            path="/home"
+            component={Home}
+          />
+          <Route
+            exact
+            path="/restaurantes"
+            component={Restaurantes}
+          />
+          <Route
+            exact
+            path="/restaurantes/:id"
+            component={Restaurante}
+          />
+          <Route
+            exact
+            path="/panel-administrador/restaurantes"
+            component={ListaRestaurantesVistaAdmin}
+          />
+          <Route
+            exact
+            path="/panel-administrador/crear-restaurante"
+            component={NuevoRestaurante}
+          />
+        </Switch>
+        <Footer />
+      </ThemeProvider>
+     
+    </Router>
   );
 }
 
