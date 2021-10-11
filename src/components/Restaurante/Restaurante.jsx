@@ -3,7 +3,6 @@ import { Grid, CircularProgress, makeStyles } from '@material-ui/core';
 import { getRestaurantesById } from '../../services/restaurante';
 import Info from './Common/Info';
 
-import RestaurantCard from '../Restaurante/Common/RestaurantCard';
 
 export default function SingleRestaurante(props) {
 

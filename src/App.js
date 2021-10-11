@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-d
 import { createTheme, ThemeProvider } from '@material-ui/core';
 import Restaurantes from './components/Restaurante/Restaurantes';
 import Restaurante from './components/Restaurante/Restaurante';
+import ListaRestaurantesVistaAdmin from './components/Admin/ListaRestaurantesVistaAdmin';
 import Footer from './layouts/Footer';
 import Header from './layouts/Header';
 
@@ -73,6 +74,11 @@ function App() {
             exact
             path="/restaurantes/:id"
             component={Restaurante}
+          />
+          <Route
+            exact
+            path="/panel-administrador/restaurantes"
+            component={ListaRestaurantesVistaAdmin}
           />
         </Switch>
         <Footer />

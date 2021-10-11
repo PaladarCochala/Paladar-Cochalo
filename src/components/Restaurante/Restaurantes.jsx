@@ -47,51 +47,6 @@ export default function Restaurantes() {
                     align="center"
                    // item xs={12} sm={3}
                 >
-                    <Card
-                        style={{
-                        color:"black"
-                        }}
-                        className={classes.card}>
-                        <CardHeader
-                            titleTypographyProps={{ variant: 'h4' }}
-                            className={classes.cardHeader}
-                            title={restaurante.nombre}
-                            style={{
-                                color:"black"
-                            }}
-                        // subheader="September 14, 2016"
-                        />
-                        <CardContent
-                            className={classes.content}
-                        >
-                            <div
-                                className={classes.text}
-                            >
-                                <Typography
-                                    variant="p"
-                                    align="center"
-                                >
-                                    {restaurante.ubicacion}
-                                </Typography>
-                            </div>
-                        </CardContent>
-                        <CardActions
-                            className={classes.action}
-                            disableSpacing
-                        >
-                            <Button
-                                className={classes.button}
-                                variant="contained"
-                                exact 
-                                component={Link}
-                                to={`/restaurantes/${restaurante.id}`}
-                            >
-                                Leer Mas
-                            </Button>
-
-                        </CardActions>
-                    </Card>
-                    <Divider className={classes.dividerCard} />
                     <RestaurantCard restaurante={restaurante}/>
                 </Grid>
             </>
