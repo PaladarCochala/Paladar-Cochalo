@@ -62,8 +62,8 @@ export default function Navbar({ item }) {
                             <FoodBankIcon
                                 size="large"
                                 edge="start"
-                                color="inherit"
                                 aria-label="open drawer"
+                                style={{color: "white"}}
                             >
                             </FoodBankIcon>
                         </Button>
