@@ -8,8 +8,12 @@ function getRestaurantes() {
 function getRestaurantesById(id) {
     return axios.get(`${BASE_ROUTE}/restaurantes/${id}`);
 }
+function deleteRestauranteById(id) {
+    return axios.delete(`${BASE_ROUTE}/restaurantes/${id}`);
+}
 
 export { 
     getRestaurantes, 
-    getRestaurantesById 
+    getRestaurantesById,
+    deleteRestauranteById
 };
