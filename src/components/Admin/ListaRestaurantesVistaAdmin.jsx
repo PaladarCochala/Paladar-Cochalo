@@ -4,19 +4,20 @@ import { Button } from '@material-ui/core';
 import { DataGrid } from '@material-ui/data-grid'
 import { deleteRestauranteById } from '../../services/restaurante';
 
+import  ModalEliminar from './modals/ModalEliminar'
 
-  const columns = [
-    { field: 'id', headerName: 'ID', width: 70, headerAlign: 'center' },
-    { field: 'Logotipo', headerName: 'Logotipo', width: 160, headerAlign: 'center' },
-    { field: 'Nombre', headerName: 'Nombre', width: 160, headerAlign: 'center' },
-    {
-      field: 'colEliminar',
-      headerName: 'Acciones',
-      width: 160,
-      renderCell: (params) => {
-        return (
-          <strong>
-            <Button
+const columns = [
+  { field: 'id', headerName: 'ID', width: 70, headerAlign: 'center' },
+  { field: 'Logotipo', headerName: 'Logotipo', width: 160, headerAlign: 'center' },
+  { field: 'Nombre', headerName: 'Nombre', width: 160, headerAlign: 'center' },
+  {
+    field: 'colEliminar',
+    headerName: 'Acciones',
+    width: 160,
+    renderCell: (params) => {
+      return (
+        <strong>
+          {/* <Button
               variant="contained"
               color="secondary"
               size="small"
@@ -24,15 +25,17 @@ import { deleteRestauranteById } from '../../services/restaurante';
               onClick={() => {
                 deleteRestauranteById(params.id)
               }}
-            >
+            > 
               Borrar
-            </Button>
-          </strong>
-        )
-      },
-      disableClickEventBubbling: true,
+            </Button>*/}
+            
+            <ModalEliminar id={params.id}/>
+        </strong>
+      )
     },
-  ];
+    disableClickEventBubbling: true,
+  },
+];
 //const renderDetailsButton = 
 export default function ListaRestaurantesVistaAdmin() {
 
@@ -57,7 +60,7 @@ export default function ListaRestaurantesVistaAdmin() {
       <br />
       <div style={{ height: 650, width: '100%' }}>
         <DataGrid
-          disableSelectionOnClick = "false"
+          disableSelectionOnClick="false"
           rows={restaurantes.map((restaurante) => ({ id: restaurante.id, Nombre: restaurante.nombre, Logotipo: restaurante.logo }))}
           columns={columns}
           pageSize={10}
