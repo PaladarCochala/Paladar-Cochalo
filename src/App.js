@@ -2,7 +2,7 @@ import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-d
 import { createTheme, ThemeProvider } from '@material-ui/core';
 import Restaurantes from './components/Restaurante/Restaurantes';
 import Restaurante from './components/Restaurante/Restaurante';
-import ListaRestaurantesVistaAdmin from './components/Admin/ListaRestaurantesVistaAdmin';
+import ListaRestaurantes from './components/Admin/ListaRestaurantes';
 import NuevoRestaurante from './components/Restaurante/NuevoRestaurante';
 import Footer from './layouts/Footer';
 import Header from './layouts/Header';
@@ -79,7 +79,7 @@ function App() {
           <Route
             exact
             path="/panel-administrador/restaurantes"
-            component={ListaRestaurantesVistaAdmin}
+            component={ListaRestaurantes}
           />
           <Route
             exact
