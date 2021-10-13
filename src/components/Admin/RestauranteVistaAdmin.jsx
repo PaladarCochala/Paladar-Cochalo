@@ -1,9 +1,6 @@
 import React, {  useEffect } from "react";
 import { Table } from "semantic-ui-react";
 
-
-
-
 function RestauranteVistaAdmin(props) {
   function PrimeraLetraEnMayuscula(nombreCompleto) {
     return nombreCompleto.replace(/\b\w/g, l => l.toUpperCase());
