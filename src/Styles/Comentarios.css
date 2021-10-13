@@ -1,0 +1,32 @@
+.container {
+    /* background: coral; */
+    width: 80% !important;
+    margin-top: 2rem;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+
+.root {
+    /* background: aqua; */
+    display: flex;
+    justify-content: center;
+}
+
+.input {
+    margin:1% !important;
+}
+
+.button {
+    margin: 0.5rem !important;
+    color: white !important;
+    background: #B82601 !important;
+}
+
+.button:hover {
+    color: rgb(226, 226, 226) !important;
+    background: #d85c3d !important;
+}
+
+.comentario {
+    margin:1rem
+}
+
