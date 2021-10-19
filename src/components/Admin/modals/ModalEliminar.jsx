@@ -1,6 +1,6 @@
 import React, { Component, useEffect } from 'react'
 
-import { Button } from '@material-ui/core';
+import Button from '@mui/material/Button';
 import ButtonModal from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
@@ -47,7 +47,7 @@ export default function ModalEliminar({ id, nombre, update }) {
         <div>
             <Button
                 variant="contained"
-                color="secondary"
+                color="error"
                 size="small"
                 style={{ marginLeft: 16 }}
                 onClick={() => {
