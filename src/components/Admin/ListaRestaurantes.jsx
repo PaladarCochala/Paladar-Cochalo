@@ -10,6 +10,9 @@ import { getRestaurantes } from '../../services/restaurante';
 import ModalEliminar from './modals/ModalEliminar'
 import Button from '@mui/material/Button';
 
+import ModalVer from './modals/ModalVer'
+import ModalEditar from './modals/ModalEditar'
+
 export default function ListaRestaurantes() {
 
     const [restaurantes, setRestaurantes] = useState([]);
@@ -34,33 +37,35 @@ export default function ListaRestaurantes() {
 
     return (
         <div>
-            <br/> 
+            <br />
             <Button variant="contained" href="/panel-administrador/crear-restaurante"> Crear nuevo restaurante </Button>
-        <Grid
-            align="center"
-            item xs={12} sm={12}>
-            <TableContainer >
-                <Table aria-label="simple table">
-                    <TableBody>
-                        <TableHead>
-                            <TableRow >
-                                <TableCell style={{ color: "black", borderBottom: "none", textAlign: 'left' }} > ID</TableCell>
-                                <TableCell style={{ color: "black", borderBottom: "none", textAlign: 'left' }} > LOGO</TableCell>
-                                <TableCell align="right" style={{ color: "#C7522D", borderBottom: "none", textAlign: 'left' }} >Nombre</TableCell>
-                                <TableCell align="right" style={{ color: "#EBEBEB", borderBottom: "none", textAlign: 'center' }} >Acciones</TableCell>
-                            </TableRow>
-                        </TableHead>
-                        {!isLoading ?
-                            restaurantes.map((restaurante) => ( 
-                                <TableRow key={restaurante.id}>
-                                    <TableCell align="center" >{restaurante.id}</TableCell>
-                                    <TableCell align="center" >{restaurante.logo}</TableCell>
-                                    <TableCell align="center" >{restaurante.nombre}</TableCell>
-                                    <TableCell align="center" > <ModalEliminar id={restaurante.id} nombre={restaurante.nombre} update={getDataRestaurantes}/>  </TableCell>
+            <Grid
+                align="center"
+                item xs={12} sm={12}>
+                <TableContainer >
+                    <Table aria-label="simple table">
+                        <TableBody>
+                            <TableHead>
+                                <TableRow >
+                                    <TableCell style={{ color: "black", borderBottom: "none", textAlign: 'left' }} > ID</TableCell>
+                                    <TableCell style={{ color: "black", borderBottom: "none", textAlign: 'left' }} > LOGO</TableCell>
+                                    <TableCell align="right" style={{ color: "#C7522D", borderBottom: "none", textAlign: 'left' }} >Nombre</TableCell>
+                                    <TableCell align="right" style={{ color: "#EBEBEB", borderBottom: "none", textAlign: 'center' }} >Acciones</TableCell>
                                 </TableRow>
-                            )): null//Pendiente
-                        }
-                        {/* 
+                            </TableHead>
+                            {!isLoading ?
+                                restaurantes.map((restaurante) => (
+                                    <TableRow key={restaurante.id}>
+                                        <TableCell align="center" >{restaurante.id}</TableCell>
+                                        <TableCell align="center" >{restaurante.logo}</TableCell>
+                                        <TableCell align="center" >{restaurante.nombre}</TableCell>
+                                        <TableCell align="center" ><ModalEliminar id={restaurante.id} nombre={restaurante.nombre} update={getDataRestaurantes} /></TableCell>
+                                        <TableCell align="center" > <ModalVer restaurante={restaurante} /></TableCell>
+                                        <TableCell align="center" > <ModalEditar restaurante={restaurante} update={getDataRestaurantes} /></TableCell>
+                                    </TableRow>
+                                )) : null//Pendiente
+                            }
+                            {/* 
                     {restaurantes.nombre ?
                         <TableRow key='code'>
                             <TableCell align="left" component="th" scope="row"  >Codigo</TableCell>
@@ -101,10 +106,10 @@ export default function ListaRestaurantes() {
                         : null
                     } */}
 
-                    </TableBody>
-                </Table>
-            </TableContainer>
-        </Grid>
+                        </TableBody>
+                    </Table>
+                </TableContainer>
+            </Grid>
         </div>
     )
 
