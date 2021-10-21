@@ -1,12 +1,19 @@
 import { Link } from 'react-router-dom';
-import * as React from 'react';
+//import * as React from 'react';
 import { styled, alpha } from '@mui/material/styles';
 import { AppBar, Toolbar, Button, Grid, makeStyles, IconButton } from '@material-ui/core';
 import InputBase from '@mui/material/InputBase';
-import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
 import FoodBankIcon from '@mui/icons-material/FoodBank';
 
+import React, { useState } from 'react'
+import * as FaIcons from "react-icons/fa";
+import * as AiIcons from "react-icons/ai";
+import { SidebarData } from './SidebarData';
+import '../Styles/Navbar.css';
+import { IconContext } from 'react-icons';
+import CardUser from '../components/Restaurante/Common/CardUser'
+import Box from '@mui/material/Box';
 
 const Search = styled('div')(({ theme }) => ({
     position: 'relative',
@@ -18,9 +25,10 @@ const Search = styled('div')(({ theme }) => ({
     display: 'flex',
     alignItems: 'left',
     width: '70%',
-    /* [theme.breakpoints.up('sm')]: {
+     [theme.breakpoints.up('sm')]: {
         marginLeft: theme.spacing(1),
-    }, */
+    },
+    marginLeft: 15,
 }));
 
 const SearchIconWrapper = styled('div')(({ theme }) => ({
@@ -43,32 +51,19 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 }));
 export default function Navbar({ item }) {
+    
+    const [sidebar, setSidebar] = useState(false);
+
+    const showSidebar = () => setSidebar(!sidebar);
+
     return (
-        <Grid>
-            <AppBar position="static" style={{ background: '#B82601', width: "100%" }}>
-                <Toolbar style={{
-                    padding: 0,
-                    width: "100%",
-                    textAlign: "center"
-                }}>
-                    <Grid style={{ width: "5%" }}>
-                        <MenuIcon />
-                    </Grid>
-                    <Grid
-                        style={{ width: "5%" }} >
-                        <Button
-                            component={Link}
-                            to="/restaurantes">
-                            <FoodBankIcon
-                                size="large"
-                                edge="start"
-                                aria-label="open drawer"
-                                style={{color: "white"}}
-                            >
-                            </FoodBankIcon>
-                        </Button>
-                    </Grid>
-                    <Search>
+        <IconContext.Provider value={{ color: '#fff' }}>
+            <div className="navbar">
+                <Link to="#" className="menu-bars">
+                    <FaIcons.FaBars onClick={showSidebar} />
+                
+                </Link>
+                <Search>
                         <SearchIconWrapper>
                             <SearchIcon />
                         </SearchIconWrapper>
@@ -76,25 +71,32 @@ export default function Navbar({ item }) {
                             placeholder="Buscar un restaurante..."
                             inputProps={{ 'aria-label': 'search' }}
                         />
-                    </Search>
-                    <Button
-                        variant="text"
-                        size="small"
-                        style={{
-                            color: "white",
-                            width: "10%"
-                        }}
-                    >Ingresar</Button>
-                    <Button
-                        variant="text"
-                        size="small"
-                        style={{
-                            color: "white",
-                            width: "10%"
-                        }}
-                    >Crear cuenta</Button>
-                </Toolbar>
-            </AppBar>
-        </Grid>
+                </Search>
+                <Grid>
+                    <Box component="span" sx={{ display: { xs: 'none', lg: 'block', xl: 'block'} }}>
+                        <button className="btnLog">Iniciar Sesion</button>
+                        <button className="btnLog">Registrate</button>
+                    </Box>
+                </Grid>
+            </div>
+            
+            <nav className={sidebar ? 'nav-menu active' : 'nav-menu'}>
+                <ul className='nav-menu-items' onClick={showSidebar}>
+                    <CardUser/>
+                    <li className='navbar-toggle'></li>
+                    
+                    {SidebarData.map((item, index) => {
+                        return (
+                            <li key={index} className={item.cName}>
+                            <Link to={item.path}>
+                                {item.icon}
+                                <span className = "ml16">{item.title}</span>
+                            </Link>
+                            </li>
+                        );
+                    })}
+                </ul>
+            </nav>
+        </IconContext.Provider>
     );
 }

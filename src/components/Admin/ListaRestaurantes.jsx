@@ -38,7 +38,7 @@ export default function ListaRestaurantes() {
     return (
         <div>
             <br />
-            <Button variant="contained" href="/panel-administrador/crear-restaurante"> Crear nuevo restaurante </Button>
+            <Button style={{ position: "static" }} variant="contained" href="/panel-administrador/crear-restaurante"> Crear nuevo restaurante </Button>
             <Grid
                 align="center"
                 item xs={12} sm={12}>
