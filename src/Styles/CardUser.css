@@ -1,0 +1,44 @@
+.card-user{
+
+    width: 250px;
+    height: 280px;
+    background: #E8E8E8;
+    overflow: hidden;
+    
+}
+
+.upper-container{
+    height: 100px;
+    background: linear-gradient(to top, #E8E8E8,#C03228);
+}
+
+.image-container img{
+    background: #E8E8E8;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    padding: 5px;
+    transform: translate(70px , 45px);
+}
+
+img{
+    border: 2px solid #0e0d12;
+}
+
+.lower-container{
+    margin-top: 60px;
+    height: 300px;
+    background: #E8E8E8;
+    text-align: center;
+    font-family: "DM Sans";
+    
+}
+
+.lower-container h3{
+    margin: 0;
+    padding: 0;
+    color: #0e0d12;
+    font-weight: 600;
+    font-size: 1.2rem;
+
+}
