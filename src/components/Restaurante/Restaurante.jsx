@@ -1,10 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import { Grid, CircularProgress } from '@material-ui/core';
 import Info from './Common/Info';
+import { styled } from '@mui/material/styles';
 
 //
 import Divider from '@mui/material/Divider';
 import Typography from '@mui/material/Typography'
+import Rating from '@mui/material/Rating';
+import Box from '@mui/material/Box';
+import StarIcon from '@mui/icons-material/Star';
+import FlavorIcon from '@mui/icons-material/Flatware';
+import DiningIcon from '@mui/icons-material/Dining';
+import DiningOutlined from '@mui/icons-material/DiningOutlined';
+
 
 // Form 
 import OutlinedInput from '@mui/material/OutlinedInput';
@@ -66,6 +74,38 @@ export default function SingleRestaurante(props) {
             });
     }
 
+
+    
+    //Rating Servicio
+    const labels = {
+        0.5: 'De muy mala calidad+',1: 'De muy mala calidad',
+        1.5: 'De mala calidad+',2: 'De mala calidad',
+        2.5: 'Aceptable',3: 'Aceptable+ ',
+        3.5: 'Agradable',4: 'Agradable+',
+        4.5: 'Excelente',5: 'Excelente+',
+    };
+    const [valorS1, setValor1] = React.useState(2);
+    const [hoverS1, setHover1] = React.useState(-1);
+    
+    //Rating Sabor
+    const StyledRating = styled(Rating)({
+        '& .MuiRating-iconFilled': {
+          color: '#ff6d75',
+        },
+        '& .MuiRating-iconHover': {
+          color: '#ff3d47',
+        },
+      });
+    const labels2 = {
+        0.5: 'De muy mala calidad+',1: 'De muy mala calidad',
+        1.5: 'De mala calidad+',2: 'De mala calidad',
+        2.5: 'Aceptable',3: 'Aceptable+ ',
+        3.5: 'Agradable',4: 'Agradable+',
+        4.5: 'Excelente',5: 'Excelente+',
+    };
+    const [valorS2, setValor2] = React.useState(2);
+    const [hoverS2, setHover2] = React.useState(-1);
+
     return (
         <>
             < Grid container className={'root'} >
@@ -99,6 +139,40 @@ export default function SingleRestaurante(props) {
                         <Button onClick={() => { crearComentario() }} className={'button'}>
                             Comentar
                         </Button>
+
+                        <Grid>
+                        <Rating
+                            name="rating-servicio" value={valorS1} precision={0.5} onChange={(event, newValue) => {
+                            console.log("Servicio " + newValue);
+                            setValor1(newValue);
+                            }} onChangeActive={(event, newHover) => {
+                            setHover1(newHover);
+                            }} 
+                            emptyIcon={<StarIcon style={{ opacity: 0.55 }} fontSize="inherit" />}
+                            
+                        />
+                        {valorS1 !== null && (<Box sx={{ ml: 2 }}>{labels[hoverS1 !== -1 ? hoverS1 : valorS1]}</Box>)}
+                        </Grid>
+                        
+                        <Grid >
+                        <StyledRating
+                            name="rating sabor"
+                            defaultValue={3}
+                            getLabelText={(value) => `${value} Flatware${value !== 1 ? 's' : ''}`}
+                            precision={0.5}
+                            icon={<DiningIcon fontSize="inherit" />}
+                            value={valorS2}
+                            onChange={(event, newValue) => {
+                                console.log("Sabor " + newValue);
+                                setValor2(newValue);
+                                }} onChangeActive={(event, newHover) => {
+                                setHover2(newHover);
+                                }} emptyIcon={<DiningOutlined style={{ opacity: 0.55 }} fontSize="inherit" />}   
+                        />
+                        {valorS2 !== null && (<Box sx={{ ml: 2 }} >{labels2[hoverS2 !== -1 ? hoverS2 : valorS2]}</Box>)}
+                        </Grid>
+                      
+
                     </Grid>
 
                     <Divider style={{ margin: '1rem' }} />
