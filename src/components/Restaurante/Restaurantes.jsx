@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
 import { getRestaurantes } from '../../services/restaurante';
-import { Grid, Typography, Divider, Card, CardHeader, Button, CardMedia, CardContent, CardActions, makeStyles } from '@material-ui/core';
-
+import { Grid, makeStyles } from '@material-ui/core';
 import RestaurantCard from '../Restaurante/Common/RestaurantCard';
 
 const useStyles = makeStyles((theme) => ({
@@ -16,15 +14,14 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-export default function Restaurantes() {
+export default function Restaurantes(props) {
 
     const classes = useStyles();
-
-    const [restaurantes, setRestaurantes] = useState([]);
+    const [restaurantesBuscados, setRestaurantesBuscados] = useState([]);
 
     useEffect(() => {
         getDataRestaurantes();
-    }, []);
+    }, [props]);
 
     function getDataRestaurantes() {
         getRestaurantes()
@@ -33,25 +30,28 @@ export default function Restaurantes() {
             })
             .then((response) => {
                 console.log(response.response)
-                setRestaurantes(response.response);
+                setRestaurantesBuscados(filterByValue(response.response));
             })
     }
 
-    return(
-        <Grid
-        container
-    >
-        {restaurantes.map(restaurante => (
-            <>
-                <Grid
-                    align="center"
-                   // item xs={12} sm={3}
-                >
-                    <RestaurantCard restaurante={restaurante}/>
-                </Grid>
-            </>
-        ))}
-    </Grid>
+    function filterByValue(array) {
+        return array.filter(o => o['nombre'].toLowerCase().includes(props.location.state.response.toLowerCase()));
+    }
+    return (
+        <Grid container>
+
+            {restaurantesBuscados.map(restaurante => (
+                <>
+                    <Grid
+                        align="center"
+                        key={restaurante.id}
+                    // item xs={12} sm={3}
+                    >
+                        <RestaurantCard restaurante={restaurante} />
+                    </Grid>
+                </>
+            ))}
+        </Grid>
     )
-    
+
 }

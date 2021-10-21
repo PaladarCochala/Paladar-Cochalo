@@ -1,5 +1,10 @@
+<<<<<<< HEAD
 import { Link } from 'react-router-dom';
 //import * as React from 'react';
+=======
+import { Link, useHistory} from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+>>>>>>> Añadido el buscador-Se fixearon errores menores
 import { styled, alpha } from '@mui/material/styles';
 import { AppBar, Toolbar, Button, Grid, makeStyles, IconButton } from '@material-ui/core';
 import InputBase from '@mui/material/InputBase';
@@ -51,6 +56,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 }));
 export default function Navbar({ item }) {
+<<<<<<< HEAD
     
     const [sidebar, setSidebar] = useState(false);
 
@@ -64,12 +70,55 @@ export default function Navbar({ item }) {
                 
                 </Link>
                 <Search>
+=======
+
+    const [searched,setSearched] = useState("")
+    const history = useHistory();
+    const handleSearchImput = (event) => { 
+        
+        setSearched(event.target.value)
+     }
+
+    const handleEnterKey = (event) => {
+        if (event.key === 'Enter') {
+            history.push({pathname: "/restaurantes",state: {response: searched}})
+            
+        }}
+    return (
+        <Grid>
+            <AppBar position="static" style={{ background: '#B82601', width: "100%" }}>
+                <Toolbar style={{
+                    padding: 0,
+                    width: "100%",
+                    textAlign: "center"
+                }}>
+                    <Grid style={{ width: "5%" }}>
+                        <MenuIcon />
+                    </Grid>
+                    <Grid
+                        style={{ width: "5%" }} >
+                        <Button
+                            component={Link}
+                            to="/home">
+                            <FoodBankIcon
+                                size="large"
+                                edge="start"
+                                aria-label="open drawer"
+                                style={{color: "white"}}
+                            >
+                            </FoodBankIcon>
+                        </Button>
+                    </Grid>
+                    <Search>
+>>>>>>> Añadido el buscador-Se fixearon errores menores
                         <SearchIconWrapper>
                             <SearchIcon />
                         </SearchIconWrapper>
                         <StyledInputBase
                             placeholder="Buscar un restaurante..."
                             inputProps={{ 'aria-label': 'search' }}
+                            onChange={(e)=> {handleSearchImput(e)}}
+                            onKeyPress={(e) => handleEnterKey(e)}
                         />
                 </Search>
                 <Grid>
