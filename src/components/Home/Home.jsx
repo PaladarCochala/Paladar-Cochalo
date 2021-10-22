@@ -12,7 +12,6 @@ export default function MediaCard() {
 
   return (
     <div>
-      <Header item={'Home'} />
     </div>
   );
 }

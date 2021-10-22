@@ -58,7 +58,7 @@ function App() {
             path="/"
           >
             <Redirect
-              to="/restaurantes"
+              to="/home"
             />
           </Route>
           <Route
