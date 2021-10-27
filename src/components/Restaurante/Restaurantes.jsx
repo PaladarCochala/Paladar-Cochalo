@@ -30,11 +30,11 @@ export default function Restaurantes(props) {
     useEffect(() => {
         getDataRestaurantes();
     }, [props]);
-/*
+
     function filterByValue(array) {
         return array.filter(o => o['nombre'].toLowerCase().includes(props.location.state.response.toLowerCase()));
     }
-*/
+
     function getDataRestaurantes() {
         getRestaurantes()
             .then((response) => {
@@ -42,8 +42,8 @@ export default function Restaurantes(props) {
             })
             .then((response) => {
                 console.log(response.response)
-                //setRestaurantes(filterByValue(response.response));
-                setRestaurantes(response.response);
+                setRestaurantes(filterByValue(response.response));
+                //setRestaurantes(response.response);
             })
     }
 
