@@ -7,9 +7,10 @@ export default function Formulario(){
   const [habilitado, setHabilitado] = useState(false)
   const [nombre, setNombre] = useState("");
   const [ubicacion, setUbicacion] = useState("");
+  const [estaActivo, setEstaActivo] = useState(true);
   const [promedioSabor, setPromedioSabor] = useState(0.0);
   const [promedioServicio, setPromedioServicio] = useState(0.0);
-  const [logo, setLogo] = useState(null);
+  const [urlLogo, setUrlLogo] = useState(null);
 
   const [validacionNombre, setValidacionNombre] = useState(false)
   const [validacionUbicacion, setValidacionUbicacion] = useState(false)
@@ -38,7 +39,8 @@ export default function Formulario(){
     setUbicacion("");
     setPromedioSabor(0.0);
     setPromedioServicio(0.0);
-    setLogo(null);
+    setUrlLogo(null);
+    setEstaActivo(true);
 
     setValidacionNombre(false);
     setValidacionUbicacion(false);
@@ -52,7 +54,8 @@ export default function Formulario(){
       ubicacion: ubicacion,
       promedioSabor: promedioSabor,
       promedioServicio: promedioServicio,
-      logo: logo
+      urlLogo: urlLogo,
+      estaActivo: estaActivo
     })
         .then((x) => {
             return x.data;

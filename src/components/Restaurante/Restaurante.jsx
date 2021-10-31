@@ -34,7 +34,8 @@ export default function SingleRestaurante(props) {
 
     // Vars Comments
     const [nuevoComentario, setNuevoComentario] = useState("");
-    const [nombre, setNombre] = useState("");
+    const [nombre, setNombre] = useState("UsuarioTest");
+    const [fechaDePublicacion, setFechaDePublicacion] = useState("2021-10-31");
 
     useEffect(() => {
         getDataRestaurante(props.match.params.id);
@@ -49,7 +50,9 @@ export default function SingleRestaurante(props) {
             })
             .then((response) => {
                 setRestaurante(response.response);
-                setComentario(response.response.comentarios);
+                console.log(response.response);
+                setComentario(response.response.Comentarios);
+                console.log(response.response.Comentarios);
                 setLoading(false);
             });
     }
@@ -61,7 +64,9 @@ export default function SingleRestaurante(props) {
     function crearComentario() {
         postComentario({
             descripcion: nuevoComentario,
-            RestauranteId: props.match.params.id
+            fechaDePublicacion: fechaDePublicacion,
+            nombreUsuario: nombre,
+            restauranteId: props.match.params.id
         })
             .then((x) => {
                 return x.data;
@@ -171,12 +176,10 @@ export default function SingleRestaurante(props) {
                         />
                         {valorS2 !== null && (<Box sx={{ ml: 2 }} >{labels2[hoverS2 !== -1 ? hoverS2 : valorS2]}</Box>)}
                         </Grid>
-                      
-
                     </Grid>
 
                     <Divider style={{ margin: '1rem' }} />
-
+                    
                     {!loading ? comentarios.map(comentario => (
                         <div>
                             <div className={'comentario'}>
@@ -186,7 +189,6 @@ export default function SingleRestaurante(props) {
                             </div>
                         </div>
                     )) : null}
-
                 </div>
             </Grid>
         </>
