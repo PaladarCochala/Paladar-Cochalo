@@ -72,13 +72,12 @@ export default function Restaurantes(props) {
   return (
     <Paper
       sx={{
-        p: 2,
+        p: 12,
         display: "flex",
         flexDirection: "column",
-        /* height: "120vh", */
       }}
     >
-      <Grid container spacing={1}>
+      <Grid container spacing={3}>
         {displayRestaurantes}
         <ReactPaginate
           previousLabel={"Previous"}
