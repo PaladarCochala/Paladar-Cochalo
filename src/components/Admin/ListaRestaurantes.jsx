@@ -12,6 +12,8 @@ import Button from "@mui/material/Button";
 import ModalVer from "./modals/ModalVer";
 import ModalEditar from "./modals/ModalEditar";
 
+import ModalCrear from "./modals/ModalCrear";
+
 import PropTypes from "prop-types";
 import { useTheme } from "@mui/material/styles";
 import Box from "@mui/material/Box";
@@ -165,13 +167,14 @@ export default function ListaRestaurantes() {
       <br />
       <TableContainer component={Paper}>
         <TableCell style={{ width: "15%"}} align="right">
-          <Button
+          {/* <Button
             variant="contained"
             href="/panel-administrador/crear-restaurante"
           >
             {" "}
             Crear nuevo restaurante{" "}
-          </Button>
+          </Button> */}
+          <ModalCrear update={getDataRestaurantes}/>
         </TableCell>
         <Table sx={{ minWidth: 500 }} aria-label="custom pagination table">
           <TableHead>
