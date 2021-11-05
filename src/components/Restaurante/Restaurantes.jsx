@@ -3,7 +3,7 @@ import { getRestaurantes } from '../../services/restaurante';
 import { Grid, makeStyles } from '@material-ui/core';
 import RestaurantCard from '../Restaurante/Common/RestaurantCard';
 import ReactPaginate from "react-paginate";
-import "./css/Restaurante.css";
+import "../../Styles/Paginacion.css";
 
 
 const useStyles = makeStyles((theme) => ({

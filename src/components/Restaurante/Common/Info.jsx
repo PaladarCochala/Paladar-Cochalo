@@ -1,28 +1,157 @@
 import React from 'react';
-import { Grid, Typography, Divider, makeStyles } from '@material-ui/core';
-import Table from './Tabla';
-
+import { styled } from '@mui/material/styles';
+import { Divider, Grid, Typography, Link, Paper, IconButton, Rating, Card, CardMedia, CardActions, List, ListItem, ListItemText} from '@mui/material';
+//Iconos
+import Dining from '@mui/icons-material/Dining';
+import DiningOutlined from '@mui/icons-material/DiningOutlined';
+import Facebook from '@mui/icons-material/Facebook';
+import Instagram from '@mui/icons-material/Instagram';
 
 export default function Informacion({ restaurante }) {
-
+//Estilos
 const myStyle= {
-    color: "#B8161F",
+    color: "#212121",
     backgroundColor: "white",
     padding: "25px",
-    fontFamily: "Sans-Serif"
+    fontFamily: "Roboto",
+    fontSize: 50,
+    fontWeight: 'bold',
+    textAlign:"center"
 }
+const Item = styled(Paper)(({ theme }) => ({
+    ...theme.typography.body2,
+    padding: theme.spacing(1),
+    textAlign: 'center',
+    color: theme.palette.text.secondary,
+    marginRight: '5vw',
+    marginLeft: '5vw',
+}));
+const Item2 = styled(Paper)(({ theme }) => ({
+  ...theme.typography.body2,
+  padding: theme.spacing(1),
+  textAlign: 'center',
+  color: theme.palette.text.secondary,
+  backgroundColor: "#ffcdd2",
+  marginRight: '5vw',
+  marginLeft: '5vw',
+  marginTop: '3vw',
+}));
 
-    return (
-        <>
-            
-                <Grid item xs={12} sm={12}>
-                    <Typography style={myStyle} variante='h1'>
-                        Informacion
-                    </Typography>
-                    <Divider />
-                </Grid>
 
-            <Table restaurante={restaurante}></Table>
-        </>
-    );
+return (
+  <>
+  {/*TITULO*/}
+  <Grid item xs={12} sm={12}>
+          <Typography style={myStyle} variante='h1'>
+              {restaurante.nombre}
+          </Typography>
+          <Divider/>
+        
+  </Grid>
+
+  {/*RATING*/}
+  <Grid container spacing={1}>
+            <Grid item xs={12} sm={6} >
+              <Item>
+                <Typography component="legend" variant="h5">Valoración</Typography>
+                  <Rating style={{color: '#ff6d75',fontSize: 50,textAlign: 'left'}}
+                        name="customized-restaurant"
+                        readOnly
+                        defaultValue={restaurante.promedioSabor}
+                        precision={0.5}
+                        icon={<Dining fontSize="inherit" />}
+                        emptyIcon={<DiningOutlined style={{ fontSize: 50}} fontSize="inherit" />}
+                  />
+              </Item>
+            </Grid> 
+            <Grid item xs={12} sm={6} >
+              <Item>
+                  <Typography component="legend" variant="h5">Servicio</Typography>
+                  <Rating name="customized-5" style={{ fontSize: 50}} defaultValue={restaurante.promedioServicio} readOnly />
+              </Item>
+            </Grid>      
+  </Grid>
+    
+  {/*DETALLES RESTAURANTE*/}
+  <Grid container spacing={1}>
+    
+    <Grid item xs={12} sm={6} >
+          <Item2>
+            <Card  sx={{ display: 'flex'}} >
+            <CardMedia component="img"
+              image="https://www.enter.co/wp-content/uploads/2017/02/menu-restaurant-vintage-tableFINAL-768x432.jpg"
+              />
+            </Card>
+          </Item2>
+    </Grid>
+    
+    
+    <Grid item xs={12} sm={6} >
+          <Item2>
+            <Card sx={{ display: 'flex' }}>
+              <List >
+                  <ListItem>
+                    <ListItemText
+                      primary={<Typography type="body2" style={{ color: '#212121',fontSize: 20 }}>DIRECCIÓN:</Typography>}
+                      secondary={<Typography type="body2" style={{ color: '#212121',fontSize: 15 }}>{restaurante.ubicacion}</Typography>}
+                    />
+                  </ListItem>
+              </List>  
+              <List >
+                  <ListItem>
+                    <ListItemText
+                      primary={<Link href="#">Abrir Google Maps</Link>}
+                    />
+                  </ListItem>
+              </List> 
+            </Card>
+
+            <Card sx={{ display: 'flex' }} style={{marginTop: '0.5vw'}}>
+              <List >
+                  <ListItem>
+                    <ListItemText
+                      primary={<Typography type="body2" style={{ color: '#212121',fontSize: 20 }}>RANGO DE PRECIOS:</Typography>}
+                     // secondary={restaurante.ubicacion}
+                    />
+                  </ListItem>
+              </List>       
+            </Card>
+
+            <Card sx={{ display: 'flex' }} style={{marginTop: '0.5vw'}}>
+              <List >
+                  <ListItem>
+                    <ListItemText
+                      primary={<Typography type="body2" style={{ color: '#212121',fontSize: 20 }}>ETIQUETAS:</Typography>}
+                      
+                     // secondary={restaurante.ubicacion}
+                    />
+                  </ListItem>
+              </List>       
+            </Card>
+
+            <Card sx={{ display: 'flex' }} style={{marginTop: '0.5vw'}}>
+              <List >
+                  <ListItem>
+                    <ListItemText
+                      primary={<Typography type="body2" style={{ color: '#212121',fontSize: 20 }}>CONTACTOS:</Typography>}
+                      secondary={restaurante.contacto}
+                    />
+                  </ListItem>
+                  <CardActions disableSpacing>
+                    <IconButton aria-label="add to favorites">
+                      <Facebook />
+                    </IconButton>
+                    <IconButton aria-label="share">
+                      <Instagram />
+                    </IconButton>
+                  </CardActions>
+              </List>  
+                   
+            </Card>
+          </Item2>
+    </Grid>
+  </Grid>
+  
+  </>
+);
 }
