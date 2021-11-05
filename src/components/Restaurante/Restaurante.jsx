@@ -1,25 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { Grid, CircularProgress } from '@material-ui/core';
+import {Grid, CircularProgress, Divider, Typography, Rating, Box, OutlinedInput, Button, InputLabel, FormControl } from '@mui/material';
 import Info from './Common/Info';
 import { styled } from '@mui/material/styles';
-
 //
-import Divider from '@mui/material/Divider';
-import Typography from '@mui/material/Typography'
-import Rating from '@mui/material/Rating';
-import Box from '@mui/material/Box';
 import StarIcon from '@mui/icons-material/Star';
-import FlavorIcon from '@mui/icons-material/Flatware';
 import DiningIcon from '@mui/icons-material/Dining';
 import DiningOutlined from '@mui/icons-material/DiningOutlined';
-
-
-// Form 
-import OutlinedInput from '@mui/material/OutlinedInput';
-import Button from '@mui/material/Button';
-import InputLabel from '@mui/material/InputLabel';
-import FormControl from '@mui/material/FormControl';
-
 // Services
 import { getRestaurantesById } from '../../services/restaurante';
 import { postComentario } from '../../services/comentario';
