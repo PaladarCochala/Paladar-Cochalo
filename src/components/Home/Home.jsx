@@ -1,8 +1,8 @@
 import Header from '../../layouts/Header';
 import React, { useEffect } from 'react';
 
-import RestaurantCard from '../Restaurante/Common/RestaurantCard';
 
+import Image1 from '../assets/mainBanner.jpg';
 export default function MediaCard() {
 
 
@@ -11,7 +11,15 @@ export default function MediaCard() {
   }, []);
 
   return (
-    <div>
-    </div>
+    <img 
+        src={Image1}
+        width='100%'
+        height= 'auto'
+        style= {{
+          verticalAlign: 'text-top',
+          border: '5px none'
+        }}
+      />
+
   );
 }
