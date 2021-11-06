@@ -1,26 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { getRestaurantes } from "../../services/restaurante";
-import { Grid, makeStyles } from "@material-ui/core";
 import RestaurantCard from "../Restaurante/Common/RestaurantCard";
 import ReactPaginate from "react-paginate";
+import Grid from '@mui/material/Grid';
+import Paper from "@mui/material/Paper";
 import "../../Styles/Paginacion.css";
 
-import Paper from "@mui/material/Paper";
-
-const useStyles = makeStyles((theme) => ({
-  container: {
-    background: theme.palette.primary.main,
-  },
-  loader: {
-    color: theme.palette.secondary.main,
-    marginTop: "33vh",
-    marginBottom: "34vh",
-  },
-}));
 
 export default function Restaurantes(props) {
-  const classes = useStyles();
-
   const [restaurantes, setRestaurantes] = useState([]);
 
   const [pageNumber, setPageNumber] = useState(0);
