@@ -1,27 +1,34 @@
 import React from "react";
-
-import Button from "@mui/material/Button";
-import Dialog from "@mui/material/Dialog";
-import DialogContent from "@mui/material/DialogContent";
-import DialogTitle from "@mui/material/DialogTitle";
-import Slide from "@mui/material/Slide";
-
-import Grid from "@mui/material/Grid";
-import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
+import { Button, Card, CardContent, Dialog, DialogContent, DialogTitle, Divider, Grid, Paper, Slide, TextField, Typography } from '@mui/material';
 import { makeStyles } from "@mui/styles";
-import TextField from "@mui/material/TextField";
-
 import { crearRestaurante } from "../../../services/restaurante";
-
 import { styled } from "@mui/material/styles";
-import Paper from "@mui/material/Paper";
+
+const myStyle= {
+  color: "#212121",
+  backgroundColor: "white",
+  padding: "5px",
+  fontFamily: "Roboto",
+  fontSize: 35,
+  fontWeight: 'bold',
+  textAlign:"center"
+}
 
 const Item = styled(Paper)(({ theme }) => ({
   ...theme.typography.body2,
   padding: theme.spacing(1),
   textAlign: "center",
   color: theme.palette.text.secondary,
+}));
+const Item2 = styled(Paper)(({ theme }) => ({
+  ...theme.typography.body2,
+  padding: theme.spacing(1),
+  textAlign: 'center',
+  color: theme.palette.text.secondary,
+  backgroundColor: "#ffcdd2",
+  marginRight: '5vw',
+  marginLeft: '5vw',
+  marginTop: '3vw',
 }));
 
 const Transition = React.forwardRef(function Transition(props, ref) {
@@ -135,9 +142,15 @@ export default function ModalCrear({ update }) {
         onClose={handleClose}
         aria-describedby="alert-dialog-slide-description"
         fullWidth="true"
-        maxWidth="xl"
+        maxWidth="lg"
       >
-        <DialogTitle align="center">{"Formulario - Restaurante"}</DialogTitle>
+        <DialogTitle align="center">
+          <Typography style={myStyle} variante='h1'>
+              Formulario - Nuevo Restaurante
+          </Typography>
+        </DialogTitle>
+        <Divider></Divider>
+
         <DialogContent>
           <Grid spacing={4}>
             <form>
@@ -148,38 +161,50 @@ export default function ModalCrear({ update }) {
                     className={classes.container}
                     container
                   >
-                    <Grid className={classes.item} item>
-                      <Card
-                        style={{
-                          maxWidth: 500,
-                          padding: "25px 25px",
-                          margin: "0 auto",
-                          marginTop: "100px",
-                          marginRight: "50px",
-                          border: "dark",
-                        }}
-                      >
-                        <CardContent>
-                          <img
-                            src="https://static.thenounproject.com/png/187803-200.png"
-                            alt="new"
-                          />
-                        </CardContent>
-                      </Card>
+                    <Grid item xs={12} sm={6} >
+                        <Card
+                            style={{
+                              maxWidth: 500,
+                              padding: "25px 25px",
+                              margin: "0 auto",
+                              marginTop: "50px",
+                              marginLeft: "50px",
+                              marginRight: "25px",
+                              border: "dark",
+                            }}
+                          >
+                            <CardContent>
+                              <img
+                                src="https://static.thenounproject.com/png/187803-200.png"
+                                alt="new"
+                              />
+                            </CardContent>
+                        </Card>
                     </Grid>
 
-                    <Grid className={classes.item} item>
+                    <Divider orientation="vertical" flexItem></Divider>
+
+                    <Grid item xs={12} sm={6} >
                       <Card
                         style={{
                           maxWidth: 700,
                           padding: "54px 5px",
-                          margin: "0 auto",
-                          marginTop: "100px",
+                          marginTop: "15px",
+                          marginLeft: "50px",
+                          marginRight: "25px",
+                          border: "dark",
                         }}
                       >
                         <CardContent>
                           <Grid container spacing={1}>
-                            <Grid item xs={12}>
+
+
+                            <Grid
+                              container
+                              justifyContent="center"
+                              alignItems="center"
+                              sx={{p: 1,m: 1,}}
+                            >
                               <TextField
                                 label="Nombre"
                                 placeholder="Ingrese el nombre del restaurante"
@@ -204,7 +229,14 @@ export default function ModalCrear({ update }) {
                                 }}
                               />
                             </Grid>
-                            <Grid item xs={12}>
+
+
+                            <Grid
+                              container
+                              justifyContent="center"
+                              alignItems="center"
+                              sx={{p: 1,m: 1,}}
+                            >
                               <TextField
                                 label="Dirección"
                                 placeholder="Ingrese la dirección"
@@ -229,7 +261,14 @@ export default function ModalCrear({ update }) {
                                 }}
                               />
                             </Grid>
-                            <Grid item xs={12}>
+
+
+                            <Grid
+                              container
+                              justifyContent="center"
+                              alignItems="center"
+                              sx={{p: 1,m: 1,}}
+                            >
                               <Button
                                 type="submit"
                                 variant="contained"
@@ -243,6 +282,8 @@ export default function ModalCrear({ update }) {
                                 Registrar
                               </Button>
                             </Grid>
+
+
                           </Grid>
                         </CardContent>
                       </Card>

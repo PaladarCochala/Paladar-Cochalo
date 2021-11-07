@@ -75,7 +75,7 @@ return (
   {/*DETALLES RESTAURANTE*/}
   <Grid container spacing={1}>
     
-    <Grid item xs={12} sm={6} >
+    <Grid item xs={12} sm={6} style={{marginTop: "40px"}}  >
           <Item2>
             <Card  sx={{ display: 'flex'}} >
             <CardMedia component="img"
@@ -111,7 +111,8 @@ return (
                   <ListItem>
                     <ListItemText
                       primary={<Typography type="body2" style={{ color: '#212121',fontSize: 20 }}>RANGO DE PRECIOS:</Typography>}
-                     // secondary={restaurante.ubicacion}
+                      //secondary={restaurante.rangoDePrecios}
+                      secondary={<Typography type="body2" style={{ color: '#212121',fontSize: 15,marginTop: "5px" }}>Bs. 50 - Bs. 200</Typography>}
                     />
                   </ListItem>
               </List>       
@@ -122,8 +123,8 @@ return (
                   <ListItem>
                     <ListItemText
                       primary={<Typography type="body2" style={{ color: '#212121',fontSize: 20 }}>ETIQUETAS:</Typography>}
-                      
-                     // secondary={restaurante.ubicacion}
+                      //secondary={restaurante.etiquetas}
+                      secondary={<Typography type="body2" style={{ color: '#212121',fontSize: 15,marginTop: "5px" }}>Italiana, Europea</Typography>}
                     />
                   </ListItem>
               </List>       
@@ -134,14 +135,15 @@ return (
                   <ListItem>
                     <ListItemText
                       primary={<Typography type="body2" style={{ color: '#212121',fontSize: 20 }}>CONTACTOS:</Typography>}
-                      secondary={restaurante.contacto}
+                      //secondary={restaurante.contacto}
+                      secondary={<Typography type="body2" style={{ color: '#212121',fontSize: 15,marginTop: "5px" }}>+591 123456789</Typography>}
                     />
                   </ListItem>
                   <CardActions disableSpacing>
-                    <IconButton aria-label="add to favorites">
+                    <IconButton>
                       <Facebook />
                     </IconButton>
-                    <IconButton aria-label="share">
+                    <IconButton>
                       <Instagram />
                     </IconButton>
                   </CardActions>
