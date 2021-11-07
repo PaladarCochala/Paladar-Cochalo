@@ -82,7 +82,12 @@ export default function RestaurantCard({ restaurante }) {
               </Grid>
               <Grid item md={6}>
                 <Typography variant="body2" gutterBottom color="#9e9e9e">
+<<<<<<< HEAD
                 {restaurante.contadorDeComentarios} comentarios
+=======
+                 {restaurante.contadorDeComentarios}
+                 {restaurante.contadorDeComentarios==1? " comentario" : " comentarios"} 
+>>>>>>> Carousel 3d añadido
                 </Typography>
               </Grid>
             </Grid>
