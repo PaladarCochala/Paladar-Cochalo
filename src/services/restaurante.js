@@ -20,10 +20,15 @@ function putRestauranteById(id, body) {
     return axios.put(`${BASE_ROUTE}/restaurantes/${id}`,body);
 }
 
+function obtenerUltimos5Restaurantes() {
+    return axios.get(`${BASE_ROUTE}/restaurantes/ultimos`);
+}
+
 export { 
     getRestaurantes, 
     getRestaurantesById,
     deleteRestauranteById,
     crearRestaurante,
     putRestauranteById,
+    obtenerUltimos5Restaurantes,
 };
