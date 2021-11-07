@@ -11,7 +11,7 @@ export default function Footer() {
     return (
 
         <>
-            <AppBar position="static" style={{ background: '#000000' , marginTop: "200px"}}>
+            <AppBar position="static" style={{ background: '#000000' , marginTop: "100px"}}>
                 <Container>
                         <Typography  style={{ marginTop: '4em',textAlign: 'center', padding: '1em' }} variant="body1" color="inherit"  >
                             <div style={{ padding: '0.5em'}}>

@@ -37,12 +37,12 @@ export default function MediaCard() {
         width='100%'
         height='auto'
         style={{
-          verticalAlign: 'text-top',
           border: '5px none'
         }}
+        style={{marginBottom: "100px"}}
       />
-      {/* //{restaurantesRecientes} */}
-      <Carousel slides={restaurantesRecientes}/>
+      
+      <Carousel slides={restaurantesRecientes}  />
     </div>
 
   );
