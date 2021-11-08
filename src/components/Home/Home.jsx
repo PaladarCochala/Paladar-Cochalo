@@ -107,8 +107,6 @@ export default function MediaCard() {
         </Box>
       </div>
       <br/>
-      <p> Perfil </p>
-        <Profile/>
       {/* </div> */}
     </div>
   );
