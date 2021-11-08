@@ -11,6 +11,8 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
 import { VerticalAlignCenter } from "@mui/icons-material";
+import Profile from "../../layouts/Profile";
+
 export default function MediaCard() {
   const [restaurantesRecientes, setRestaurantesRecientes] = useState([]);
   useEffect(() => {
@@ -104,7 +106,9 @@ export default function MediaCard() {
           <Carousel slides={restaurantesRecientes} />
         </Box>
       </div>
-
+      <br/>
+      <p> Perfil </p>
+        <Profile/>
       {/* </div> */}
     </div>
   );

@@ -35,6 +35,8 @@ import { useHistory } from "react-router-dom";
 
 
 import '../Styles/Navbar.css'
+import LoginButton from "./LoginButton";
+import LogoutButton from "./LogoutButton";
 const drawerWidth = 240;
 
 //Sidebar Styles
@@ -178,10 +180,8 @@ export default function Navbar({ item }) {
             />
           </Search>
 
-          <Button sx={{ display: "flex", color: "White",variant:'outlined',padding: "0px 5px 0px 5px", fontFamily: 'Mochiy Pop P One', marginLeft: "15px", "&:hover": {
-    backgroundColor: alpha(theme.palette.common.black, 0.25)}}}>
-            Iniciar Sesion
-        </Button>
+          <LoginButton/>
+          <LogoutButton/>
         
         </Toolbar>
       </AppBar>
