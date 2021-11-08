@@ -6,6 +6,7 @@ import { styled, useTheme, alpha } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
 import CssBaseline from "@mui/material/CssBaseline";
+import Typography from '@mui/material/Typography';
 import MuiAppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import List from "@mui/material/List";
@@ -40,7 +41,7 @@ const drawerWidth = 240;
 const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })(
   ({ theme, open }) => ({
     flexGrow: 1,
-    padding: theme.spacing(3),
+    padding: theme.spacing(0),
     transition: theme.transitions.create("margin", {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
@@ -160,6 +161,9 @@ export default function Navbar({ item }) {
           >
             <MenuIcon />
           </IconButton>
+          <Typography variant="h6" component="div" align= "center" noWrap="true" sx={{fontFamily: 'Mochiy Pop P One'}}>
+            PALADAR COCHALO
+          </Typography>
           <Search>
             <SearchIconWrapper>
               <SearchIcon />
@@ -174,11 +178,11 @@ export default function Navbar({ item }) {
             />
           </Search>
 
-          <Button sx={{ display: { xs: 'none', sm: 'none', md: 'block' }, background: "#e6b439", color: "black", fontFamily: 'Mochiy Pop P One', marginLeft: "15px", "&:hover": {
-    backgroundColor: "#3a0a18", color: "white"
-  },}}>
+          <Button sx={{ display: "flex", color: "White",variant:'outlined',padding: "0px 5px 0px 5px", fontFamily: 'Mochiy Pop P One', marginLeft: "15px", "&:hover": {
+    backgroundColor: alpha(theme.palette.common.black, 0.25)}}}>
             Iniciar Sesion
         </Button>
+        
         </Toolbar>
       </AppBar>
       <Drawer
@@ -215,7 +219,10 @@ export default function Navbar({ item }) {
             <HomeRoundedIcon sx={{ marginRight: "15px" }}/>
             <ListItemText disableTypography primary={"Home"} />
           </ListItem>
-          <ListItem className="PersonTypo" button onClick={() => history.push("/panel-administrador/restaurantes")}>
+          <ListItem className="PersonTypo" button onClick={() => history.push({
+        pathname: "/restaurantes",
+        state: { response: "" },
+      })}>
            <RestaurantMenuRoundedIcon sx={{ marginRight: "15px" }}/>
             <ListItemText disableTypography primary={"Restaurantes"} />
           </ListItem>

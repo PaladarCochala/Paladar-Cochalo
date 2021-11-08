@@ -67,8 +67,8 @@ export default function Restaurantes(props) {
       <Grid container  justifyContent="center" spacing={3}>
         {displayRestaurantes}
         <ReactPaginate
-          previousLabel={"Previous"}
-          nextLabel={"Next"}
+          previousLabel={"Anterior"}
+          nextLabel={"Siguiente"}
           pageCount={pageCount}
           onPageChange={changePage}
           containerClassName={"paginationBttns"}

@@ -63,7 +63,7 @@ export default function CardRestaurante({ restaurante }) {
                                     variant="h4"
                                     align="center"
                                 >
-                                    {restaurante.nombre}
+                                    BRO
                                 </Typography>
                             </Grid>
                         </CardContent>

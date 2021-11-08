@@ -25,7 +25,7 @@ const StyledRating = styled(Rating)({
 export default function RestaurantCard({ restaurante }) {
 
   return (
-    <Card sx={{ maxWidth: 345 }}>
+    <Card sx={{ maxWidth: 345 , border:" 3px outset"}}>
       <CardActionArea
       component={Link}
       to={`/restaurantes/${restaurante.id}`}>
@@ -82,7 +82,8 @@ export default function RestaurantCard({ restaurante }) {
               </Grid>
               <Grid item md={6}>
                 <Typography variant="body2" gutterBottom color="#9e9e9e">
-                {restaurante.contadorDeComentarios} comentarios
+                 {restaurante.contadorDeComentarios}
+                 {restaurante.contadorDeComentarios==1? " comentario" : " comentarios"} 
                 </Typography>
               </Grid>
             </Grid>
