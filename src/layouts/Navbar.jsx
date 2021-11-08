@@ -37,6 +37,7 @@ import { useHistory } from "react-router-dom";
 import '../Styles/Navbar.css'
 import LoginButton from "./LoginButton";
 import LogoutButton from "./LogoutButton";
+import Profile from "./Profile";
 const drawerWidth = 240;
 
 //Sidebar Styles
@@ -180,9 +181,8 @@ export default function Navbar({ item }) {
             />
           </Search>
 
-          <LoginButton/>
-          <LogoutButton/>
-        
+
+          <Profile/>
         </Toolbar>
       </AppBar>
       <Drawer
