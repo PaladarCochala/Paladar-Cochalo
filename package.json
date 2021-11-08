@@ -5,6 +5,7 @@
   "dependencies": {
     "3d-react-carousal": "^4.0.2",
     "@brainhubeu/react-carousel": "^2.0.4",
+    "@auth0/auth0-react": "^1.8.0",
     "@emotion/react": "^11.4.1",
     "@emotion/styled": "^11.3.0",
     "@fontsource/dm-sans": "^4.5.0",
