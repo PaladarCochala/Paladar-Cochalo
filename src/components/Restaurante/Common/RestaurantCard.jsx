@@ -25,7 +25,7 @@ const StyledRating = styled(Rating)({
 export default function RestaurantCard({ restaurante }) {
 
   return (
-    <Card sx={{ maxWidth: 345 }}>
+    <Card sx={{ maxWidth: 345 , border:" 3px outset"}}>
       <CardActionArea
       component={Link}
       to={`/restaurantes/${restaurante.id}`}>

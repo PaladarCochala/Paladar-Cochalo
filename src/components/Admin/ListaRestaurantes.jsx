@@ -2,6 +2,7 @@ import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
+import Typography from "@mui/material/Typography";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import React, { useEffect, useState } from "react";
@@ -164,6 +165,15 @@ export default function ListaRestaurantes() {
 
   return (
     <div>
+      <Typography
+          variant="h5"
+          component="div"
+          color="black"
+          align="center"
+          sx={{ paddingTop: "30px" , fontFamily: 'Mochiy Pop P One'}}
+        >
+          PANEL ADMINISTRADOR
+        </Typography>
       <br />
       <TableContainer component={Paper}>
         <TableCell style={{ width: "15%"}} align="right">

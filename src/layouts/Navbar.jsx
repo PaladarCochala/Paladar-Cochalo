@@ -178,11 +178,11 @@ export default function Navbar({ item }) {
             />
           </Search>
 
-          <Button sx={{ display: { xs: 'none', sm: 'none', md: 'block' }, background: "#e6b439", color: "black", fontFamily: 'Mochiy Pop P One', marginLeft: "15px", "&:hover": {
-    backgroundColor: "#3a0a18", color: "white"
-  },}}>
+          <Button sx={{ display: "flex", color: "White",variant:'outlined',padding: "0px 5px 0px 5px", fontFamily: 'Mochiy Pop P One', marginLeft: "15px", "&:hover": {
+    backgroundColor: alpha(theme.palette.common.black, 0.25)}}}>
             Iniciar Sesion
         </Button>
+        
         </Toolbar>
       </AppBar>
       <Drawer

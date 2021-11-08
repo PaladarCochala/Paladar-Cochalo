@@ -4,6 +4,7 @@ import { Carousel } from "3d-react-carousal";
 import Carrusel from "./Carousel/Carrusel";
 import { obtenerUltimos5Restaurantes } from "../../services/restaurante";
 import Banner from "../assets/mainBanner.jpg";
+import { styled } from '@mui/material/styles';
 import { Grid } from "@material-ui/core";
 import RestaurantCard from "../Restaurante/Common/RestaurantCard";
 
@@ -31,6 +32,25 @@ export default function MediaCard() {
         );
       });
   }
+  const Root = styled('div')(({ theme }) => ({
+    padding: theme.spacing(1),
+    [theme.breakpoints.down('sm')]: {
+      padding: "40px 20px 20px 90px",
+    },
+    [theme.breakpoints.between('sm','md')]: {
+      padding: "40px 20px 20px 90px",
+    },
+    [theme.breakpoints.between('md','lg')]: {
+      padding: "40px 20px 20px 150px",
+    },
+    [theme.breakpoints.between('lg','xl')]: {
+      padding: "40px 20px 20px 200px",
+    },
+    [theme.breakpoints.up('xl')]: {
+      padding: "40px 20px 20px 255px",
+    },
+    
+  }));
 
   return (
     <div>
@@ -39,15 +59,31 @@ export default function MediaCard() {
         width="100%"
         height="auto"
         style={{
-          border: " none",
+          border: "5px none",
         }}
       />
+      <Root>
+      <div> 
+
+        <div style={{
+          display: "inline-block",
+          width: "30px",
+          height: "10px",
+          background: "#C03228"
+        }}></div>
+        <Typography
+          variant="h4"
+          component="div"
+          color="black"
+          sx={{ padding: "5px" ,display: "inline",verticalAlign: "middle"}}
+        >
+          RECIENTES
+        </Typography>
+      </div>
+      </Root>
 
       {/* <div style={{ margin: "auto", width: "70%", padding: "5px" }}> */}
-      <div>
-       
-        
-
+      <div style={{ margin: "auto", width: "70%", border: "15px double"}}>
         <Box
           sx={{
             backgroundColor: "black",
@@ -57,7 +93,7 @@ export default function MediaCard() {
             border: "none",
           }}
         >
-          <Typography
+          {/* <Typography
             variant="h3"
             component="div"
             align="center"
@@ -65,7 +101,7 @@ export default function MediaCard() {
             sx={{padding:"5px"}}
           >
             Recientes
-          </Typography>
+          </Typography> */}
           <Carousel slides={restaurantesRecientes} />
         </Box>
       </div>
