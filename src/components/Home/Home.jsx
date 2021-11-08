@@ -1,7 +1,6 @@
 import Header from "../../layouts/Header";
 import React, { useEffect, useState } from "react";
 import { Carousel } from "3d-react-carousal";
-import Carrusel from "./Carousel/Carrusel";
 import { obtenerUltimos5Restaurantes } from "../../services/restaurante";
 import Banner from "../assets/mainBanner.jpg";
 import { styled } from '@mui/material/styles';
