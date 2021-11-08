@@ -20,7 +20,7 @@ export default function SingleRestaurante(props) {
 
     // Vars Comments
     const [nuevoComentario, setNuevoComentario] = useState("");
-    const [nombre, setNombre] = useState("UsuarioTest");
+    const [email, setEmail] = useState("DaiAnser@gmail.com");
     const [fechaDePublicacion, setFechaDePublicacion] = useState("2021-10-31");
 
     useEffect(() => {
@@ -44,14 +44,14 @@ export default function SingleRestaurante(props) {
     }
 
     const handleChange = (prop) => (event) => {
-        prop === 'nombre' ? setNombre(event.target.value) : setNuevoComentario(event.target.value);
+        prop === 'email' ? setEmail(event.target.value) : setNuevoComentario(event.target.value);
     };
 
     function crearComentario() {
         postComentario({
             descripcion: nuevoComentario,
             fechaDePublicacion: fechaDePublicacion,
-            nombreUsuario: nombre,
+            emailUsuario: email,
             restauranteId: props.match.params.id
         })
             .then((x) => {
