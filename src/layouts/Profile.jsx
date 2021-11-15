@@ -18,7 +18,7 @@ const Profile = () => {
           alt="Profile"
           className={"nav-user-profile rounded-circle"}
           width="50"
-        /><LogoutButton/></div> :   <LoginButton/> }
+        /><LogoutButton/></div>:   <LoginButton/> }
       </div>
   );
 };
