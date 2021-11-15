@@ -23,6 +23,12 @@ function putRestauranteById(id, body) {
 function obtenerUltimos5Restaurantes() {
     return axios.get(`${BASE_ROUTE}/restaurantes/ultimos`);
 }
+function obtenerRestaurantesMasValoradosPorSabor() {
+    return axios.get(`${BASE_ROUTE}/restaurantes/sabor`);
+}
+function obtenerRestaurantesMasValoradosPorServicio() {
+    return axios.get(`${BASE_ROUTE}/restaurantes/servicio`);
+}
 
 export { 
     getRestaurantes, 
@@ -31,4 +37,6 @@ export {
     crearRestaurante,
     putRestauranteById,
     obtenerUltimos5Restaurantes,
+    obtenerRestaurantesMasValoradosPorSabor,
+    obtenerRestaurantesMasValoradosPorServicio,
 };

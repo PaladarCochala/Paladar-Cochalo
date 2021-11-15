@@ -1,10 +1,7 @@
 import React, { useEffect, useState } from "react";
-import Carousel, { slidesToShowPlugin ,arrowsPlugin } from '@brainhubeu/react-carousel';
-import '@brainhubeu/react-carousel/lib/style.css';
-import { obtenerUltimos5Restaurantes } from "../../services/restaurante";
+import Carusel from "./Carusel";
+import { obtenerUltimos5Restaurantes ,obtenerRestaurantesMasValoradosPorSabor,obtenerRestaurantesMasValoradosPorServicio} from "../../services/restaurante";
 import Banner from "../assets/mainBanner.jpg";
-import { FaArrowCircleLeft, FaArrowCircleRight } from 'react-icons/fa'
-import Button from "@mui/material/Button"
 import { styled, alpha  } from '@mui/material/styles';
 import RestaurantCard from "../Restaurante/Common/RestaurantCard";
 import Typography from "@mui/material/Typography";
@@ -12,8 +9,13 @@ import Typography from "@mui/material/Typography";
 
 export default function MediaCard() {
   const [restaurantesRecientes, setRestaurantesRecientes] = useState([]);
+  const [restaurantesMasValoradosPorServicio, setRestaurantesMasValoradosPorServicio] = useState([]);
+  const [restaurantesMasValoradosPorSabor, setRestaurantesMasValoradosPorSabor] = useState([]);
+
   useEffect(() => {
     getRestaurantesNuevos();
+    getRestaurantesMasValoradosPorServicio();
+    getRestaurantesMasValoradosPorSabor();
   }, []);
 
 
@@ -24,7 +26,6 @@ export default function MediaCard() {
         return response.data;
       })
       .then((response) => {
-        console.log(response.response);
         setRestaurantesRecientes(
           response.response.map((restaurante) => {
             return <RestaurantCard restaurante={restaurante} />;
@@ -32,6 +33,33 @@ export default function MediaCard() {
         );
       });
   }
+  function getRestaurantesMasValoradosPorSabor() {
+    obtenerRestaurantesMasValoradosPorSabor()
+      .then((response) => {
+        return response.data;
+      })
+      .then((response) => {
+        setRestaurantesMasValoradosPorServicio(
+          response.response.map((restaurante) => {
+            return <RestaurantCard restaurante={restaurante} />;
+          })
+        );
+      });
+  }
+  function getRestaurantesMasValoradosPorServicio() {
+    obtenerRestaurantesMasValoradosPorServicio()
+      .then((response) => {
+        return response.data;
+      })
+      .then((response) => {
+        setRestaurantesMasValoradosPorSabor(
+          response.response.map((restaurante) => {
+            return <RestaurantCard restaurante={restaurante} />;
+          })
+        );
+      });
+  }
+
   const Root = styled('div')(({ theme }) => ({
     padding: theme.spacing(1),
     [theme.breakpoints.down('sm')]: {
@@ -81,35 +109,48 @@ export default function MediaCard() {
           </Typography>
         </div>
       </Root>
+      <Carusel lista={restaurantesRecientes}> </Carusel>
+      <Root>
+        <div>
 
-      <div style={{ margin: "auto", width: "70%" }}>
-        <Carousel
-          plugins={[
-            {
-              resolve: arrowsPlugin,
-              options: {
-                arrowLeft: <Button> <FaArrowCircleLeft size="50" color="#C03228" /></Button>,
-                arrowLeftDisabled:<Button> <FaArrowCircleLeft size="50" color="#C03228"/></Button>,
-                arrowRight: <Button> <FaArrowCircleRight size="50" color="#C03228"/></Button>,
-                arrowRightDisabled: <Button> <FaArrowCircleRight size="50" color="#C03228"/></Button>,
-                addArrowClickHandler: true,
-              }},
-            
-            'infinite',
-            
-            {
-              resolve: slidesToShowPlugin,
-              options: {
-                numberOfSlides: 3,
-              },
-            },
-          ]}
-          slides={restaurantesRecientes}
-        >
+          <div style={{
+            display: "inline-block",
+            width: "30px",
+            height: "10px",
+            background: "#C03228"
+          }}></div>
+          <Typography
+            variant="h4"
+            component="div"
+            color="black"
+            sx={{ padding: "5px", display: "inline", verticalAlign: "middle" }}
+          >
+            VALORADOS POR SERVICIO
+          </Typography>
+        </div>
+      </Root>
+      <Carusel lista={restaurantesMasValoradosPorServicio}> </Carusel>
+      <Root>
+        <div>
 
-        </Carousel>
-
-      </div>
+          <div style={{
+            display: "inline-block",
+            width: "30px",
+            height: "10px",
+            background: "#C03228"
+          }}></div>
+          <Typography
+            variant="h4"
+            component="div"
+            color="black"
+            sx={{ padding: "5px", display: "inline", verticalAlign: "middle" }}
+          >
+            VALORADOS POR SABOR
+          </Typography>
+        </div>
+      </Root>
+      <Carusel lista={restaurantesMasValoradosPorSabor}> </Carusel>
+      
     </div>
   );
 }
