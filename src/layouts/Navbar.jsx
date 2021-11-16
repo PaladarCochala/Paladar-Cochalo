@@ -29,12 +29,14 @@ import ReportRoundedIcon from '@mui/icons-material/ReportRounded';
 import AddCircleRoundedIcon from '@mui/icons-material/AddCircleRounded';
 import EditRoundedIcon from '@mui/icons-material/EditRounded';
 import LoginRoundedIcon from '@mui/icons-material/LoginRounded';
-import AppRegistrationRoundedIcon from '@mui/icons-material/AppRegistrationRounded';
 
 import { useHistory } from "react-router-dom";
-
+import { useAuth0 } from "@auth0/auth0-react";
 
 import '../Styles/Navbar.css'
+import LoginButton from "./LoginButton";
+import LogoutButton from "./LogoutButton";
+import Profile from "./Profile";
 const drawerWidth = 240;
 
 //Sidebar Styles
@@ -122,6 +124,8 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 export default function Navbar({ item }) {
   const [searched, setSearched] = useState("");
   const history = useHistory();
+  const { user, isAuthenticated } = useAuth0();
+  console.log(user)
 
   const handleSearchImput = (event) => {
     setSearched(event.target.value);
@@ -161,9 +165,7 @@ export default function Navbar({ item }) {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" component="div" align= "center" noWrap="true" sx={{fontFamily: 'Mochiy Pop P One'}}>
-            PALADAR COCHALO
-          </Typography>
+          
           <Search>
             <SearchIconWrapper>
               <SearchIcon />
@@ -177,12 +179,9 @@ export default function Navbar({ item }) {
               onKeyPress={(e) => handleEnterKey(e)}
             />
           </Search>
-
-          <Button sx={{ display: "flex", color: "White",variant:'outlined',padding: "0px 5px 0px 5px", fontFamily: 'Mochiy Pop P One', marginLeft: "15px", "&:hover": {
-    backgroundColor: alpha(theme.palette.common.black, 0.25)}}}>
-            Iniciar Sesion
-        </Button>
-        
+          <Typography variant="h4" component="div" align= "center" noWrap="true" sx={{fontFamily: 'Dongle, sans-serif', marginLeft: '15px'}}>
+            PALADAR COCHALO
+          </Typography>
         </Toolbar>
       </AppBar>
       <Drawer
@@ -199,10 +198,8 @@ export default function Navbar({ item }) {
         anchor="left"
         open={open}
       >
-        <DrawerHeader>
-          <span className="drawName">
-            Hola Bombon!
-          </span>
+        <DrawerHeader className="drawName">
+          {isAuthenticated? <span>Hola {user.given_name.split(" ")[0]}!</span>:  <span>Bienvenido!</span> }
           <IconButton onClick={handleDrawerClose}>
             {theme.direction === "ltr" ? (
               <ChevronLeftIcon sx={{ color: "white" }}/>
@@ -257,15 +254,8 @@ export default function Navbar({ item }) {
         </List>
 
         <Divider sx={{ background: "white" }}/>
-            <List sx={{ color: "white" ,display: { xs: 'block', sm: 'none' } }}>
-              <ListItem className="PersonTypo" button onClick={() => history.push("/login")}>
-                <LoginRoundedIcon sx={{ marginRight: "15px" }}/>
-                <ListItemText disableTypography primary={"Iniciar Sesion"} />
-              </ListItem>
-              <ListItem className="PersonTypo" button onClick={() => history.push("/register")}>
-                <AppRegistrationRoundedIcon sx={{ marginRight: "15px" }}/>
-                <ListItemText disableTypography primary={"Registrarse"} />
-              </ListItem>
+            <List sx={{ color: "white" }}>
+            {isAuthenticated? <LogoutButton/>:  <LoginButton/> }
             </List>
 
       </Drawer>

@@ -9,6 +9,11 @@
     background: #3a0a18 !important;
   }
 
+.roundedImage{
+  width: 50px;
+  border-radius: 50%;
+}
+
 .drawName{
   color: white;
   font-size: 2rem;

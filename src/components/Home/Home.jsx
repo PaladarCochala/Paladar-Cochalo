@@ -5,7 +5,9 @@ import Banner from "../assets/mainBanner.jpg";
 import { styled, alpha  } from '@mui/material/styles';
 import RestaurantCard from "../Restaurante/Common/RestaurantCard";
 import Typography from "@mui/material/Typography";
-
+import Divider from "@mui/material/Divider";
+import { VerticalAlignCenter } from "@mui/icons-material";
+import Profile from "../../layouts/Profile";
 
 export default function MediaCard() {
   const [restaurantesRecientes, setRestaurantesRecientes] = useState([]);
