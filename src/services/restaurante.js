@@ -8,6 +8,10 @@ function getRestaurantes() {
 function getRestaurantesById(id) {
     return axios.get(`${BASE_ROUTE}/restaurantes/${id}`);
 }
+
+function getComentariosByRestaurantId(id) {
+    return axios.get(`${BASE_ROUTE}/comentarios/detallado/restaurante/${id}`);
+}
 function deleteRestauranteById(id) {
     return axios.delete(`${BASE_ROUTE}/restaurantes/${id}`);
 }
@@ -39,4 +43,5 @@ export {
     obtenerUltimos5Restaurantes,
     obtenerRestaurantesMasValoradosPorSabor,
     obtenerRestaurantesMasValoradosPorServicio,
+    getComentariosByRestaurantId,
 };

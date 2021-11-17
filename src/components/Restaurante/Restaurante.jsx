@@ -7,7 +7,7 @@ import StarIcon from '@mui/icons-material/Star';
 import DiningIcon from '@mui/icons-material/Dining';
 import DiningOutlined from '@mui/icons-material/DiningOutlined';
 // Services
-import { getRestaurantesById } from '../../services/restaurante';
+import { getRestaurantesById, getComentariosByRestaurantId } from '../../services/restaurante';
 import { postComentario } from '../../services/comentario';
 // Styles
 import '../../Styles/Comentarios.css'
@@ -25,7 +25,7 @@ export default function SingleRestaurante(props) {
 
     useEffect(() => {
         getDataRestaurante(props.match.params.id);
-
+        getDataComentarios(props.match.params.id)
         window.scrollTo(0, 0);
     }, [props.match.params.id]);
 
@@ -36,11 +36,18 @@ export default function SingleRestaurante(props) {
             })
             .then((response) => {
                 setRestaurante(response.response);
-                console.log(response.response);
-                setComentario(response.response.Comentarios);
-                console.log(response.response.Comentarios);
                 setLoading(false);
             });
+    }
+    function getDataComentarios(id){
+        getComentariosByRestaurantId(id)
+            .then((response)=>{
+                return response.data
+            })
+            .then((response)=>{
+                console.log(response.response)
+                setComentario(response.response);
+            })
     }
 
     const handleChange = (prop) => (event) => {
@@ -163,7 +170,7 @@ export default function SingleRestaurante(props) {
                         {valorS2 !== null && (<Box sx={{ ml: 2 }} >{labels2[hoverS2 !== -1 ? hoverS2 : valorS2]}</Box>)}
                         </Grid>
                     </Grid>
-
+                    
                     <Divider style={{ margin: '1rem' }} />
                     
                     {!loading ? comentarios.map(comentario => (
@@ -171,6 +178,7 @@ export default function SingleRestaurante(props) {
                             <div className={'comentario'}>
                                 <Typography variant="h5" gutterBottom component="div">
                                     {comentario.descripcion}
+                                    
                                 </Typography>
                             </div>
                         </div>
