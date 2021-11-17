@@ -65,7 +65,7 @@ return (
   <Grid container spacing={1}>
             <Grid item xs={12} sm={6} >
               <Item>
-                <Typography component="legend" variant="h5">Valoración</Typography>
+                <Typography component="legend" variant="h5">Sabor</Typography>
                   <Rating style={{color: '#ff6d75',fontSize: 50,textAlign: 'left'}}
                         name="customized-restaurant"
                         readOnly
