@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import {Grid, CircularProgress, Divider, Typography, Rating, Box, OutlinedInput, Button, InputLabel, FormControl } from '@mui/material';
+import { Grid, CircularProgress, Divider, Typography, Rating, Box, OutlinedInput, Button, InputLabel, FormControl } from '@mui/material';
 import Info from './Common/Info';
 import { styled } from '@mui/material/styles';
+import Comentario from './Comentario';
 //
 import StarIcon from '@mui/icons-material/Star';
 import DiningIcon from '@mui/icons-material/Dining';
@@ -15,7 +16,7 @@ import '../../Styles/Comentarios.css'
 export default function SingleRestaurante(props) {
 
     const [restaurante, setRestaurante] = useState(null);
-    const [comentarios, setComentario] = useState(null);
+    const [comentarios, setComentarios] = useState([]);
     const [loading, setLoading] = useState(true);
 
     // Vars Comments
@@ -35,18 +36,21 @@ export default function SingleRestaurante(props) {
                 return response.data;
             })
             .then((response) => {
+                console.log("set restaurantes");
+                console.log(response.response);
                 setRestaurante(response.response);
                 setLoading(false);
             });
     }
-    function getDataComentarios(id){
+    function getDataComentarios(id) {
         getComentariosByRestaurantId(id)
-            .then((response)=>{
+            .then((response) => {
                 return response.data
             })
-            .then((response)=>{
-                console.log(response.response)
-                setComentario(response.response);
+            .then((response) => {
+                console.log("que paso");
+                console.log(response.response);
+                setComentarios(response.response);
             })
     }
 
@@ -73,33 +77,33 @@ export default function SingleRestaurante(props) {
     }
 
 
-    
+
     //Rating Servicio
     const labels = {
-        0.5: 'De muy mala calidad+',1: 'De muy mala calidad',
-        1.5: 'De mala calidad+',2: 'De mala calidad',
-        2.5: 'Aceptable',3: 'Aceptable+ ',
-        3.5: 'Agradable',4: 'Agradable+',
-        4.5: 'Excelente',5: 'Excelente+',
+        0.5: 'De muy mala calidad+', 1: 'De muy mala calidad',
+        1.5: 'De mala calidad+', 2: 'De mala calidad',
+        2.5: 'Aceptable', 3: 'Aceptable+ ',
+        3.5: 'Agradable', 4: 'Agradable+',
+        4.5: 'Excelente', 5: 'Excelente+',
     };
     const [valorS1, setValor1] = React.useState(2);
     const [hoverS1, setHover1] = React.useState(-1);
-    
+
     //Rating Sabor
     const StyledRating = styled(Rating)({
         '& .MuiRating-iconFilled': {
-          color: '#ff6d75',
+            color: '#ff6d75',
         },
         '& .MuiRating-iconHover': {
-          color: '#ff3d47',
+            color: '#ff3d47',
         },
-      });
+    });
     const labels2 = {
-        0.5: 'De muy mala calidad+',1: 'De muy mala calidad',
-        1.5: 'De mala calidad+',2: 'De mala calidad',
-        2.5: 'Aceptable',3: 'Aceptable+ ',
-        3.5: 'Agradable',4: 'Agradable+',
-        4.5: 'Excelente',5: 'Excelente+',
+        0.5: 'De muy mala calidad+', 1: 'De muy mala calidad',
+        1.5: 'De mala calidad+', 2: 'De mala calidad',
+        2.5: 'Aceptable', 3: 'Aceptable+ ',
+        3.5: 'Agradable', 4: 'Agradable+',
+        4.5: 'Excelente', 5: 'Excelente+',
     };
     const [valorS2, setValor2] = React.useState(2);
     const [hoverS2, setHover2] = React.useState(-1);
@@ -139,50 +143,45 @@ export default function SingleRestaurante(props) {
                         </Button>
 
                         <Grid>
-                        <Rating
-                            name="rating-servicio" value={valorS1} precision={0.5} onChange={(event, newValue) => {
-                            console.log("Servicio " + newValue);
-                            setValor1(newValue);
-                            }} onChangeActive={(event, newHover) => {
-                            setHover1(newHover);
-                            }} 
-                            emptyIcon={<StarIcon style={{ opacity: 0.55 }} fontSize="inherit" />}
-                            
-                        />
-                        {valorS1 !== null && (<Box sx={{ ml: 2 }}>{labels[hoverS1 !== -1 ? hoverS1 : valorS1]}</Box>)}
-                        </Grid>
-                        
-                        <Grid >
-                        <StyledRating
-                            name="rating sabor"
-                            defaultValue={3}
-                            getLabelText={(value) => `${value} Flatware${value !== 1 ? 's' : ''}`}
-                            precision={0.5}
-                            icon={<DiningIcon fontSize="inherit" />}
-                            value={valorS2}
-                            onChange={(event, newValue) => {
-                                console.log("Sabor " + newValue);
-                                setValor2(newValue);
+                            <Rating
+                                name="rating-servicio" value={valorS1} precision={0.5} onChange={(event, newValue) => {
+                                    console.log("Servicio " + newValue);
+                                    setValor1(newValue);
                                 }} onChangeActive={(event, newHover) => {
-                                setHover2(newHover);
-                                }} emptyIcon={<DiningOutlined style={{ opacity: 0.55 }} fontSize="inherit" />}   
-                        />
-                        {valorS2 !== null && (<Box sx={{ ml: 2 }} >{labels2[hoverS2 !== -1 ? hoverS2 : valorS2]}</Box>)}
+                                    setHover1(newHover);
+                                }}
+                                emptyIcon={<StarIcon style={{ opacity: 0.55 }} fontSize="inherit" />}
+
+                            />
+                            {valorS1 !== null && (<Box sx={{ ml: 2 }}>{labels[hoverS1 !== -1 ? hoverS1 : valorS1]}</Box>)}
+                        </Grid>
+
+                        <Grid >
+                            <StyledRating
+                                name="rating sabor"
+                                defaultValue={3}
+                                getLabelText={(value) => `${value} Flatware${value !== 1 ? 's' : ''}`}
+                                precision={0.5}
+                                icon={<DiningIcon fontSize="inherit" />}
+                                value={valorS2}
+                                onChange={(event, newValue) => {
+                                    console.log("Sabor " + newValue);
+                                    setValor2(newValue);
+                                }} onChangeActive={(event, newHover) => {
+                                    setHover2(newHover);
+                                }} emptyIcon={<DiningOutlined style={{ opacity: 0.55 }} fontSize="inherit" />}
+                            />
+                            {valorS2 !== null && (<Box sx={{ ml: 2 }} >{labels2[hoverS2 !== -1 ? hoverS2 : valorS2]}</Box>)}
                         </Grid>
                     </Grid>
+
                     
-                    <Divider style={{ margin: '1rem' }} />
                     
                     {!loading ? comentarios.map(comentario => (
-                        <div>
-                            <div className={'comentario'}>
-                                <Typography variant="h5" gutterBottom component="div">
-                                    {comentario.descripcion}
-                                    
-                                </Typography>
-                            </div>
-                        </div>
+                        <Comentario comentario={comentario}></Comentario>
+                        
                     )) : null}
+                    
                 </div>
             </Grid>
         </>
