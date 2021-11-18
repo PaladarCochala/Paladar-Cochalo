@@ -1,8 +1,10 @@
 import React from "react";
-import { Button, Card, CardContent, Dialog, DialogContent, DialogTitle, Divider, Grid, Paper, Slide, TextField, Typography } from '@mui/material';
+import {useState} from "react";
+import { Button, Card, CardContent, CardMedia, Dialog, DialogContent, DialogTitle, Divider, Grid, Slide, TextField, Typography, IconButton, Slider } from '@mui/material';
 import { makeStyles } from "@mui/styles";
 import { crearRestaurante } from "../../../services/restaurante";
 import { styled } from "@mui/material/styles";
+import PhotoCamera from '@mui/icons-material/PhotoCamera';
 
 const myStyle= {
   color: "#212121",
@@ -14,22 +16,11 @@ const myStyle= {
   textAlign:"center"
 }
 
-const Item = styled(Paper)(({ theme }) => ({
-  ...theme.typography.body2,
-  padding: theme.spacing(1),
-  textAlign: "center",
-  color: theme.palette.text.secondary,
-}));
-const Item2 = styled(Paper)(({ theme }) => ({
-  ...theme.typography.body2,
-  padding: theme.spacing(1),
-  textAlign: 'center',
-  color: theme.palette.text.secondary,
-  backgroundColor: "#ffcdd2",
-  marginRight: '5vw',
-  marginLeft: '5vw',
-  marginTop: '3vw',
-}));
+const Input = styled('input')({
+  display: 'none',
+});
+
+
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -39,6 +30,9 @@ export default function ModalCrear({ update }) {
   const [habilitado, setHabilitado] = React.useState(false);
   const [nombre, setNombre] = React.useState("");
   const [ubicacion, setUbicacion] = React.useState("");
+  const [contacto, setContacto] = React.useState("");
+  const [urlFacebook, setFacebook] = React.useState("");
+  const [urlInstagram, setInstagram] = React.useState("");
   const [estaActivo, setEstaActivo] = React.useState(true);
   const [promedioSabor, setPromedioSabor] = React.useState(0.0);
   const [promedioServicio, setPromedioServicio] = React.useState(0.0);
@@ -57,6 +51,15 @@ export default function ModalCrear({ update }) {
         setUbicacion(e.target.value);
         if (e.target.value !== 0) setValidacionUbicacion(true);
         break;
+      case "contacto":
+        setContacto(e.target.value);
+        break; 
+      case "urlFacebook":
+          setFacebook(e.target.value);
+          break;
+      case "urlInstagram":
+        setInstagram(e.target.value);
+        break;   
     }
     if (validacionNombre && validacionUbicacion) {
       setHabilitado(true);
@@ -66,21 +69,30 @@ export default function ModalCrear({ update }) {
   function resetValores() {
     setNombre("");
     setUbicacion("");
+    setContacto("");
+    setFacebook("");
+    setInstagram("");
     setPromedioSabor(0.0);
     setPromedioServicio(0.0);
     setUrlLogo(null);
     setEstaActivo(true);
-
     setValidacionNombre(false);
     setValidacionUbicacion(false);
+    setSelectedImage(null);
   }
 
   function crearNuevoRestaurante() {
     console.log(nombre);
     console.log(ubicacion);
+    console.log(contacto);
+    console.log(urlFacebook);
+    console.log(urlInstagram);
     crearRestaurante({
       nombre: nombre,
       ubicacion: ubicacion,
+      contacto: contacto,
+      urlFacebook: urlFacebook,
+      urlInstagram: urlInstagram,
       promedioSabor: promedioSabor,
       promedioServicio: promedioServicio,
       urlLogo: urlLogo,
@@ -111,16 +123,50 @@ export default function ModalCrear({ update }) {
   });
 
   const classes = useStyles();
-
   const [open, setOpen] = React.useState(false);
-
   const handleClickOpen = () => {
     setOpen(true);
   };
-
   const handleClose = () => {
     setOpen(false);
   };
+
+
+
+  //Sección IMAGEN
+  const [selectedImage, setSelectedImage] = useState();
+   // Subir imagen
+   const imageChange = (e) => {
+    if (e.target.files && e.target.files.length > 0) {
+      setSelectedImage(e.target.files[0]);
+    }
+  };
+  // Eliminar imagen
+  const removeSelectedImage = () => {
+    setSelectedImage();
+  };
+
+
+  //Seccion SLIDER
+  function valuetext(value) {
+    return `${value} Bs.`;
+  }
+  const minDistance = 5;
+  const [value1, setValue1] = React.useState([25, 50]);
+
+  const handleChange1 = (event, newValue, activeThumb) => {
+    if (!Array.isArray(newValue)) {
+      return;
+    }
+
+    if (activeThumb === 0) {
+      setValue1([Math.min(newValue[0], value1[1] - minDistance), value1[1]]);
+    } else {
+      setValue1([value1[0], Math.max(newValue[1], value1[0] + minDistance)]);
+    }
+  };
+
+
   return (
     <div>
       <Grid align="right"  style={{ marginLeft: 75 }}>
@@ -142,7 +188,7 @@ export default function ModalCrear({ update }) {
         onClose={handleClose}
         aria-describedby="alert-dialog-slide-description"
         fullWidth="true"
-        maxWidth="lg"
+        maxWidth="xl"
       >
         <DialogTitle align="center">
           <Typography style={myStyle} variante='h1'>
@@ -174,10 +220,27 @@ export default function ModalCrear({ update }) {
                             }}
                           >
                             <CardContent>
-                              <img
-                                src="https://static.thenounproject.com/png/187803-200.png"
-                                alt="new"
-                              />
+                            {/*NO QUITAR EL LABEL, SIN EL, NO RECIBIRA NINGUNA IMAGEN */}
+                            <label htmlFor="icon-button-file">
+                              <Input accept="image/*" id="icon-button-file" type="file" onChange={imageChange}/>
+                              <IconButton color="primary" aria-label="upload picture" component="span">
+                                <PhotoCamera />
+                              </IconButton>
+                              <CardMedia>
+                              {selectedImage && (
+                                <div >
+                                  <img
+                                    src={URL.createObjectURL(selectedImage)}
+                                    alt="Thumb"
+                                    style={{maxWidth: "100%", maxHeight: 320}}
+                                  />
+                                  <button onClick={removeSelectedImage}>
+                                    Eliminar Imagen
+                                  </button>
+                                </div>
+                              )}
+                              </CardMedia>
+                            </label>
                             </CardContent>
                         </Card>
                     </Grid>
@@ -260,6 +323,130 @@ export default function ModalCrear({ update }) {
                                   handleInputChange(e, "ubicacion");
                                 }}
                               />
+                            </Grid>
+
+                            <Grid
+                              container
+                              justifyContent="center"
+                              alignItems="center"
+                              sx={{p: 1,m: 1,}}
+                            >
+                              <TextField
+                                label="Contacto"
+                                placeholder="Ingrese el contacto telefónico"
+                                variant="outlined"
+                                fullWidth
+                                required
+                                InputLabelProps={{
+                                  style: {
+                                    fontFamily: "Arial",
+                                    color: "black",
+                                  },
+                                }}
+                                inputProps={{
+                                  style: {
+                                    fontFamily: "Arial",
+                                    color: "black",
+                                  },
+                                }}
+                                value={contacto}
+                                onChange={(e) => {
+                                  handleInputChange(e, "contacto");
+                                }}
+                              />
+                            </Grid>
+
+
+                            <Grid
+                              container
+                              justifyContent="center"
+                              alignItems="center"
+                              sx={{p: 1,m: 1,}}
+                            >
+                              <Typography id="input-slider" gutterBottom style={{fontFamily: "Arial",color: "black"}}>
+                              Rango de precios (Bs.)
+                              </Typography>
+                              <Slider
+                                getAriaLabel={() => 'Rango de Precios'}
+                                value={value1}
+                                onChange={handleChange1}
+                                valueLabelDisplay="auto"
+                                getAriaValueText={valuetext}
+                                disableSwap
+                              />
+                              
+                            </Grid>
+
+                            <Grid 
+                              container
+                              justifyContent="center"
+                              alignItems="center"
+                              sx={{p: 1,m: 1,}}
+                              >
+                              <TextField
+                                id="outlined-multiline-static"
+                                fullWidth
+                                label="Descripción"
+                                multiline
+                                rows={10}
+                              />     
+                            </Grid>
+
+                            
+
+                            <Grid
+                              container
+                              justifyContent="center"
+                              alignItems="center"
+                              sx={{p: 1,m: 1,}}
+                            >
+
+                              <Grid>
+                                <TextField
+                                  label="Facebook"
+                                  placeholder="Ingrese el URL de la página"
+                                  variant="outlined"
+                                  size="small"
+                                  InputLabelProps={{
+                                    style: {
+                                      fontFamily: "Arial",
+                                      color: "black",
+                                    },
+                                  }}
+                                  inputProps={{
+                                    style: {
+                                      fontFamily: "Arial",
+                                      color: "black",
+                                    },
+                                  }}
+                                  value={urlFacebook}
+                                  onChange={(e) => {
+                                    handleInputChange(e, "urlFacebook");
+                                  }}
+                                />
+                                <TextField
+                                  label="Instagram"
+                                  placeholder="Ingrese el URL de la página"
+                                  variant="outlined"
+                                  size="small"
+                                  InputLabelProps={{
+                                    style: {
+                                      fontFamily: "Arial",
+                                      color: "black",
+                                    },
+                                  }}
+                                  inputProps={{
+                                    style: {
+                                      fontFamily: "Arial",
+                                      color: "black",
+                                    },
+                                  }}
+                                  value={urlInstagram}
+                                  onChange={(e) => {
+                                    handleInputChange(e, "urlInstagram");
+                                  }}
+                                />
+                              </Grid>
                             </Grid>
 
 
