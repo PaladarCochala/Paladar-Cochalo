@@ -42,9 +42,7 @@ export default function Restaurantes(props) {
         return response.data;
       })
       .then((response) => {
-        console.log(response.response);
-        setRestaurantes(filterByValue(response.response));
-        //setRestaurantes(response.response);
+        props.location.state? setRestaurantes(filterByValue(response.response)):setRestaurantes(response.response);
       });
   }
 
