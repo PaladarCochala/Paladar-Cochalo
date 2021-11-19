@@ -36,8 +36,6 @@ export default function SingleRestaurante(props) {
                 return response.data;
             })
             .then((response) => {
-                console.log("set restaurantes");
-                console.log(response.response);
                 setRestaurante(response.response);
                 setLoading(false);
             });
@@ -48,8 +46,6 @@ export default function SingleRestaurante(props) {
                 return response.data
             })
             .then((response) => {
-                console.log("que paso");
-                console.log(response.response);
                 setComentarios(response.response);
             })
     }
@@ -165,7 +161,6 @@ export default function SingleRestaurante(props) {
                                 icon={<DiningIcon fontSize="inherit" />}
                                 value={valorS2}
                                 onChange={(event, newValue) => {
-                                    console.log("Sabor " + newValue);
                                     setValor2(newValue);
                                 }} onChangeActive={(event, newHover) => {
                                     setHover2(newHover);
