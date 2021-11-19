@@ -21,7 +21,7 @@ export default function Restaurantes(props) {
   const [restaurantes, setRestaurantes] = useState([]);
 
   const [page, setPage] = useState(1);
-  const restaurantesPerPage = 5;
+  const restaurantesPerPage = 8;
   const pagesVisited = (page - 1) * restaurantesPerPage;
 
   useEffect(() => {
@@ -48,18 +48,6 @@ export default function Restaurantes(props) {
       });
   }
 
-  //LISTADO RESTAURANTES
-  const displayRestaurantes = restaurantes
-    .slice(pagesVisited, pagesVisited + restaurantesPerPage)
-    .map((restaurante) => {
-      return (
-        <>
-          <Grid item spacing={3} align="center" key={restaurante.id}>
-            <RestaurantCard restaurante={restaurante} />
-          </Grid>
-        </>
-      );
-    });
   const pageCount = Math.ceil(restaurantes.length / restaurantesPerPage);
 
   //PAGINACIÓN
@@ -86,7 +74,6 @@ export default function Restaurantes(props) {
              ))}
           </Grid>
         </Box>
-        {/* {displayRestaurantes} */}
       </Grid>
       <Grid
         container
