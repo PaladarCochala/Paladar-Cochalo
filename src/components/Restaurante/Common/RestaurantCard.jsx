@@ -35,13 +35,10 @@ export default function RestaurantCard({ restaurante }) {
           image="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSLJ7Dz7Li3ajen8vxSI96rSj61I2-_HBTYytK2e6kgwbGEEHd8ByXJUpnoqKU955Duhjk&usqp=CAU"
           alt="Restaurante"
         />
-        <CardHeader
-          title={restaurante.nombre}
-          align="center"
-        />
+        <Typography variant="h5" component="div" align= "center" noWrap="true">
+            {restaurante.nombre} </Typography>
 
         <CardContent>
-
           <Box sx={{ flexGrow: 1 }}>
             <Grid container spacing={2}>
               <Grid item md={4}>

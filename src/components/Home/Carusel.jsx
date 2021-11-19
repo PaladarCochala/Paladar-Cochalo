@@ -5,7 +5,7 @@ import Button from "@mui/material/Button"
 
 export default function Carusel(props) {
 return(
-    <div style={{ margin: "auto", width: "70%" }}>
+    <div style={{ margin: "auto", width: "80%" }}>
         <Carousel
           plugins={[
             {
@@ -21,22 +21,24 @@ return(
             {
               resolve: slidesToShowPlugin,
               options: {
-                numberOfSlides: 3,
+                numberOfSlides: 4,
               },
             },
           ]}
           breakpoints={{
-            640: {
+            710: {
               plugins: [
                {
                  resolve: slidesToShowPlugin,
                  options: {
                   numberOfSlides: 1
                  }
+                 
                },
+               "infinite"
              ]
             },
-            900: {
+            870: {
               plugins: [
                {
                  resolve: slidesToShowPlugin,
@@ -44,6 +46,18 @@ return(
                   numberOfSlides: 2
                  }
                },
+               "infinite"
+             ]
+            },
+            1190: {
+              plugins: [
+               {
+                 resolve: slidesToShowPlugin,
+                 options: {
+                  numberOfSlides: 3
+                 }
+               },
+               "infinite"
              ]
             }
           }}
