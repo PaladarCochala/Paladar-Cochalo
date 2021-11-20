@@ -8,7 +8,7 @@ export default function Comentario(props) {
 
 
   return (
-    <Box sx={{ display: "flex", margin: "15px", borderTop: "1px solid #ebe8e8" }}>
+    <Box sx={{ display: "flex", margin: "15px", borderTop: "1px solid #ebe8e8", font:"Helvetica" }}>
       <img styles={{padding: "5px"}}
       className="image" src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"></img>
       <Box sx={{ display: "block" }}>

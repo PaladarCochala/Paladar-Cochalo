@@ -36,7 +36,7 @@ const theme = createTheme({
     }
   },
   typography: {
-    fontFamily: 'Open+Sans',
+    fontFamily: 'sans-serif',
     fontWeightLight: 200,
     fontWeightRegular: 300,
     fontWeightMedium: 400,

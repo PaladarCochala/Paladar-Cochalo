@@ -123,14 +123,16 @@ export default function SingleRestaurante(props) {
                     </Typography>
                     <Grid container >
 
-                        <FormControl className={'input'} sx={{ width: '98%' }}>
-                            <InputLabel htmlFor="nuevo-comentario">Comentario</InputLabel>
+                        <FormControl className={'input'} sx={{ width: '98%'}}>
+                            <InputLabel htmlFor="nuevo-comentario" style={{fontFamily:"san-serif"}}>Comentario</InputLabel>
                             <OutlinedInput
                                 id="nuevo-comentario"
                                 value={nuevoComentario}
                                 onChange={handleChange('comentario')}
                                 placeholder="Escribe un comentario"
                                 label="Comentario"
+                              
+                                
                             />
                         </FormControl>
 
@@ -138,8 +140,8 @@ export default function SingleRestaurante(props) {
                             Comentar
                         </Button>
 
-                        <Grid>
-                            <Rating
+                        <Grid sx={{fontFamily:"sans-serif"}}>
+                            <Rating 
                                 name="rating-servicio" value={valorS1} precision={0.5} onChange={(event, newValue) => {
                                     console.log("Servicio " + newValue);
                                     setValor1(newValue);
@@ -152,7 +154,7 @@ export default function SingleRestaurante(props) {
                             {valorS1 !== null && (<Box sx={{ ml: 2 }}>{labels[hoverS1 !== -1 ? hoverS1 : valorS1]}</Box>)}
                         </Grid>
 
-                        <Grid >
+                        <Grid sx={{fontFamily:"sans-serif"}}>
                             <StyledRating
                                 name="rating sabor"
                                 defaultValue={3}
