@@ -10,7 +10,7 @@ const myStyle= {
   color: "#212121",
   backgroundColor: "white",
   padding: "5px",
-  fontFamily: "Roboto",
+  fontFamily: "inherit",
   fontSize: 35,
   fontWeight: 'bold',
   textAlign:"center"

@@ -15,9 +15,7 @@ const myStyle= {
     color: "#212121",
     backgroundColor: "white",
     padding: "25px",
-    //fontFamily: "Roboto",
     fontSize: 50,
-    //fontWeight: 'bold',
     textAlign:"center"
 }
 const Item = styled(Box)(({ theme }) => ({
@@ -46,7 +44,7 @@ const Item3 = styled(Box)(({ theme }) => ({
   marginRight: '5vw',
   marginLeft: '5vw',
   marginTop: '2vw',
- // marginBottom: '3vw',
+
 }));
 
 
@@ -65,7 +63,7 @@ return (
   <Grid container spacing={1}>
             <Grid item xs={12} sm={6} >
               <Item>
-                <Typography component="legend" variant="h5">Sabor</Typography>
+                <Typography component="legend" variant="h5" color="black">Sabor</Typography>
                   <Rating style={{color: '#ff6d75',fontSize: 50,textAlign: 'left'}}
                         name="customized-restaurant"
                         readOnly
@@ -78,7 +76,7 @@ return (
             </Grid> 
             <Grid item xs={12} sm={6} >
               <Item>
-                  <Typography component="legend" variant="h5">Servicio</Typography>
+                  <Typography component="legend" variant="h5" color="black">Servicio</Typography>
                   <Rating name="customized-5" style={{ fontSize: 50}} defaultValue={restaurante.promedioServicio} readOnly />
               </Item>
             </Grid>      

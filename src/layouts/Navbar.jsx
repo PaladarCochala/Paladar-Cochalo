@@ -87,6 +87,8 @@ const DrawerHeader = styled("div")(({ theme }) => ({
 //Elements Navbar Styles
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
+
+  fontFamily:"san-serif",
   borderRadius: theme.shape.borderRadius,
   backgroundColor: alpha(theme.palette.common.white, 1),
   "&:hover": {
@@ -94,7 +96,7 @@ const Search = styled("div")(({ theme }) => ({
   },
   display: "flex",
   alignItems: "left",
-  width: "70%",
+  width: "75%",
   [theme.breakpoints.up("sm")]: {
     marginLeft: theme.spacing(1),
   },
@@ -115,6 +117,7 @@ const SearchIconWrapper = styled("div")(({ theme }) => ({
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
   color: "black",
   paddingLeft: "4px",
+  fontFamily:"sans-serif",
   width: "100%",
   padding: theme.spacing(0.5, 1, 0.5, 0),
   marginLeft: "50px",
@@ -158,6 +161,7 @@ export default function Navbar({ item }) {
         <Toolbar>
           <IconButton
             color="inherit"
+            fontFamily="sans-serif"
             aria-label="open drawer"
             onClick={handleDrawerOpen}
             edge="start"
@@ -179,7 +183,10 @@ export default function Navbar({ item }) {
               onKeyPress={(e) => handleEnterKey(e)}
             />
           </Search>
-          <Typography variant="h4" component="div" align= "center" noWrap="true" sx={{fontFamily: 'Dongle, sans-serif', marginLeft: '15px'}}>
+          <Typography variant="h3" component="div" width="20%"   sx={{fontFamily: 'Dongle, sans-serif', 
+             lineHeight: "0.5em", marginLeft: '15px',[theme.breakpoints.down("sm")]: {
+              fontSize: "25px"
+            }}}>
             PALADAR COCHALO
           </Typography>
         </Toolbar>

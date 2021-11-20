@@ -170,7 +170,8 @@ export default function ListaRestaurantes() {
           component="div"
           color="black"
           align="center"
-          sx={{ paddingTop: "30px" , fontFamily: 'Mochiy Pop P One'}}
+          fontFamily="sans-serif"
+          sx={{ paddingTop: "30px"}}
         >
           PANEL ADMINISTRADOR
         </Typography>
