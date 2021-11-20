@@ -36,7 +36,7 @@ export default function ModalCrear({ update }) {
   const [estaActivo, setEstaActivo] = React.useState(true);
   const [promedioSabor, setPromedioSabor] = React.useState(0.0);
   const [promedioServicio, setPromedioServicio] = React.useState(0.0);
-  const [urlLogo, setUrlLogo] = React.useState(null);
+  const [urlLogo, setUrlLogo] = React.useState("");
 
   const [validacionNombre, setValidacionNombre] = React.useState(false);
   const [validacionUbicacion, setValidacionUbicacion] = React.useState(false);
@@ -59,7 +59,7 @@ export default function ModalCrear({ update }) {
           break;
       case "urlInstagram":
         setInstagram(e.target.value);
-        break;   
+        break;
     }
     if (validacionNombre && validacionUbicacion) {
       setHabilitado(true);
@@ -85,8 +85,9 @@ export default function ModalCrear({ update }) {
     console.log(nombre);
     console.log(ubicacion);
     console.log(contacto);
-    console.log(urlFacebook);
-    console.log(urlInstagram);
+    //console.log(urlFacebook);
+    //console.log(urlInstagram);
+    //console.log(urlLogo);
     crearRestaurante({
       nombre: nombre,
       ubicacion: ubicacion,
@@ -136,16 +137,33 @@ export default function ModalCrear({ update }) {
   //Sección IMAGEN
   const [selectedImage, setSelectedImage] = useState();
    // Subir imagen
-   const imageChange = (e) => {
+   const imageChange = async (e) => {
     if (e.target.files && e.target.files.length > 0) {
       setSelectedImage(e.target.files[0]);
+      const file = e.target.files[0];
+      const base64 = await convertBase64(file);
+      setUrlLogo(String(base64));
+      console.log(String(base64));
     }
   };
   // Eliminar imagen
   const removeSelectedImage = () => {
     setSelectedImage();
+    setUrlLogo("");
   };
-
+  //Seccion BASE64
+  const convertBase64 = (file) => {
+    return new Promise((resolve, reject) => {
+      const fileReader = new FileReader();
+      fileReader.readAsDataURL(file);
+      fileReader.onload = () => {
+        resolve(fileReader.result);
+      };
+      fileReader.onerror = (error) => {
+        reject(error);
+      };
+    });
+  };
 
   //Seccion SLIDER
   function valuetext(value) {
@@ -230,7 +248,7 @@ export default function ModalCrear({ update }) {
                               {selectedImage && (
                                 <div >
                                   <img
-                                    src={URL.createObjectURL(selectedImage)}
+                                    src={urlLogo}
                                     alt="Thumb"
                                     style={{maxWidth: "100%", maxHeight: 320}}
                                   />
