@@ -32,7 +32,7 @@ export default function RestaurantCard({ restaurante }) {
         <CardMedia
           component="img"
           height="194"
-          image="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSLJ7Dz7Li3ajen8vxSI96rSj61I2-_HBTYytK2e6kgwbGEEHd8ByXJUpnoqKU955Duhjk&usqp=CAU"
+          image={restaurante.urlLogo? restaurante.urlLogo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSLJ7Dz7Li3ajen8vxSI96rSj61I2-_HBTYytK2e6kgwbGEEHd8ByXJUpnoqKU955Duhjk&usqp=CAU"}
           alt="Restaurante"
         />
         <Typography sx={{paddingTop: "5px" ,fontFamily:"inherit"}} variant="h5" component="div" align= "center" noWrap="true" >
