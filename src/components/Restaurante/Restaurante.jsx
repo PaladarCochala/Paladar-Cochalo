@@ -3,6 +3,7 @@ import { Grid, CircularProgress, Divider, Typography, Rating, Box, OutlinedInput
 import Info from './Common/Info';
 import { styled } from '@mui/material/styles';
 import Comentario from './Comentario';
+import { useHistory } from "react-router-dom";
 //
 import StarIcon from '@mui/icons-material/Star';
 import DiningIcon from '@mui/icons-material/Dining';
@@ -15,6 +16,7 @@ import '../../Styles/Comentarios.css'
 
 export default function SingleRestaurante(props) {
 
+    const history = useHistory(); 
     const [restaurante, setRestaurante] = useState(null);
     const [comentarios, setComentarios] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -23,6 +25,39 @@ export default function SingleRestaurante(props) {
     const [nuevoComentario, setNuevoComentario] = useState("");
     const [email, setEmail] = useState("DaiAnser@gmail.com");
     const [fechaDePublicacion, setFechaDePublicacion] = useState("2021-10-31");
+    const [valoracionSabor, setValoracionSabor] = useState(0.5);
+    const [valoracionServicio, setValoracionServicio] = useState(3.0);
+
+    //Rating Servicio
+    const labels = {
+        0.5: 'De muy mala calidad+', 1: 'De muy mala calidad',
+        1.5: 'De mala calidad+', 2: 'De mala calidad',
+        2.5: 'Aceptable', 3: 'Aceptable+ ',
+        3.5: 'Agradable', 4: 'Agradable+',
+        4.5: 'Excelente', 5: 'Excelente+',
+    };
+    const [valorS1, setValor1] = React.useState(2);
+    const [hoverS1, setHover1] = React.useState(-1);
+
+    //Rating Sabor
+    const StyledRating = styled(Rating)({
+        '& .MuiRating-iconFilled': {
+            color: '#ff6d75',
+        },
+        '& .MuiRating-iconHover': {
+            color: '#ff3d47',
+        },
+    });
+    const labels2 = {
+        0.5: 'De muy mala calidad+', 1: 'De muy mala calidad',
+        1.5: 'De mala calidad+', 2: 'De mala calidad',
+        2.5: 'Aceptable', 3: 'Aceptable+ ',
+        3.5: 'Agradable', 4: 'Agradable+',
+        4.5: 'Excelente', 5: 'Excelente+',
+    };
+    const [valorS2, setValor2] = React.useState(2);
+    const [hoverS2, setHover2] = React.useState(-1);
+
 
     useEffect(() => {
         getDataRestaurante(props.match.params.id);
@@ -59,8 +94,11 @@ export default function SingleRestaurante(props) {
         postComentario({
             descripcion: nuevoComentario,
             fechaDePublicacion: fechaDePublicacion,
+            valoracionSabor: valorS1,
+            valoracionServicio: valorS2,
             emailUsuario: email,
-            restauranteId: props.match.params.id
+            restauranteId: props.match.params.id,
+            sesionIniciado: true
         })
             .then((x) => {
                 return x.data;
@@ -69,41 +107,10 @@ export default function SingleRestaurante(props) {
                 return x.result;
             })
             .then((x) => {
+                history.go(0);
                 return getDataRestaurante(props.match.params.id);
             });
     }
-
-
-
-    //Rating Servicio
-    const labels = {
-        0.5: 'De muy mala calidad+', 1: 'De muy mala calidad',
-        1.5: 'De mala calidad+', 2: 'De mala calidad',
-        2.5: 'Aceptable', 3: 'Aceptable+ ',
-        3.5: 'Agradable', 4: 'Agradable+',
-        4.5: 'Excelente', 5: 'Excelente+',
-    };
-    const [valorS1, setValor1] = React.useState(2);
-    const [hoverS1, setHover1] = React.useState(-1);
-
-    //Rating Sabor
-    const StyledRating = styled(Rating)({
-        '& .MuiRating-iconFilled': {
-            color: '#ff6d75',
-        },
-        '& .MuiRating-iconHover': {
-            color: '#ff3d47',
-        },
-    });
-    const labels2 = {
-        0.5: 'De muy mala calidad+', 1: 'De muy mala calidad',
-        1.5: 'De mala calidad+', 2: 'De mala calidad',
-        2.5: 'Aceptable', 3: 'Aceptable+ ',
-        3.5: 'Agradable', 4: 'Agradable+',
-        4.5: 'Excelente', 5: 'Excelente+',
-    };
-    const [valorS2, setValor2] = React.useState(2);
-    const [hoverS2, setHover2] = React.useState(-1);
 
     return (
         <>
