@@ -8,9 +8,12 @@ import { useHistory } from "react-router-dom";
 import StarIcon from '@mui/icons-material/Star';
 import DiningIcon from '@mui/icons-material/Dining';
 import DiningOutlined from '@mui/icons-material/DiningOutlined';
+import Snackbar from '@mui/material/Snackbar';
+import Slide from '@mui/material/Slide';
+import Alert from '@mui/material/Alert';
 // Services
 import { getRestaurantesById, getComentariosByRestaurantId } from '../../services/restaurante';
-import { postComentario } from '../../services/comentario';
+import { postComentario, getComentarioDeUsuario } from '../../services/comentario';
 // Styles
 import '../../Styles/Comentarios.css'
 
@@ -23,11 +26,30 @@ export default function SingleRestaurante(props) {
 
     // Vars Comments
     const [nuevoComentario, setNuevoComentario] = useState("");
-    const [email, setEmail] = useState("DaiAnser@gmail.com");
+    const [email, setEmail] = useState("SenseKarma@gmail.com");
     const [fechaDePublicacion, setFechaDePublicacion] = useState("2021-10-31");
     const [valoracionSabor, setValoracionSabor] = useState(0.5);
     const [valoracionServicio, setValoracionServicio] = useState(3.0);
-
+    const [transition, setTransition] = React.useState(undefined);
+    const [state, setState] = React.useState({
+      openSnakbar: false,
+      vertical: 'bottom',
+      horizontal: 'center',
+    });
+    const { vertical, horizontal, openSnakbar } = state;
+    function TransitionDown(props) {
+      return <Slide {...props} direction="up" />;
+    }
+    const handleClickOpenSnakbar = (Transition,newState) => {
+        setTransition(() => Transition);
+        setState({ openSnakbar: true, ...newState });
+    };
+  
+    const handleCloseSnakbar = () => {
+        setState({ ...state, openSnakbar: false });
+        
+        
+    };
     //Rating Servicio
     const labels = {
         0.5: 'De muy mala calidad+', 1: 'De muy mala calidad',
@@ -89,27 +111,37 @@ export default function SingleRestaurante(props) {
     const handleChange = (prop) => (event) => {
         prop === 'email' ? setEmail(event.target.value) : setNuevoComentario(event.target.value);
     };
-
-    function crearComentario() {
-        postComentario({
-            descripcion: nuevoComentario,
-            fechaDePublicacion: fechaDePublicacion,
-            valoracionSabor: valorS1,
-            valoracionServicio: valorS2,
-            emailUsuario: email,
-            restauranteId: props.match.params.id,
-            sesionIniciado: true
-        })
-            .then((x) => {
-                return x.data;
+    async function  validation() {
+        var validar = await getComentarioDeUsuario(props.match.params.id, email)
+        const dato = validar.data.estaComentadoElRestaurante
+        console.log(validar.data.estaComentadoElRestaurante)
+        return validar.data.estaComentadoElRestaurante
+    }
+    async function crearComentario() {
+        const result = await validation()
+        if(result) {
+            handleClickOpenSnakbar( TransitionDown,{ vertical: 'bottom', horizontal: 'center' });
+        }else{    
+            postComentario({
+                descripcion: nuevoComentario,
+                fechaDePublicacion: fechaDePublicacion,
+                valoracionSabor: valorS1,
+                valoracionServicio: valorS2,
+                emailUsuario: email,
+                restauranteId: props.match.params.id,
+                sesionIniciado: true
             })
-            .then((x) => {
-                return x.result;
-            })
-            .then((x) => {
-                history.go(0);
-                return getDataRestaurante(props.match.params.id);
-            });
+                .then((x) => {
+                    return x.data;
+                })
+                .then((x) => {
+                    return x.result;
+                })
+                .then((x) => {
+                    history.go(0);
+                    return getDataRestaurante(props.match.params.id);
+                });
+        }
     }
 
     return (
@@ -147,7 +179,18 @@ export default function SingleRestaurante(props) {
                         <Button onClick={() => { crearComentario() }} className={'button'}>
                             Comentar
                         </Button>
-
+                        <Snackbar
+                            anchorOrigin={{ vertical, horizontal }}
+                            open={openSnakbar}
+                            autoHideDuration={1500}
+                            onClose={handleCloseSnakbar}
+                            TransitionComponent={transition}
+                            key={transition ? transition.name : ''}
+                        >
+                            <Alert onClose={handleCloseSnakbar} severity="error" variant="filled">
+                                Usted ya tiene un comentario en este restaurante
+                            </Alert>
+                        </Snackbar>
                         <Grid sx={{fontFamily:"sans-serif"}}>
                             <Rating 
                                 name="rating-servicio" value={valorS1} precision={0.5} onChange={(event, newValue) => {
