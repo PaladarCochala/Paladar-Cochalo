@@ -8,6 +8,9 @@ function getRestaurantes() {
 function getRestaurantesById(id) {
     return axios.get(`${BASE_ROUTE}/restaurantes/${id}`);
 }
+function getRestaurantesByEtiqueta(etiqueta){
+    return axios.get(`${BASE_ROUTE}/restaurantes/etiqueta/${etiqueta}`);
+}
 
 function getComentariosByRestaurantId(id) {
     return axios.get(`${BASE_ROUTE}/comentarios/detallado/restaurante/${id}`);
@@ -37,6 +40,7 @@ function obtenerRestaurantesMasValoradosPorServicio() {
 export { 
     getRestaurantes, 
     getRestaurantesById,
+    getRestaurantesByEtiqueta,
     deleteRestauranteById,
     crearRestaurante,
     putRestauranteById,

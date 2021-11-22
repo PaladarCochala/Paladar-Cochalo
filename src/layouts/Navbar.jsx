@@ -1,7 +1,7 @@
 import InputBase from "@mui/material/InputBase";
 
 import * as React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { styled, useTheme, alpha } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
@@ -17,7 +17,6 @@ import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
-import Button from "@mui/material/Button";
 
 import MailIcon from "@mui/icons-material/Mail";
 import SearchIcon from "@mui/icons-material/Search";
@@ -28,15 +27,15 @@ import RestaurantRoundedIcon from '@mui/icons-material/RestaurantRounded';
 import ReportRoundedIcon from '@mui/icons-material/ReportRounded';
 import AddCircleRoundedIcon from '@mui/icons-material/AddCircleRounded';
 import EditRoundedIcon from '@mui/icons-material/EditRounded';
-import LoginRoundedIcon from '@mui/icons-material/LoginRounded';
-
+import { getEtiquetas } from "../services/etiquetas";
 import { useHistory } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
-
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
+import OutlinedInput from '@mui/material/OutlinedInput';
 import '../Styles/Navbar.css'
 import LoginButton from "./LoginButton";
 import LogoutButton from "./LogoutButton";
-import Profile from "./Profile";
 const drawerWidth = 240;
 
 //Sidebar Styles
@@ -124,12 +123,19 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 
-export default function Navbar({ item }) {
+export default function Navbar({ item }, props) {
   const [searched, setSearched] = useState("");
   const history = useHistory();
+  const [etiquetas, setEtiquetas] = useState([])
   const { user, isAuthenticated } = useAuth0();
-  console.log(user)
 
+  const handleChange = (event) => {
+    //console.log(filtro)
+    history.push({
+      pathname: "/restaurantes", 
+      state:{ filter: event.target.value}
+    });
+  };
   const handleSearchImput = (event) => {
     setSearched(event.target.value);
   };
@@ -138,10 +144,13 @@ export default function Navbar({ item }) {
     if (event.key === "Enter") {
       history.push({
         pathname: "/restaurantes",
-        state: { response: searched },
+        state: { buscador: searched},
       });
     }
   };
+  useEffect(() => {
+    getDataEtiquetas();
+  },[props]);
 
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
@@ -154,6 +163,15 @@ export default function Navbar({ item }) {
     setOpen(false);
   };
 
+  function getDataEtiquetas() {
+    getEtiquetas()
+      .then((response) => {
+        return response.data;
+      })
+      .then((response) => {
+        setEtiquetas(response.response);
+      });
+  }
   return (
     <Box sx={{ display: "flex"}}>
       <CssBaseline />
@@ -169,11 +187,25 @@ export default function Navbar({ item }) {
           >
             <MenuIcon />
           </IconButton>
-          
-          <Search>
-            <SearchIconWrapper>
-              <SearchIcon />
-            </SearchIconWrapper>
+      
+            <Search>
+              <Select
+                onChange={handleChange}
+                autoWidth
+                displayEmpty
+                input={<OutlinedInput/>}
+                sx = {{background : '#e8e6e6', height: '40px', borderStyle: 'none'}}
+                renderValue={(selected) => {
+                  if (!selected) {
+                    return <em>Filtros</em>;
+                  }
+                    return selected
+                }}
+              >
+                {etiquetas.map(etiqueta => (
+                  <MenuItem key={etiqueta.nombreEtiqueta} value={etiqueta.nombreEtiqueta}>{etiqueta.nombreEtiqueta}</MenuItem>  
+                ))}
+              </Select>
             <StyledInputBase
               placeholder="Buscar un restaurante..."
               inputProps={{ "aria-label": "search" }}

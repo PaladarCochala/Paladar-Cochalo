@@ -1,13 +1,11 @@
 import React from "react";
 import { useAuth0 } from "@auth0/auth0-react";
-import { useTheme } from "@mui/material/styles";
 import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
 import LoginRoundedIcon from '@mui/icons-material/LoginRounded';
 
 const LoginButton = () => {
   const { loginWithRedirect } = useAuth0();
-  const theme = useTheme();
   return (
 
     <ListItem className="PersonTypo" button onClick={() => loginWithRedirect()}>

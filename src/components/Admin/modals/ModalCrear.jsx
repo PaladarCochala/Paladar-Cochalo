@@ -109,7 +109,7 @@ export default function ModalCrear({ update }) {
 
   const useStyles = makeStyles({
     container: {
-      height: "400px",
+      height: "600px",
     },
     item: {
       flex: 1,
@@ -375,7 +375,7 @@ export default function ModalCrear({ update }) {
                             </Grid>
 
 
-                            <Grid
+                            {/* <Grid
                               container
                               justifyContent="center"
                               alignItems="center"
@@ -408,7 +408,7 @@ export default function ModalCrear({ update }) {
                                 multiline
                                 rows={10}
                               />     
-                            </Grid>
+                            </Grid> */}
 
                             
 

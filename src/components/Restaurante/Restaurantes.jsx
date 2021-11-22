@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { getRestaurantes } from "../../services/restaurante";
+import { getRestaurantes, getRestaurantesByEtiqueta } from "../../services/restaurante";
 import RestaurantCard from "../Restaurante/Common/RestaurantCard";
 import ReactPaginate from "react-paginate";
 import Grid from "@mui/material/Grid";
@@ -25,14 +25,14 @@ export default function Restaurantes(props) {
   const pagesVisited = (page - 1) * restaurantesPerPage;
 
   useEffect(() => {
-    getDataRestaurantes();
+    props.location.state.filter? getDataRestaurantesByEtiqueta():getDataRestaurantes();
   }, [props]);
 
   function filterByValue(array) {
     return array.filter((o) =>
       o["nombre"]
         .toLowerCase()
-        .includes(props.location.state.response.toLowerCase())
+        .includes(props.location.state.buscador.toLowerCase())
     );
   }
 
@@ -42,7 +42,16 @@ export default function Restaurantes(props) {
         return response.data;
       })
       .then((response) => {
-        props.location.state? setRestaurantes(filterByValue(response.response)):setRestaurantes(response.response);
+        props.location.state.buscador? setRestaurantes(filterByValue(response.response)):setRestaurantes(response.response);
+      });
+  }
+  function getDataRestaurantesByEtiqueta() {
+    getRestaurantesByEtiqueta(props.location.state.filter)
+      .then((response) => {
+        return response.data;
+      })
+      .then((response) => {
+        setRestaurantes(response.response);
       });
   }
 

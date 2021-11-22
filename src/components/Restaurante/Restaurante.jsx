@@ -38,6 +38,7 @@ export default function SingleRestaurante(props) {
             .then((response) => {
                 setRestaurante(response.response);
                 setLoading(false);
+                console.log(restaurante)
             });
     }
     function getDataComentarios(id) {
