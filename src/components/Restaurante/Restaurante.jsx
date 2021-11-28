@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Grid, CircularProgress, Divider, Typography, Rating, Box, OutlinedInput, Button, InputLabel, FormControl } from '@mui/material';
+import { Grid, CircularProgress, Typography, Rating, Box, OutlinedInput, Button, InputLabel, FormControl } from '@mui/material';
 import Info from './Common/Info';
 import { styled } from '@mui/material/styles';
 import Comentario from './Comentario';
@@ -11,9 +11,11 @@ import DiningOutlined from '@mui/icons-material/DiningOutlined';
 import Snackbar from '@mui/material/Snackbar';
 import Slide from '@mui/material/Slide';
 import Alert from '@mui/material/Alert';
+import { useAuth0 } from "@auth0/auth0-react";
 // Services
 import { getRestaurantesById, getComentariosByRestaurantId } from '../../services/restaurante';
 import { postComentario, getComentarioDeUsuario } from '../../services/comentario';
+import { postUsuario } from '../../services/usuario';
 // Styles
 import '../../Styles/Comentarios.css'
 
@@ -23,11 +25,11 @@ export default function SingleRestaurante(props) {
     const [restaurante, setRestaurante] = useState(null);
     const [comentarios, setComentarios] = useState([]);
     const [loading, setLoading] = useState(true);
-
+    const { user, isAuthenticated } = useAuth0();
     // Vars Comments
     const [nuevoComentario, setNuevoComentario] = useState("");
-    const [email, setEmail] = useState("SenseKarma@gmail.com");
-    const [fechaDePublicacion, setFechaDePublicacion] = useState("2021-10-31");
+    const [email, setEmail] = useState("");
+    const [fechaDePublicacion, setFechaDePublicacion] = useState("2021-11-29");
     const [valoracionSabor, setValoracionSabor] = useState(0.5);
     const [valoracionServicio, setValoracionServicio] = useState(3.0);
     const [transition, setTransition] = React.useState(undefined);
@@ -111,24 +113,35 @@ export default function SingleRestaurante(props) {
         prop === 'email' ? setEmail(event.target.value) : setNuevoComentario(event.target.value);
     };
     async function  validation() {
-        var validar = await getComentarioDeUsuario(props.match.params.id, email)
-        const dato = validar.data.estaComentadoElRestaurante
-        console.log(validar.data.estaComentadoElRestaurante)
+        var validar = await getComentarioDeUsuario(props.match.params.id, user.email)
         return validar.data.estaComentadoElRestaurante
     }
     async function crearComentario() {
         const result = await validation()
         if(result) {
             handleClickOpenSnakbar( TransitionDown,{ vertical: 'bottom', horizontal: 'center' });
-        }else{    
-            postComentario({
-                descripcion: nuevoComentario,
-                fechaDePublicacion: fechaDePublicacion,
-                valoracionSabor: valorS1,
-                valoracionServicio: valorS2,
-                emailUsuario: email,
-                restauranteId: props.match.params.id,
-                sesionIniciado: true
+        }else{   
+            postUsuario({
+                email: user.email,
+                nickname: user.nickname,
+                nombre: user.name,
+                contrasenia: "nohaycontrasenia",
+                contadorComentario: 0,
+                urlImagenPerfil: null,
+                esAdmin: false,
+                estaActivo: true
+            })
+                .then((x) => {
+                console.log(x)
+                return postComentario({
+                    descripcion: nuevoComentario,
+                    fechaDePublicacion: fechaDePublicacion,
+                    valoracionSabor: valorS1,
+                    valoracionServicio: valorS2,
+                    emailUsuario: user.email,
+                    restauranteId: props.match.params.id,
+                    sesionIniciado: true
+                })
             })
                 .then((x) => {
                     return x.data;
@@ -165,6 +178,8 @@ export default function SingleRestaurante(props) {
                         <FormControl className={'input'} sx={{ width: '98%'}}>
                             <InputLabel htmlFor="nuevo-comentario" style={{fontFamily:"san-serif"}}>Comentario</InputLabel>
                             <OutlinedInput
+                                multiline
+                                maxRows ={2}
                                 id="nuevo-comentario"
                                 value={nuevoComentario}
                                 onChange={handleChange('comentario')}
@@ -222,8 +237,6 @@ export default function SingleRestaurante(props) {
                         </Grid>
                     </Grid>
 
-                    
-                    
                     {!loading ? comentarios.map(comentario => (
                         <Comentario comentario={comentario}></Comentario>
                         

@@ -12,13 +12,6 @@ const LoginButton = () => {
       <LoginRoundedIcon  sx={{ marginRight: "15px" }}/>
       <ListItemText disableTypography primary={"Iniciar Sesion"} />
     </ListItem>
-
-  //   <Button sx={{ display: "flex", color: "White",variant:'outlined',padding: "0px 5px 0px 5px", 
-  //   fontFamily: 'Dongle, sans-serif', marginLeft: "15px", "&:hover": {
-  //   backgroundColor: alpha(theme.palette.common.black, 0.25)}}} onClick={() => loginWithRedirect()}>
-  //     Iniciar Sesion
-  // </Button> 
-  
   );
 };
 
