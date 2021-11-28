@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { styled } from '@mui/material/styles';
 import Card from '@mui/material/Card';
-import CardHeader from '@mui/material/CardHeader';
 import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
@@ -35,7 +34,7 @@ export default function RestaurantCard({ restaurante }) {
           image={restaurante.urlLogo? restaurante.urlLogo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSLJ7Dz7Li3ajen8vxSI96rSj61I2-_HBTYytK2e6kgwbGEEHd8ByXJUpnoqKU955Duhjk&usqp=CAU"}
           alt="Restaurante"
         />
-        <Typography sx={{paddingTop: "5px" ,fontFamily:"inherit"}} variant="h5" component="div" align= "center" noWrap="true" >
+        <Typography sx={{paddingTop: "5px" ,fontFamily:"inherit"}} variant="h5" component="div" align= "center" noWrap >
             {restaurante.nombre} </Typography>
 
         <CardContent>
@@ -80,7 +79,7 @@ export default function RestaurantCard({ restaurante }) {
               <Grid item md={6}>
                 <Typography variant="body2" gutterBottom color="#9e9e9e">
                  {restaurante.contadorDeComentarios}
-                 {restaurante.contadorDeComentarios==1? " comentario" : " comentarios"} 
+                 {restaurante.contadorDeComentarios === 1? " comentario" : " comentarios"} 
                 </Typography>
               </Grid>
             </Grid>

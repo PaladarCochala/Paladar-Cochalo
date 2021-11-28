@@ -1,4 +1,4 @@
-import React, {Fragment, useState} from 'react';
+import React, { useState } from 'react';
 import { Grid, TextField, Button, Card, CardContent, Typography, Divider } from '@material-ui/core';
 import { crearRestaurante } from '../../services/restaurante';
 import { makeStyles } from "@material-ui/styles";
@@ -86,7 +86,7 @@ export default function Formulario(){
     <Divider />
       <form>
       <Grid spacing={4} className={classes.container} container>
-        <Grid  align="center" item xs={12} sm={12} item >
+        <Grid  align="center" item xs={12} sm={12} >
           <Grid spacing={4} direction="column" className={classes.container} container>
             <Grid className={classes.item} item>
               <Card style={{ maxWidth: 500, padding: "25px 25px", margin: "0 auto", marginTop: "100px", marginRight: "50px", border:"dark" }}> 

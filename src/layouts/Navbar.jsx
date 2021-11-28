@@ -28,6 +28,7 @@ import ReportRoundedIcon from '@mui/icons-material/ReportRounded';
 import AddCircleRoundedIcon from '@mui/icons-material/AddCircleRounded';
 import EditRoundedIcon from '@mui/icons-material/EditRounded';
 import { getEtiquetas } from "../services/etiquetas";
+import { getUsuario } from "../services/usuario";
 import { useHistory } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 import Select from '@mui/material/Select';
@@ -128,7 +129,7 @@ export default function Navbar({ item }, props) {
   const history = useHistory();
   const [etiquetas, setEtiquetas] = useState([])
   const { user, isAuthenticated } = useAuth0();
-
+  const [usuarioAdmin, setUsuario] = useState(false);
   const handleChange = (event) => {
     //console.log(filtro)
     history.push({
@@ -156,6 +157,9 @@ export default function Navbar({ item }, props) {
   const [open, setOpen] = React.useState(false);
 
   const handleDrawerOpen = () => {
+    if(!usuarioAdmin) {
+      validationAdmin()
+    }
     setOpen(true);
   };
 
@@ -171,6 +175,18 @@ export default function Navbar({ item }, props) {
       .then((response) => {
         setEtiquetas(response.response);
       });
+  };
+  function validationAdmin() {
+    if(isAuthenticated) {
+      getUsuario(user.email)
+        .then((response) => {
+          return response.data;
+        })
+        .then((response) => {
+          console.log(response.response.esAdmin)
+          setUsuario(response.response.esAdmin);
+        });
+    }
   }
   return (
     <Box sx={{ display: "flex"}}>
@@ -201,7 +217,10 @@ export default function Navbar({ item }, props) {
                   }
                     return selected
                 }}
-              >
+              >          
+              <MenuItem value=''>
+                <em>Ninguno</em>
+              </MenuItem>
                 {etiquetas.map(etiqueta => (
                   <MenuItem key={etiqueta.nombreEtiqueta} value={etiqueta.nombreEtiqueta}>{etiqueta.nombreEtiqueta}</MenuItem>  
                 ))}
@@ -248,55 +267,58 @@ export default function Navbar({ item }, props) {
           </IconButton>
         </DrawerHeader>
         
-
-        <Divider sx={{ background: "white" }}/>
-        <List sx={{ color: "white" }}>
-          <ListItem className="PersonTypo" button onClick={() => history.push("/home")}>
-            <HomeRoundedIcon sx={{ marginRight: "15px" }}/>
-            <ListItemText disableTypography primary={"Home"} />
-          </ListItem>
-          <ListItem className="PersonTypo" button onClick={() => history.push({
-        pathname: "/restaurantes",
-        state: { response: "" },
-      })}>
-           <RestaurantMenuRoundedIcon sx={{ marginRight: "15px" }}/>
-            <ListItemText disableTypography primary={"Restaurantes"} />
-          </ListItem>
-          <ListItem className="PersonTypo" button onClick={() => history.push("/about-us")}>
-            <InfoRoundedIcon sx={{ marginRight: "15px" }}/>
-            <ListItemText disableTypography primary={"Acerca de Nosotros"} />
-          </ListItem>
-          <ListItem className="PersonTypo" button onClick={() => history.push("/about-us")}>
-            <MailIcon sx={{ marginRight: "15px" }}/>
-            <ListItemText disableTypography primary={"Sugerencias"} />
-          </ListItem>
-        </List>
-        <Divider sx={{ background: "white" }}/>
-        <List sx={{ color: "white" }}>
-          
-          <ListItem className="PersonTypo" button onClick={() => history.push("/panel-administrador/restaurantes")}>
-            <RestaurantRoundedIcon sx={{ marginRight: "15px" }}/>
-            <ListItemText disableTypography primary={"Restaurantes"} />
-          </ListItem>
-          <ListItem className="PersonTypo" button onClick={() => history.push("/reportes")}>
-            <ReportRoundedIcon sx={{ marginRight: "15px" }}/>
-            <ListItemText disableTypography primary={"Reportes"} />
-          </ListItem>
-          <ListItem className="PersonTypo" button onClick={() => history.push("/solicitudes-creacion")}>
-            <AddCircleRoundedIcon sx={{ marginRight: "15px" }}/>
-            <ListItemText disableTypography primary={"Solicitudes Creacion"} />
-          </ListItem>
-          <ListItem className="PersonTypo" button onClick={() => history.push("/solicitudes-edicion")}>
-            <EditRoundedIcon  sx={{ marginRight: "15px" }}/>
-            <ListItemText disableTypography primary={"Solicitudes Edicion"} />
-          </ListItem>
-        </List>
-
+        {isAuthenticated && usuarioAdmin === true?
+          <>
+          <Divider sx={{ background: "white" }}/>
+          <List sx={{ color: "white" }}>
+            <ListItem className="PersonTypo" button onClick={() => history.push("/home")}>
+              <HomeRoundedIcon sx={{ marginRight: "15px" }}/>
+              <ListItemText disableTypography primary={"Home"} />
+            </ListItem>
+            <ListItem className="PersonTypo" button onClick={() => history.push("/panel-administrador/restaurantes")}>
+              <RestaurantRoundedIcon sx={{ marginRight: "15px" }}/>
+              <ListItemText disableTypography primary={"Restaurantes"} />
+            </ListItem>
+            <ListItem className="PersonTypo" button onClick={() => history.push("/reportes")}>
+              <ReportRoundedIcon sx={{ marginRight: "15px" }}/>
+              <ListItemText disableTypography primary={"Reportes"} />
+            </ListItem>
+            <ListItem className="PersonTypo" button onClick={() => history.push("/solicitudes-creacion")}>
+              <AddCircleRoundedIcon sx={{ marginRight: "15px" }}/>
+              <ListItemText disableTypography primary={"Solicitudes Creacion"} />
+            </ListItem>
+            <ListItem className="PersonTypo" button onClick={() => history.push("/solicitudes-edicion")}>
+              <EditRoundedIcon  sx={{ marginRight: "15px" }}/>
+              <ListItemText disableTypography primary={"Solicitudes Edicion"} />
+            </ListItem>
+          </List></>:
+        <>
+          <Divider sx={{ background: "white" }}/>
+          <List sx={{ color: "white" }}>
+            <ListItem className="PersonTypo" button onClick={() => history.push("/home")}>
+              <HomeRoundedIcon sx={{ marginRight: "15px" }}/>
+              <ListItemText disableTypography primary={"Home"} />
+            </ListItem>
+            <ListItem className="PersonTypo" button onClick={() => history.push({
+              pathname: "/restaurantes",
+              state: { response: "" },
+            })}>
+            <RestaurantMenuRoundedIcon sx={{ marginRight: "15px" }}/>
+              <ListItemText disableTypography primary={"Restaurantes"} />
+            </ListItem>
+            <ListItem className="PersonTypo" button onClick={() => history.push("/about-us")}>
+              <InfoRoundedIcon sx={{ marginRight: "15px" }}/>
+              <ListItemText disableTypography primary={"Acerca de Nosotros"} />
+            </ListItem>
+            <ListItem className="PersonTypo" button onClick={() => history.push("/about-us")}>
+              <MailIcon sx={{ marginRight: "15px" }}/>
+              <ListItemText disableTypography primary={"Sugerencias"} />
+            </ListItem>
+          </List></>}
         <Divider sx={{ background: "white" }}/>
             <List sx={{ color: "white" }}>
             {isAuthenticated? <LogoutButton/>:  <LoginButton/> }
             </List>
-
       </Drawer>
       <Main open={open}>
         <DrawerHeader />
