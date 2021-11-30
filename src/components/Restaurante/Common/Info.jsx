@@ -133,111 +133,85 @@ export default function Informacion({ restaurante }) {
         <Grid item xs={12} sm={5}>
           <Item3>
             <Card sx={{ display: "flex" }}>
-              <Box sx={{ flexGrow: 1 }}>
-                <Grid container spacing={2}>
-                  <Grid item xs={6} md={8}>
-                    <Typography
-                      type="body2"
-                      style={{ color: "#212121", fontSize: 20 }}
-                    >
-                      DIRECCIÓN:
-                    </Typography>
-                  </Grid>
-                  <Grid item xs={6} md={4}>
-                    <Typography
-                      type="body2"
-                      style={{ color: "#212121", fontSize: 15 }}
-                    >
-                      {restaurante.ubicacion}
-                    </Typography>
-                  </Grid>
-
-                  <Grid item xs={6} md={8}>
-                    {/* <Item> */}
-                    <Typography
-                      type="body2"
-                      style={{ color: "#212121", fontSize: 20 }}
-                    >
-                      RANGO DE PRECIOS:
-                    </Typography>
-                    {/* </Item> */}
-                  </Grid>
-                  <Grid item xs={6} md={4}>
-                    {restaurante.rangoDePrecios}
-                  </Grid>
-
-                  <Grid item xs={6} md={8}>
-                    {/* <Item> */}
-                    <Typography
-                      type="body2"
-                      style={{ color: "#212121", fontSize: 20 }}
-                    >
-                      ETIQUETAS:
-                    </Typography>
-                    {/* </Item> */}
-                  </Grid>
-                  <Grid item xs={6} md={4}>
-                    {restaurante.Etiquetas.map((etiqueta) => {
-                      return (
-                        <Typography
-                          key={etiqueta.nombreEtiqueta}
-                          /* value={etiqueta.nombreEtiqueta} */
-                          type="body2"
-                          style={{
-                            color: "#212121",
-                            fontSize: 15,
-                            marginTop: "5px",
-                          }}
-                        >
-                          {etiqueta.nombreEtiqueta}
+              <Box sx={{ my: 3, mx: 2 }}>
+                <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
+                  <ListItem>
+                    <ListItemText 
+                      primary={                    
+                        <Typography type="body2" style={{ color: "#212121", fontSize: 25 }}>
+                          DIRECCIÓN:
                         </Typography>
-                      );
-                    })}
-                  </Grid>
+                      } 
+                      secondary={                    
+                        <Typography style={{ fontSize: 17 }}  >
+                          {restaurante.ubicacion}
+                        </Typography>
+                      } 
+                    />
+                  </ListItem>
+                  <ListItem>
+                    <ListItemText 
+                      primary={                    
+                        <Typography type="body2" style={{ color: "#212121", fontSize: 25 }}>
+                          RANGO DE PRECIOS:
+                        </Typography>} 
+                      secondary={
+                        <Typography style={{ fontSize: 17 }}  >
+                          {restaurante.rangoDePrecios}
+                        </Typography>
+                        } 
+                    />
+                  </ListItem>
+                  <ListItem>
+                    <ListItemText
+                      primary={                    
+                        <Typography type="body2" style={{ color: "#212121", fontSize: 25 }}>
+                          ETIQUETAS:
+                        </Typography>} 
+                          secondary={restaurante.Etiquetas.map((etiqueta) => {
+                            return (
+                              <Typography
+                                key={etiqueta.nombreEtiqueta}
+                                style={{ color: "#212121", fontSize: 17 }}
+                                /* value={etiqueta.nombreEtiqueta} */
+                              >
+                                {etiqueta.nombreEtiqueta}
+                              </Typography>
+                            );
+                          })}
+                    />
+                  </ListItem>
+                  <ListItem>
+                    <ListItemText 
+                      primary={                    
+                        <Typography type="body2" style={{ color: "#212121", fontSize: 25 }}>
+                          CONTACTOS:
+                        </Typography>} 
+                      secondary={
+                        <Typography style={{ fontSize: 17 }}  >
+                          {restaurante.contacto}
+                        </Typography>
+                        }
+                    />
+                  </ListItem>
 
-                  <Grid item xs={6} md={8}>
-                    <Typography
-                      type="body2"
-                      style={{ color: "#212121", fontSize: 20 }}
-                    >
-                      CONTACTOS:
-                    </Typography>
-                  </Grid>
-                  <Grid item xs={6} md={4}>
-                    {restaurante.contacto}
-                  </Grid>
-
-                  <Grid item xs={12} md={12}>
-                   
-                    <CardActions disableSpacing>
-                      <ButtonGroup
-                        variant="outlined"
-                        aria-label="outlined button group"
-                      >
-                        <Button
-                          component={Link}
-                          variant="text"
-                          target="_blank"
-                          id="FacebookButton"
-                          href={restaurante.urlFacebook}
-                        >
-                          <Facebook />
-                        </Button>
-                        <Button
-                          component={Link}
-                          variant="text"
-                          target="_blank"
-                          id="InstagramButton"
-                          href={restaurante.urlInstagram}
-                          color="secondary"
-                        >
-                          <Instagram />
-                        </Button>
-                      </ButtonGroup>
-                    </CardActions>
-                  </Grid>
-                </Grid>
-              </Box>
+                  <ListItem>
+                    <ListItemText 
+                      primary={                    
+                        <Typography type="body2" style={{ color: "#212121", fontSize: 25 }}>
+                          DESCRIPCIÓN:
+                        </Typography>} 
+                      secondary={
+                        <Typography
+                        align="justify"
+                        style={{ fontSize: 16 }} >
+                          {restaurante.descripcion}
+                        </Typography>
+                        }
+                    />
+                  </ListItem>
+                </List>
+              </Box>  
             </Card>
           </Item3>
         </Grid>
