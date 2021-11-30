@@ -37,6 +37,9 @@ export default function ModalCrear({ update }) {
   const [promedioSabor, setPromedioSabor] = React.useState(0.0);
   const [promedioServicio, setPromedioServicio] = React.useState(0.0);
   const [urlLogo, setUrlLogo] = React.useState("");
+  const [rangoDePrecios, setRango] = React.useState("");
+  const [descripcion, setDescripcion] = React.useState("");
+
 
   const [validacionNombre, setValidacionNombre] = React.useState(false);
   const [validacionUbicacion, setValidacionUbicacion] = React.useState(false);
@@ -59,6 +62,9 @@ export default function ModalCrear({ update }) {
           break;
       case "urlInstagram":
         setInstagram(e.target.value);
+        break;
+      case "descripcion":
+        setDescripcion(e.target.value);
         break;
     }
     if (validacionNombre && validacionUbicacion) {
@@ -97,7 +103,10 @@ export default function ModalCrear({ update }) {
       promedioSabor: promedioSabor,
       promedioServicio: promedioServicio,
       urlLogo: urlLogo,
+      rangoDePrecios: rangoDePrecios,
+      descripcion: descripcion,
       estaActivo: estaActivo,
+
     })
       .then((x) => {
         return x.data;
@@ -171,7 +180,7 @@ export default function ModalCrear({ update }) {
   }
   const minDistance = 5;
   const [value1, setValue1] = React.useState([25, 50]);
-
+  
   const handleChange1 = (event, newValue, activeThumb) => {
     if (!Array.isArray(newValue)) {
       return;
@@ -179,8 +188,13 @@ export default function ModalCrear({ update }) {
 
     if (activeThumb === 0) {
       setValue1([Math.min(newValue[0], value1[1] - minDistance), value1[1]]);
+      setRango(String(value1[0])+"bs. - "+String(value1[1])+"bs.");
+
+      
     } else {
       setValue1([value1[0], Math.max(newValue[1], value1[0] + minDistance)]);
+      setRango(String(value1[0])+"bs. - "+String(value1[1])+"bs.");
+
     }
   };
 
@@ -375,7 +389,7 @@ export default function ModalCrear({ update }) {
                             </Grid>
 
 
-                            {/* <Grid
+                            <Grid
                               container
                               justifyContent="center"
                               alignItems="center"
@@ -384,6 +398,7 @@ export default function ModalCrear({ update }) {
                               <Typography id="input-slider" gutterBottom style={{fontFamily: "Arial",color: "black"}}>
                               Rango de precios (Bs.)
                               </Typography>
+
                               <Slider
                                 getAriaLabel={() => 'Rango de Precios'}
                                 value={value1}
@@ -407,8 +422,12 @@ export default function ModalCrear({ update }) {
                                 label="Descripción"
                                 multiline
                                 rows={10}
+                                value={descripcion}
+                                onChange={(e) => {
+                                  handleInputChange(e, "descripcion");
+                                }}
                               />     
-                            </Grid> */}
+                            </Grid>
 
                             
 
