@@ -22,6 +22,9 @@ function deleteRestauranteById(id) {
 function crearRestaurante(body){
     return axios.post(`${BASE_ROUTE}/restaurantes`, body);
 }
+function crearRelacionRestauranteEtiquetas(body){
+    return axios.post(`${BASE_ROUTE}/restaurantes/crearEtiquetas`, body);
+}
 
 function putRestauranteById(id, body) {
     return axios.put(`${BASE_ROUTE}/restaurantes/${id}`,body);
