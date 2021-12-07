@@ -17,11 +17,16 @@ import {
   Slider,
 } from "@mui/material";
 import { makeStyles } from "@mui/styles";
-import { crearRestaurante } from "../../../services/restaurante";
+import { crearRestaurante, crearRelacionRestauranteEtiquetas } from "../../../services/restaurante";
+import { getEtiquetas } from "../../../services/etiquetas";
 import { styled } from "@mui/material/styles";
 import PhotoCamera from "@mui/icons-material/PhotoCamera";
 
-const myStyle = {
+import InputLabel from "@mui/material/InputLabel";
+import FormControl from "@mui/material/FormControl";
+import Select from '@mui/material/Select';
+
+const myStyle= {
   color: "#212121",
   backgroundColor: "white",
   padding: "5px",
@@ -126,6 +131,19 @@ export default function ModalCrear({ update }) {
       ubicacionMaps: ubicacionMaps,
       
     })
+      .then(() => { 
+
+        for (var i = 0; i < Name.length; i++) {
+          
+          const Name2 = String(Name[i])
+          crearRelacionRestauranteEtiquetas({
+            nombre: nombre,
+            etiquetas: [ { nombreEtiqueta: Name2 } ]
+  
+          });
+       } 
+           
+      })
       .then((x) => {
         return x.data;
       })
@@ -211,13 +229,33 @@ export default function ModalCrear({ update }) {
     }
   };
 
+  //Seccion ETIQUETAS
+  const names = [
+    'Pizza',
+    'Pollo',
+    'Comida Rapida',
+    'Comida Vegetariana',
+    'Helados',
+    'Comida China',
+    'Hamburguesas',
+  ];
+  const [Name, setName] = React.useState([]);
+  const handleChangeMultiple = (event) => {
+    const { options } = event.target;
+    const value = [];
+    for (let i = 0, l = options.length; i < l; i += 1) {
+      if (options[i].selected) {
+        value.push(options[i].value);
+      }
+    }
+    setName(value);
+    console.log(value);
+  };
+
   return (
     <div>
-      <Grid align="right" style={{ marginLeft: 75 }}>
-        <Button
-          variant="contained"
-          color="primary"
-          size="small"
+      <Grid align="right"  style={{ marginLeft: 75 }}>
+        <Button variant="contained" color="primary" size="small"
           onClick={() => {
             handleClickOpen();
           }}
@@ -246,40 +284,20 @@ export default function ModalCrear({ update }) {
             <form>
               <Grid className={classes.container} container>
                 <Grid align="center" item xs={12} sm={12} item>
-                  <Grid
-                    direction="column"
-                    className={classes.container}
-                    container
-                  >
-                    <Grid item xs={12} sm={6}>
-                      <Card
-                        style={{
-                          maxWidth: 500,
-                          padding: "25px 25px",
-                          margin: "0 auto",
-                          marginTop: "50px",
-                          marginLeft: "50px",
-                          marginRight: "25px",
-                          border: "dark",
-                        }}
-                      >
-                        <CardContent>
-                          {/*NO QUITAR EL LABEL, SIN EL, NO RECIBIRA NINGUNA IMAGEN */}
-                          <label htmlFor="icon-button-file">
-                            <Input
-                              accept="image/*"
-                              id="icon-button-file"
-                              type="file"
-                              onChange={imageChange}
-                            />
-                            <IconButton
-                              color="primary"
-                              aria-label="upload picture"
-                              component="span"
-                            >
-                              <PhotoCamera />
-                            </IconButton>
-                            <CardMedia>
+                  <Grid direction="column" className={classes.container} container >
+                    <Grid item xs={12} sm={6} >
+                        <Card
+                            style={{maxWidth: 500, padding: "25px 25px", margin: "0 auto", marginTop: "50px", marginLeft: "50px", marginRight: "25px", border: "dark",
+                            }}
+                          >
+                            <CardContent>
+                            {/*NO QUITAR EL LABEL, SIN EL, NO RECIBIRA NINGUNA IMAGEN */}
+                            <label htmlFor="icon-button-file">
+                              <Input accept="image/*" id="icon-button-file" type="file" onChange={imageChange}/>
+                              <IconButton color="primary" aria-label="upload picture" component="span">
+                                <PhotoCamera />
+                              </IconButton>
+                              <CardMedia>
                               {selectedImage && (
                                 <div>
                                   <img
@@ -302,23 +320,15 @@ export default function ModalCrear({ update }) {
 
                     <Grid item xs={12} sm={6}>
                       <Card
-                        style={{
-                          maxWidth: 700,
-                          padding: "54px 5px",
-                          marginTop: "15px",
-                          marginLeft: "50px",
-                          marginRight: "25px",
-                          border: "dark",
+                        style={{ maxWidth: 700, padding: "54px 5px", marginTop: "15px", marginLeft: "50px", marginRight: "25px",  border: "dark",
                         }}
                       >
                         <CardContent>
                           <Grid container spacing={1}>
-                            <Grid
-                              container
-                              justifyContent="center"
-                              alignItems="center"
-                              sx={{ p: 1, m: 1 }}
-                            >
+
+
+                          <Grid container justifyContent="center" alignItems="center" sx={{p: 1,m: 1,}}>     
+
                               <TextField
                                 label="Nombre"
                                 placeholder="Ingrese el nombre del restaurante"
@@ -344,12 +354,9 @@ export default function ModalCrear({ update }) {
                               />
                             </Grid>
 
-                            <Grid
-                              container
-                              justifyContent="center"
-                              alignItems="center"
-                              sx={{ p: 1, m: 1 }}
-                            >
+
+                            <Grid container justifyContent="center" alignItems="center" sx={{p: 1,m: 1,}}>     
+
                               <TextField
                                 label="Dirección"
                                 placeholder="Ingrese la dirección"
@@ -405,12 +412,8 @@ export default function ModalCrear({ update }) {
                               />
                             </Grid>
 
-                            <Grid
-                              container
-                              justifyContent="center"
-                              alignItems="center"
-                              sx={{ p: 1, m: 1 }}
-                            >
+                            <Grid container justifyContent="center" alignItems="center" sx={{p: 1,m: 1,}}>     
+
                               <TextField
                                 label="Contacto"
                                 placeholder="Ingrese el contacto telefónico"
@@ -436,18 +439,11 @@ export default function ModalCrear({ update }) {
                               />
                             </Grid>
 
-                            <Grid
-                              container
-                              justifyContent="center"
-                              alignItems="center"
-                              sx={{ p: 1, m: 1 }}
-                            >
-                              <Typography
-                                id="input-slider"
-                                gutterBottom
-                                style={{ fontFamily: "Arial", color: "black" }}
-                              >
-                                Rango de precios (Bs.)
+
+                            <Grid container justifyContent="center" alignItems="center" sx={{p: 1,m: 1,}}>     
+
+                              <Typography id="input-slider" gutterBottom style={{fontFamily: "Arial",color: "black"}}>
+                              Rango de precios (Bs.)
                               </Typography>
 
                               <Slider
@@ -460,12 +456,8 @@ export default function ModalCrear({ update }) {
                               />
                             </Grid>
 
-                            <Grid
-                              container
-                              justifyContent="center"
-                              alignItems="center"
-                              sx={{ p: 1, m: 1 }}
-                            >
+                            <Grid container justifyContent="center" alignItems="center" sx={{p: 1,m: 1,}}>     
+
                               <TextField
                                 id="outlined-multiline-static"
                                 fullWidth
@@ -479,12 +471,32 @@ export default function ModalCrear({ update }) {
                               />
                             </Grid>
 
-                            <Grid
-                              container
-                              justifyContent="center"
-                              alignItems="center"
-                              sx={{ p: 1, m: 1 }}
-                            >
+                            <Grid container justifyContent="center" alignItems="center" sx={{p: 1,m: 1,}}>     
+                              
+                            <FormControl sx={{ m: 1, width: 300 }}>
+                            <InputLabel shrink htmlFor="select-multiple-native">
+                              Etiquetas
+                            </InputLabel>
+                              <Select
+                                multiple
+                                native
+                                value={Name}
+                                onChange={handleChangeMultiple}
+                                label="Etiquetas"
+                                inputProps={{
+                                  id: 'select-multiple-native',
+                                }}
+                              >
+                                {names.map((name) => (
+                                  <option key={name} value={name}>
+                                    {name}
+                                  </option>
+                                ))}
+                              </Select>
+                            </FormControl> 
+                            </Grid>
+
+                            <Grid container justifyContent="center" alignItems="center" sx={{p: 1,m: 1,}}>    
                               <Grid>
                                 <TextField
                                   label="Facebook"
@@ -533,12 +545,8 @@ export default function ModalCrear({ update }) {
                               </Grid>
                             </Grid>
 
-                            <Grid
-                              container
-                              justifyContent="center"
-                              alignItems="center"
-                              sx={{ p: 1, m: 1 }}
-                            >
+
+                            <Grid container justifyContent="center" alignItems="center" sx={{p: 1,m: 1,}}>    
                               <Button
                                 type="submit"
                                 variant="contained"

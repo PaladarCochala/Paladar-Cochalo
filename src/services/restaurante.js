@@ -51,4 +51,5 @@ export {
     obtenerRestaurantesMasValoradosPorSabor,
     obtenerRestaurantesMasValoradosPorServicio,
     getComentariosByRestaurantId,
+    crearRelacionRestauranteEtiquetas,
 };
