@@ -131,7 +131,6 @@ export default function Navbar({ item }, props) {
   const { user, isAuthenticated } = useAuth0();
   const [usuarioAdmin, setUsuario] = useState(false);
   const handleChange = (event) => {
-    //console.log(filtro)
     history.push({
       pathname: "/restaurantes", 
       state:{ filter: event.target.value}
@@ -183,7 +182,6 @@ export default function Navbar({ item }, props) {
           return response.data;
         })
         .then((response) => {
-          console.log(response.response.esAdmin)
           setUsuario(response.response.esAdmin);
         });
     }
@@ -306,14 +304,14 @@ export default function Navbar({ item }, props) {
             <RestaurantMenuRoundedIcon sx={{ marginRight: "15px" }}/>
               <ListItemText disableTypography primary={"Restaurantes"} />
             </ListItem>
-            <ListItem className="PersonTypo" button onClick={() => history.push("/about-us")}>
+            {/* <ListItem className="PersonTypo" button onClick={() => history.push("/about-us")}>
               <InfoRoundedIcon sx={{ marginRight: "15px" }}/>
               <ListItemText disableTypography primary={"Acerca de Nosotros"} />
             </ListItem>
             <ListItem className="PersonTypo" button onClick={() => history.push("/about-us")}>
               <MailIcon sx={{ marginRight: "15px" }}/>
               <ListItemText disableTypography primary={"Sugerencias"} />
-            </ListItem>
+            </ListItem> */}
           </List></>}
         <Divider sx={{ background: "white" }}/>
             <List sx={{ color: "white" }}>

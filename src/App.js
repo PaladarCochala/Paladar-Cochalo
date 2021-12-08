@@ -9,6 +9,7 @@ import Header from './layouts/Header';
 
 import Home from './components/Home/Home';
 
+import ListaUsuarios from './components/Admin/ListaUsuarios';
 const theme = createTheme({
   palette: {
     type: 'dark',
@@ -85,6 +86,11 @@ function App() {
             exact
             path="/panel-administrador/crear-restaurante"
             component={NuevoRestaurante}
+          />
+           <Route
+            exact
+            path="/panel-administrador/usuarios"
+            component={ListaUsuarios}
           />
         </Switch>
         <Footer />
