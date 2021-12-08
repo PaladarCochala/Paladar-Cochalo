@@ -24,7 +24,6 @@ import LastPageIcon from "@mui/icons-material/LastPage";
 
 import { getUsuarios } from "../../services/usuario";
 
-import ModalCrearUsuario from "./usuarioModals/ModalCrearUsuario";
 import ModalVerUsuario from "./usuarioModals/ModalVerUsuario";
 import ModalEditarUsuario from "./usuarioModals/ModalEditarUsuario";
 import ModalEliminarUsuario from "./usuarioModals/ModalEliminarUsuario";
@@ -170,9 +169,7 @@ export default function ListaUsuarios() {
       </Typography>
       <br />
       <TableContainer component={Paper}>
-        <TableCell style={{ width: "15%" }} align="right">
-           <ModalCrearUsuario update={getDataUsuarios} />
-        </TableCell>
+        
         <Table sx={{ minWidth: 500 }} aria-label="custom pagination table">
           <TableHead>
             <TableRow>

@@ -147,7 +147,7 @@ export default function ModalCrearUsuario({ update }) {
             handleClickOpen();
           }}
         >
-          Crear Restaurante
+          Crear Usuario
         </Button>
       </Grid>
       <Dialog

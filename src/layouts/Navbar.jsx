@@ -20,6 +20,7 @@ import ListItemText from "@mui/material/ListItemText";
 
 import MailIcon from "@mui/icons-material/Mail";
 import SearchIcon from "@mui/icons-material/Search";
+import PersonIcon from '@mui/icons-material/Person';
 import HomeRoundedIcon from '@mui/icons-material/HomeRounded';
 import RestaurantMenuRoundedIcon from '@mui/icons-material/RestaurantMenuRounded';
 import InfoRoundedIcon from '@mui/icons-material/InfoRounded';
@@ -276,6 +277,10 @@ export default function Navbar({ item }, props) {
             <ListItem className="PersonTypo" button onClick={() => history.push("/panel-administrador/restaurantes")}>
               <RestaurantRoundedIcon sx={{ marginRight: "15px" }}/>
               <ListItemText disableTypography primary={"Restaurantes"} />
+            </ListItem>
+            <ListItem className="PersonTypo" button onClick={() => history.push("/panel-administrador/usuarios")}>
+              <PersonIcon sx={{ marginRight: "15px" }}/>
+              <ListItemText disableTypography primary={"Usuarios"} />
             </ListItem>
             <ListItem className="PersonTypo" button onClick={() => history.push("/reportes")}>
               <ReportRoundedIcon sx={{ marginRight: "15px" }}/>
