@@ -26,6 +26,7 @@ export default function SingleRestaurante(props) {
     const [comentarios, setComentarios] = useState([]);
     const [loading, setLoading] = useState(true);
     const { user, isAuthenticated } = useAuth0();
+    let fecha = new Date()
     // Vars Comments
     const [nuevoComentario, setNuevoComentario] = useState("");
     const [email, setEmail] = useState("");
@@ -135,7 +136,7 @@ export default function SingleRestaurante(props) {
                 console.log(x)
                 return postComentario({
                     descripcion: nuevoComentario,
-                    fechaDePublicacion: fechaDePublicacion,
+                    fechaDePublicacion: fecha,
                     valoracionSabor: valorS1,
                     valoracionServicio: valorS2,
                     emailUsuario: user.email,
