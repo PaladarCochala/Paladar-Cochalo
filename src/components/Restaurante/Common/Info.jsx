@@ -116,8 +116,6 @@ export default function Informacion({ restaurante }) {
               <CardMedia
                 component="img"
                 image={restaurante.urlLogo? restaurante.urlLogo: "https://www.enter.co/wp-content/uploads/2017/02/menu-restaurant-vintage-tableFINAL-768x432.jpg"}
-
-               // image="https://www.enter.co/wp-content/uploads/2017/02/menu-restaurant-vintage-tableFINAL-768x432.jpg"
               />
             </Card>
           </Item2>
