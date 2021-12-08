@@ -11,7 +11,6 @@ import { useHistory } from "react-router-dom";
 export default function Comentario(props) {
   const { user, isAuthenticated } = useAuth0();
   const history = useHistory(); 
-  console.log(props.comentario.usuario)
   
   function deleteComentarioById(id) {
       deleteComentario(id)
