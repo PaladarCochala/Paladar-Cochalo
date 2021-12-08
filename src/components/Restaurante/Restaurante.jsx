@@ -114,46 +114,50 @@ export default function SingleRestaurante(props) {
         prop === 'email' ? setEmail(event.target.value) : setNuevoComentario(event.target.value);
     };
     async function  validation() {
+
         var validar = await getComentarioDeUsuario(props.match.params.id, user.email)
         return validar.data.estaComentadoElRestaurante
     }
     async function crearComentario() {
-        const result = await validation()
-        if(result) {
+        if(isAuthenticated) {
+            const result = await validation()
+            if(result) {
+                handleClickOpenSnakbar( TransitionDown,{ vertical: 'bottom', horizontal: 'center' });
+            }else{   
+                postUsuario({
+                    email: user.email,
+                    nickname: user.nickname,
+                    nombre: user.name,
+                    contrasenia: "nohaycontrasenia",
+                    contadorComentario: 0,
+                    urlImagenPerfil: null,
+                    esAdmin: false,
+                    estaActivo: true
+                })
+                    .then((x) => {
+                    return postComentario({
+                        descripcion: nuevoComentario,
+                        fechaDePublicacion: fecha,
+                        valoracionSabor: valorS1,
+                        valoracionServicio: valorS2,
+                        emailUsuario: user.email,
+                        restauranteId: props.match.params.id,
+                        sesionIniciado: true
+                    })
+                })
+                    .then((x) => {
+                        return x.data;
+                    })
+                    .then((x) => {
+                        return x.result;
+                    })
+                    .then((x) => {
+                        history.go(0);
+                        return getDataRestaurante(props.match.params.id);
+                    });
+            }
+        } else {
             handleClickOpenSnakbar( TransitionDown,{ vertical: 'bottom', horizontal: 'center' });
-        }else{   
-            postUsuario({
-                email: user.email,
-                nickname: user.nickname,
-                nombre: user.name,
-                contrasenia: "nohaycontrasenia",
-                contadorComentario: 0,
-                urlImagenPerfil: null,
-                esAdmin: false,
-                estaActivo: true
-            })
-                .then((x) => {
-                console.log(x)
-                return postComentario({
-                    descripcion: nuevoComentario,
-                    fechaDePublicacion: fecha,
-                    valoracionSabor: valorS1,
-                    valoracionServicio: valorS2,
-                    emailUsuario: user.email,
-                    restauranteId: props.match.params.id,
-                    sesionIniciado: true
-                })
-            })
-                .then((x) => {
-                    return x.data;
-                })
-                .then((x) => {
-                    return x.result;
-                })
-                .then((x) => {
-                    history.go(0);
-                    return getDataRestaurante(props.match.params.id);
-                });
         }
     }
 
@@ -202,9 +206,12 @@ export default function SingleRestaurante(props) {
                             TransitionComponent={transition}
                             key={transition ? transition.name : ''}
                         >
-                            <Alert onClose={handleCloseSnakbar} severity="error" variant="filled">
+                            {isAuthenticated? <Alert onClose={handleCloseSnakbar} severity="error" variant="filled">
                                 Usted ya tiene un comentario en este restaurante
-                            </Alert>
+                            </Alert>:
+                            <Alert onClose={handleCloseSnakbar} severity="warning" variant="filled">
+                                Necesita ingresar una cuenta para crear un comentario
+                            </Alert>}
                         </Snackbar>
                         <Grid sx={{fontFamily:"sans-serif"}}>
                             <Rating 
