@@ -135,7 +135,6 @@ export default function SingleRestaurante(props) {
                     estaActivo: true
                 })
                     .then((x) => {
-                    console.log(x)
                     return postComentario({
                         descripcion: nuevoComentario,
                         fechaDePublicacion: fecha,
@@ -211,7 +210,7 @@ export default function SingleRestaurante(props) {
                                 Usted ya tiene un comentario en este restaurante
                             </Alert>:
                             <Alert onClose={handleCloseSnakbar} severity="warning" variant="filled">
-                                necesita ingresar una cuenta para crear un comentario
+                                Necesita ingresar una cuenta para crear un comentario
                             </Alert>}
                         </Snackbar>
                         <Grid sx={{fontFamily:"sans-serif"}}>
