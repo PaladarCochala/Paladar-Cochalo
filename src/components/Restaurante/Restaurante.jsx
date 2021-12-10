@@ -216,7 +216,6 @@ export default function SingleRestaurante(props) {
                         <Grid sx={{fontFamily:"sans-serif"}}>
                             <Rating 
                                 name="rating-servicio" value={valorS1} precision={0.5} onChange={(event, newValue) => {
-                                    console.log("Servicio " + newValue);
                                     setValor1(newValue);
                                 }} onChangeActive={(event, newHover) => {
                                     setHover1(newHover);
