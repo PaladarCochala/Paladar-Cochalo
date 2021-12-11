@@ -14,6 +14,7 @@ import ModalVer from "./modals/ModalVer";
 import ModalEditar from "./modals/ModalEditar";
 
 import ModalCrear from "./modals/ModalCrear";
+import ModalCrearEtiqueta from "./modals/ModalCrearEtiqueta";
 
 import PropTypes from "prop-types";
 import { useTheme } from "@mui/material/styles";
@@ -185,8 +186,16 @@ export default function ListaRestaurantes() {
             {" "}
             Crear nuevo restaurante{" "}
           </Button> */}
+          
+          {/*<ModalCrearEtiqueta/>*/}
+         <Button>
           <ModalCrear update={getDataRestaurantes}/>
+         </Button>
+         <Button>
+          <ModalCrearEtiqueta/>
+         </Button>
         </TableCell>
+
         <Table sx={{ minWidth: 500 }} aria-label="custom pagination table">
           <TableHead>
             <TableRow>
