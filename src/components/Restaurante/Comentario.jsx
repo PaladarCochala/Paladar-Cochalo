@@ -26,11 +26,7 @@ export default function Comentario(props) {
       className="image" src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"></img>
       <Box sx={{ display: "block" }}>
         <Box sx={{ marginTop: "10px" }}>
-          <Rating style={{ fontSize: 20, paddingLeft:"16px" }}
-            name="customized-5"
-            defaultValue={props.comentario.valoracionServicio}
-            readOnly />
-          <Rating style={{ color: '#ff6d75', fontSize: 20 ,paddingLeft:"16px"}}
+        <Rating style={{ color: '#ff6d75', fontSize: 20 ,paddingLeft:"16px"}}
             name="customized-restaurant"
             readOnly
             defaultValue={props.comentario.valoracionSabor}
@@ -38,6 +34,11 @@ export default function Comentario(props) {
             icon={<Dining fontSize="inherit" />}
             emptyIcon={<DiningOutlined fontSize="inherit" />}
           />
+          <Rating style={{ fontSize: 20, paddingLeft:"16px" }}
+            name="customized-5"
+            precision={0.5}
+            defaultValue={props.comentario.valoracionServicio}
+            readOnly />
         </Box>
         <Box sx={{ display: "block" }}>
           <Box sx={{ m: 1, p: 2, borderRadius: "20px", textAlign: "left", background: "rgb(192, 50,40,0.1)" }}>
