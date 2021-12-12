@@ -5,25 +5,26 @@ import { Box, Rating } from '@mui/material';
 import { useAuth0 } from "@auth0/auth0-react";
 import DeleteIcon from '@mui/icons-material/Delete';
 import IconButton from '@mui/material/IconButton';
+import {Image} from "semantic-ui-react";
 import { deleteComentario } from '../../services/comentario';
 import { useHistory } from "react-router-dom";
 
 export default function Comentario(props) {
   const { user, isAuthenticated } = useAuth0();
   const history = useHistory(); 
+  var urlDefaultProfileImage="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg";
   
   function deleteComentarioById(id) {
       deleteComentario(id)
       .then((response) => {
         history.go(0)
         return response.data;
-      })
-
-}
+      })}
   return (
     <Box sx={{ display: "flex", margin: "15px", borderTop: "1px solid #ebe8e8", font:"Helvetica" }}>
-      <img styles={{padding: "5px"}}
-      className="image" src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"></img>
+       {props.comentario.usuario.urlImagenPerfil ?
+       <Image styles={{padding: "5px"}} alt="image" src={props.comentario.usuario.urlImagenPerfil} avatar></Image>
+      :<Image styles={{padding: "5px"}} alt="image" src={urlDefaultProfileImage}  avatar></Image>}
       <Box sx={{ display: "block" }}>
         <Box sx={{ marginTop: "10px" }}>
         <Rating style={{ color: '#ff6d75', fontSize: 20 ,paddingLeft:"16px"}}
