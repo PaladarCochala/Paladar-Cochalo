@@ -138,8 +138,8 @@ export default function SingleRestaurante(props) {
                     return postComentario({
                         descripcion: nuevoComentario,
                         fechaDePublicacion: fecha,
-                        valoracionSabor: valorS1,
-                        valoracionServicio: valorS2,
+                        valoracionSabor: valorS2,
+                        valoracionServicio: valorS1,
                         emailUsuario: user.email,
                         restauranteId: props.match.params.id,
                         sesionIniciado: true
@@ -214,19 +214,6 @@ export default function SingleRestaurante(props) {
                             </Alert>}
                         </Snackbar>
                         <Grid sx={{fontFamily:"sans-serif"}}>
-                            <Rating 
-                                name="rating-servicio" value={valorS1} precision={0.5} onChange={(event, newValue) => {
-                                    setValor1(newValue);
-                                }} onChangeActive={(event, newHover) => {
-                                    setHover1(newHover);
-                                }}
-                                emptyIcon={<StarIcon style={{ opacity: 0.55 }} fontSize="inherit" />}
-
-                            />
-                            {valorS1 !== null && (<Box sx={{ ml: 2 }}>{labels[hoverS1 !== -1 ? hoverS1 : valorS1]}</Box>)}
-                        </Grid>
-
-                        <Grid sx={{fontFamily:"sans-serif"}}>
                             <StyledRating
                                 name="rating sabor"
                                 defaultValue={3}
@@ -242,6 +229,20 @@ export default function SingleRestaurante(props) {
                             />
                             {valorS2 !== null && (<Box sx={{ ml: 2 }} >{labels2[hoverS2 !== -1 ? hoverS2 : valorS2]}</Box>)}
                         </Grid>
+                        <Grid sx={{fontFamily:"sans-serif"}}>
+                            <Rating 
+                                name="rating-servicio" value={valorS1} precision={0.5} onChange={(event, newValue) => {
+                                    setValor1(newValue);
+                                }} onChangeActive={(event, newHover) => {
+                                    setHover1(newHover);
+                                }}
+                                emptyIcon={<StarIcon style={{ opacity: 0.55 }} fontSize="inherit" />}
+
+                            />
+                            {valorS1 !== null && (<Box sx={{ ml: 2 }}>{labels[hoverS1 !== -1 ? hoverS1 : valorS1]}</Box>)}
+                        </Grid>
+
+                        
                     </Grid>
 
                     {!loading ? comentarios.map(comentario => (

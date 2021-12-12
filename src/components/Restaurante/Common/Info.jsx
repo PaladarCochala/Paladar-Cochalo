@@ -101,6 +101,7 @@ export default function Informacion({ restaurante }) {
               name="customized-5"
               style={{ fontSize: 50 }}
               defaultValue={restaurante.promedioServicio}
+              precision={0.5}
               readOnly
             />
           </Item>
