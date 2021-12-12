@@ -15,7 +15,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 // Services
 import { getRestaurantesById, getComentariosByRestaurantId } from '../../services/restaurante';
 import { postComentario, getComentarioDeUsuario } from '../../services/comentario';
-import { postUsuario } from '../../services/usuario';
+import { postUsuarioUpdate } from '../../services/usuario';
 // Styles
 import '../../Styles/Comentarios.css'
 
@@ -124,13 +124,13 @@ export default function SingleRestaurante(props) {
             if(result) {
                 handleClickOpenSnakbar( TransitionDown,{ vertical: 'bottom', horizontal: 'center' });
             }else{   
-                postUsuario({
+                postUsuarioUpdate({
                     email: user.email,
                     nickname: user.nickname,
                     nombre: user.name,
                     contrasenia: "nohaycontrasenia",
                     contadorComentario: 0,
-                    urlImagenPerfil: null,
+                    urlImagenPerfil: user.picture,
                     esAdmin: false,
                     estaActivo: true
                 })

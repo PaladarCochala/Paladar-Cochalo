@@ -5,6 +5,10 @@ function postUsuario(body){
     return axios.post(`${BASE_ROUTE}/usuarios`, body);
 }
 
+function postUsuarioUpdate(body){
+    return axios.post(`${BASE_ROUTE}/usuarios/crearOactualizarUsuario`, body);
+}
+
 function getUsuario(emailUsuario){
     return axios.get(`${BASE_ROUTE}/usuarios/${emailUsuario}`);
 }
@@ -27,4 +31,5 @@ export {
     getUsuarios,
     putUsuariobyEmail,
     deleteUsuariobyEmail,
+    postUsuarioUpdate,
 };
