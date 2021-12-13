@@ -17,13 +17,15 @@ import {
   ListItem,
   ListItemText,
 } from "@mui/material";
-import Stack from '@mui/material/Stack';
+import Stack from "@mui/material/Stack";
 
 //Iconos
 import Dining from "@mui/icons-material/Dining";
 import DiningOutlined from "@mui/icons-material/DiningOutlined";
 import Facebook from "@mui/icons-material/Facebook";
 import Instagram from "@mui/icons-material/Instagram";
+
+import GoogleMap from "../../GoogleMap/GoogleMap";
 
 export default function Informacion({ restaurante }) {
   //Estilos
@@ -116,7 +118,11 @@ export default function Informacion({ restaurante }) {
             <Card sx={{ display: "flex" }}>
               <CardMedia
                 component="img"
-                image={restaurante.urlLogo? restaurante.urlLogo: "https://www.enter.co/wp-content/uploads/2017/02/menu-restaurant-vintage-tableFINAL-768x432.jpg"}
+                image={
+                  restaurante.urlLogo
+                    ? restaurante.urlLogo
+                    : "https://www.enter.co/wp-content/uploads/2017/02/menu-restaurant-vintage-tableFINAL-768x432.jpg"
+                }
               />
             </Card>
           </Item2>
@@ -135,84 +141,112 @@ export default function Informacion({ restaurante }) {
           <Item3>
             <Card sx={{ display: "flex" }}>
               <Box sx={{ my: 3, mx: 2 }}>
-                <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
+                <List
+                  sx={{
+                    width: "100%",
+                    maxWidth: 360,
+                    bgcolor: "background.paper",
+                  }}
+                >
                   <ListItem>
-                    <ListItemText 
-                      primary={                    
-                        <Typography type="body2" style={{ color: "#212121", fontSize: 25 }}>
+                    <ListItemText
+                      primary={
+                        <Typography
+                          type="body2"
+                          style={{ color: "#212121", fontSize: 25 }}
+                        >
                           DIRECCIÓN:
                         </Typography>
-                      } 
-                      secondary={                    
-                        <Typography style={{ fontSize: 17 }}  >
+                      }
+                      secondary={
+                        <Typography style={{ fontSize: 17 }}>
                           {restaurante.ubicacion}
                         </Typography>
-                      } 
+                      }
                     />
                   </ListItem>
                   <ListItem>
-                    <ListItemText 
-                      primary={                    
-                        <Typography type="body2" style={{ color: "#212121", fontSize: 25 }}>
+                    <div>
+                      <GoogleMap ubicacion= {restaurante.ubicacionMaps}/>
+                    </div>
+                  </ListItem>
+                  <ListItem style={{marginTop:"350px"}}>
+                    <ListItemText
+                      primary={
+                        <Typography
+                          type="body2"
+                          style={{ color: "#212121", fontSize: 25 }}
+                        >
                           RANGO DE PRECIOS:
-                        </Typography>} 
+                        </Typography>
+                      }
                       secondary={
-                        <Typography style={{ fontSize: 17 }}  >
+                        <Typography style={{ fontSize: 17 }}>
                           {restaurante.rangoDePrecios}
                         </Typography>
-                        } 
+                      }
                     />
                   </ListItem>
                   <ListItem>
                     <ListItemText
-                      primary={                    
-                        <Typography type="body2" style={{ color: "#212121", fontSize: 25 }}>
+                      primary={
+                        <Typography
+                          type="body2"
+                          style={{ color: "#212121", fontSize: 25 }}
+                        >
                           ETIQUETAS:
-                        </Typography>} 
-                          secondary={restaurante.Etiquetas.map((etiqueta) => {
-                            return (
-                              <Typography
-                                key={etiqueta.nombreEtiqueta}
-                                style={{ color: "#212121", fontSize: 17 }}
-                                /* value={etiqueta.nombreEtiqueta} */
-                              >
-                                {etiqueta.nombreEtiqueta}
-                              </Typography>
-                            );
-                          })}
+                        </Typography>
+                      }
+                      secondary={restaurante.Etiquetas.map((etiqueta) => {
+                        return (
+                          <Typography
+                            key={etiqueta.nombreEtiqueta}
+                            style={{ color: "#212121", fontSize: 17 }}
+                            /* value={etiqueta.nombreEtiqueta} */
+                          >
+                            {etiqueta.nombreEtiqueta}
+                          </Typography>
+                        );
+                      })}
                     />
                   </ListItem>
                   <ListItem>
-                    <ListItemText 
-                      primary={                    
-                        <Typography type="body2" style={{ color: "#212121", fontSize: 25 }}>
+                    <ListItemText
+                      primary={
+                        <Typography
+                          type="body2"
+                          style={{ color: "#212121", fontSize: 25 }}
+                        >
                           CONTACTOS:
-                        </Typography>} 
+                        </Typography>
+                      }
                       secondary={
-                        <Typography style={{ fontSize: 17 }}  >
+                        <Typography style={{ fontSize: 17 }}>
                           {restaurante.contacto}
                         </Typography>
-                        }
+                      }
                     />
                   </ListItem>
 
                   <ListItem>
-                    <ListItemText 
-                      primary={                    
-                        <Typography type="body2" style={{ color: "#212121", fontSize: 25 }}>
-                          DESCRIPCIÓN:
-                        </Typography>} 
-                      secondary={
+                    <ListItemText
+                      primary={
                         <Typography
-                        align="justify"
-                        style={{ fontSize: 16 }} >
+                          type="body2"
+                          style={{ color: "#212121", fontSize: 25 }}
+                        >
+                          DESCRIPCIÓN:
+                        </Typography>
+                      }
+                      secondary={
+                        <Typography align="justify" style={{ fontSize: 16 }}>
                           {restaurante.descripcion}
                         </Typography>
-                        }
+                      }
                     />
                   </ListItem>
                 </List>
-              </Box>  
+              </Box>
             </Card>
           </Item3>
         </Grid>
