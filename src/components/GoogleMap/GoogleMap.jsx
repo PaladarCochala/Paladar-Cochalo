@@ -30,7 +30,6 @@ export class MapContainer extends Component {
     };
    
     render() {
-        console.log(this.props.ubicacion)
       const style = {
         maxWidth: "700px",
         height: "350px",
