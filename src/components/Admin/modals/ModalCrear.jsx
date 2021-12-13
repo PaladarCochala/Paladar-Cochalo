@@ -265,15 +265,6 @@ export default function ModalCrear({ update }) {
   };
 
   //Seccion ETIQUETAS
-  const names = [
-    'Pizza',
-    'Pollo',
-    'Comida Rapida',
-    'Comida Vegetariana',
-    'Helados',
-    'Comida China',
-    'Hamburguesas',
-  ];
   const [nombreEtiqueta, setNombreEtiqueta] = React.useState([]);
     const handleChangeMultipleEtiqueta = (event) => {
       const {
