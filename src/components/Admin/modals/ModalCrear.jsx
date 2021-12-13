@@ -146,12 +146,6 @@ export default function ModalCrear({ update }) {
     getDataEtiquetas();
   },[]);
   function crearNuevoRestaurante() {
-    console.log(nombre);
-    console.log(ubicacion);
-    console.log(contacto);
-    //console.log(ubicacionMaps);
-    //console.log(urlInstagram);
-    //console.log(urlLogo);
     crearRestaurante({
       nombre: nombre,
       ubicacion: ubicacion,
@@ -221,7 +215,6 @@ export default function ModalCrear({ update }) {
       const file = e.target.files[0];
       const base64 = await convertBase64(file);
       setUrlLogo(String(base64));
-      console.log(String(base64));
     }
   };
   // Eliminar imagen
@@ -274,7 +267,6 @@ export default function ModalCrear({ update }) {
         // On autofill we get a the stringified value.
         typeof value === 'string' ? value.split(',') : value,
       );
-      console.log(nombreEtiqueta);
     };
   return (
     <div>
