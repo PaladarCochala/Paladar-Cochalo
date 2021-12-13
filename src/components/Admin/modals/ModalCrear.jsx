@@ -1,26 +1,39 @@
 import React from "react";
-import {useState} from "react";
-import { Button, Card, CardContent, CardMedia, Dialog, DialogContent, DialogTitle, Divider, Grid, Slide, TextField, Typography, IconButton, Slider } from '@mui/material';
+import { useState } from "react";
+import {
+  Button,
+  Card,
+  CardContent,
+  CardMedia,
+  Dialog,
+  DialogContent,
+  DialogTitle,
+  Divider,
+  Grid,
+  Slide,
+  TextField,
+  Typography,
+  IconButton,
+  Slider,
+} from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import { crearRestaurante } from "../../../services/restaurante";
 import { styled } from "@mui/material/styles";
-import PhotoCamera from '@mui/icons-material/PhotoCamera';
+import PhotoCamera from "@mui/icons-material/PhotoCamera";
 
-const myStyle= {
+const myStyle = {
   color: "#212121",
   backgroundColor: "white",
   padding: "5px",
   fontFamily: "inherit",
   fontSize: 35,
-  fontWeight: 'bold',
-  textAlign:"center"
-}
+  fontWeight: "bold",
+  textAlign: "center",
+};
 
-const Input = styled('input')({
-  display: 'none',
+const Input = styled("input")({
+  display: "none",
 });
-
-
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -39,7 +52,7 @@ export default function ModalCrear({ update }) {
   const [urlLogo, setUrlLogo] = React.useState("");
   const [rangoDePrecios, setRango] = React.useState("");
   const [descripcion, setDescripcion] = React.useState("");
-
+  const [ubicacionMaps, setUbicacionMaps] = React.useState("");
 
   const [validacionNombre, setValidacionNombre] = React.useState(false);
   const [validacionUbicacion, setValidacionUbicacion] = React.useState(false);
@@ -56,15 +69,18 @@ export default function ModalCrear({ update }) {
         break;
       case "contacto":
         setContacto(e.target.value);
-        break; 
+        break;
       case "urlFacebook":
-          setFacebook(e.target.value);
-          break;
+        setFacebook(e.target.value);
+        break;
       case "urlInstagram":
         setInstagram(e.target.value);
         break;
       case "descripcion":
         setDescripcion(e.target.value);
+        break;
+      case "ubicacionMaps":
+        setUbicacionMaps(e.target.value);
         break;
     }
     if (validacionNombre && validacionUbicacion) {
@@ -75,6 +91,7 @@ export default function ModalCrear({ update }) {
   function resetValores() {
     setNombre("");
     setUbicacion("");
+    setUbicacionMaps("");
     setContacto("");
     setFacebook("");
     setInstagram("");
@@ -91,7 +108,7 @@ export default function ModalCrear({ update }) {
     console.log(nombre);
     console.log(ubicacion);
     console.log(contacto);
-    //console.log(urlFacebook);
+    //console.log(ubicacionMaps);
     //console.log(urlInstagram);
     //console.log(urlLogo);
     crearRestaurante({
@@ -106,7 +123,8 @@ export default function ModalCrear({ update }) {
       rangoDePrecios: rangoDePrecios,
       descripcion: descripcion,
       estaActivo: estaActivo,
-
+      ubicacionMaps: ubicacionMaps,
+      
     })
       .then((x) => {
         return x.data;
@@ -141,12 +159,10 @@ export default function ModalCrear({ update }) {
     setOpen(false);
   };
 
-
-
   //Sección IMAGEN
   const [selectedImage, setSelectedImage] = useState();
-   // Subir imagen
-   const imageChange = async (e) => {
+  // Subir imagen
+  const imageChange = async (e) => {
     if (e.target.files && e.target.files.length > 0) {
       setSelectedImage(e.target.files[0]);
       const file = e.target.files[0];
@@ -180,7 +196,7 @@ export default function ModalCrear({ update }) {
   }
   const minDistance = 5;
   const [value1, setValue1] = React.useState([25, 50]);
-  
+
   const handleChange1 = (event, newValue, activeThumb) => {
     if (!Array.isArray(newValue)) {
       return;
@@ -188,20 +204,16 @@ export default function ModalCrear({ update }) {
 
     if (activeThumb === 0) {
       setValue1([Math.min(newValue[0], value1[1] - minDistance), value1[1]]);
-      setRango(String(value1[0])+"bs. - "+String(value1[1])+"bs.");
-
-      
+      setRango(String(value1[0]) + "bs. - " + String(value1[1]) + "bs.");
     } else {
       setValue1([value1[0], Math.max(newValue[1], value1[0] + minDistance)]);
-      setRango(String(value1[0])+"bs. - "+String(value1[1])+"bs.");
-
+      setRango(String(value1[0]) + "bs. - " + String(value1[1]) + "bs.");
     }
   };
 
-
   return (
     <div>
-      <Grid align="right"  style={{ marginLeft: 75 }}>
+      <Grid align="right" style={{ marginLeft: 75 }}>
         <Button
           variant="contained"
           color="primary"
@@ -223,8 +235,8 @@ export default function ModalCrear({ update }) {
         maxWidth="xl"
       >
         <DialogTitle align="center">
-          <Typography style={myStyle} variante='h1'>
-              Formulario - Nuevo Restaurante
+          <Typography style={myStyle} variante="h1">
+            Formulario - Nuevo Restaurante
           </Typography>
         </DialogTitle>
         <Divider></Divider>
@@ -239,47 +251,56 @@ export default function ModalCrear({ update }) {
                     className={classes.container}
                     container
                   >
-                    <Grid item xs={12} sm={6} >
-                        <Card
-                            style={{
-                              maxWidth: 500,
-                              padding: "25px 25px",
-                              margin: "0 auto",
-                              marginTop: "50px",
-                              marginLeft: "50px",
-                              marginRight: "25px",
-                              border: "dark",
-                            }}
-                          >
-                            <CardContent>
-                            {/*NO QUITAR EL LABEL, SIN EL, NO RECIBIRA NINGUNA IMAGEN */}
-                            <label htmlFor="icon-button-file">
-                              <Input accept="image/*" id="icon-button-file" type="file" onChange={imageChange}/>
-                              <IconButton color="primary" aria-label="upload picture" component="span">
-                                <PhotoCamera />
-                              </IconButton>
-                              <CardMedia>
+                    <Grid item xs={12} sm={6}>
+                      <Card
+                        style={{
+                          maxWidth: 500,
+                          padding: "25px 25px",
+                          margin: "0 auto",
+                          marginTop: "50px",
+                          marginLeft: "50px",
+                          marginRight: "25px",
+                          border: "dark",
+                        }}
+                      >
+                        <CardContent>
+                          {/*NO QUITAR EL LABEL, SIN EL, NO RECIBIRA NINGUNA IMAGEN */}
+                          <label htmlFor="icon-button-file">
+                            <Input
+                              accept="image/*"
+                              id="icon-button-file"
+                              type="file"
+                              onChange={imageChange}
+                            />
+                            <IconButton
+                              color="primary"
+                              aria-label="upload picture"
+                              component="span"
+                            >
+                              <PhotoCamera />
+                            </IconButton>
+                            <CardMedia>
                               {selectedImage && (
-                                <div >
+                                <div>
                                   <img
                                     src={urlLogo}
                                     alt="Thumb"
-                                    style={{maxWidth: "100%", maxHeight: 320}}
+                                    style={{ maxWidth: "100%", maxHeight: 320 }}
                                   />
                                   <button onClick={removeSelectedImage}>
                                     Eliminar Imagen
                                   </button>
                                 </div>
                               )}
-                              </CardMedia>
-                            </label>
-                            </CardContent>
-                        </Card>
+                            </CardMedia>
+                          </label>
+                        </CardContent>
+                      </Card>
                     </Grid>
 
                     <Divider orientation="vertical" flexItem></Divider>
 
-                    <Grid item xs={12} sm={6} >
+                    <Grid item xs={12} sm={6}>
                       <Card
                         style={{
                           maxWidth: 700,
@@ -292,13 +313,11 @@ export default function ModalCrear({ update }) {
                       >
                         <CardContent>
                           <Grid container spacing={1}>
-
-
                             <Grid
                               container
                               justifyContent="center"
                               alignItems="center"
-                              sx={{p: 1,m: 1,}}
+                              sx={{ p: 1, m: 1 }}
                             >
                               <TextField
                                 label="Nombre"
@@ -325,12 +344,11 @@ export default function ModalCrear({ update }) {
                               />
                             </Grid>
 
-
                             <Grid
                               container
                               justifyContent="center"
                               alignItems="center"
-                              sx={{p: 1,m: 1,}}
+                              sx={{ p: 1, m: 1 }}
                             >
                               <TextField
                                 label="Dirección"
@@ -356,12 +374,42 @@ export default function ModalCrear({ update }) {
                                 }}
                               />
                             </Grid>
+                            <Grid
+                              container
+                              justifyContent="center"
+                              alignItems="center"
+                              sx={{ p: 1, m: 1 }}
+                            >
+                              <TextField
+                                label="Coordenada en Google Maps"
+                                placeholder="Ingrese la coordenada de Google Maps"
+                                variant="outlined"
+                                fullWidth
+                                required
+                                InputLabelProps={{
+                                  style: {
+                                    fontFamily: "Arial",
+                                    color: "black",
+                                  },
+                                }}
+                                inputProps={{
+                                  style: {
+                                    fontFamily: "Arial",
+                                    color: "black",
+                                  },
+                                }}
+                                value={ubicacionMaps}
+                                onChange={(e) => {
+                                  handleInputChange(e, "ubicacionMaps");
+                                }}
+                              />
+                            </Grid>
 
                             <Grid
                               container
                               justifyContent="center"
                               alignItems="center"
-                              sx={{p: 1,m: 1,}}
+                              sx={{ p: 1, m: 1 }}
                             >
                               <TextField
                                 label="Contacto"
@@ -388,34 +436,36 @@ export default function ModalCrear({ update }) {
                               />
                             </Grid>
 
-
                             <Grid
                               container
                               justifyContent="center"
                               alignItems="center"
-                              sx={{p: 1,m: 1,}}
+                              sx={{ p: 1, m: 1 }}
                             >
-                              <Typography id="input-slider" gutterBottom style={{fontFamily: "Arial",color: "black"}}>
-                              Rango de precios (Bs.)
+                              <Typography
+                                id="input-slider"
+                                gutterBottom
+                                style={{ fontFamily: "Arial", color: "black" }}
+                              >
+                                Rango de precios (Bs.)
                               </Typography>
 
                               <Slider
-                                getAriaLabel={() => 'Rango de Precios'}
+                                getAriaLabel={() => "Rango de Precios"}
                                 value={value1}
                                 onChange={handleChange1}
                                 valueLabelDisplay="auto"
                                 getAriaValueText={valuetext}
                                 disableSwap
                               />
-                              
                             </Grid>
 
-                            <Grid 
+                            <Grid
                               container
                               justifyContent="center"
                               alignItems="center"
-                              sx={{p: 1,m: 1,}}
-                              >
+                              sx={{ p: 1, m: 1 }}
+                            >
                               <TextField
                                 id="outlined-multiline-static"
                                 fullWidth
@@ -426,18 +476,15 @@ export default function ModalCrear({ update }) {
                                 onChange={(e) => {
                                   handleInputChange(e, "descripcion");
                                 }}
-                              />     
+                              />
                             </Grid>
-
-                            
 
                             <Grid
                               container
                               justifyContent="center"
                               alignItems="center"
-                              sx={{p: 1,m: 1,}}
+                              sx={{ p: 1, m: 1 }}
                             >
-
                               <Grid>
                                 <TextField
                                   label="Facebook"
@@ -486,12 +533,11 @@ export default function ModalCrear({ update }) {
                               </Grid>
                             </Grid>
 
-
                             <Grid
                               container
                               justifyContent="center"
                               alignItems="center"
-                              sx={{p: 1,m: 1,}}
+                              sx={{ p: 1, m: 1 }}
                             >
                               <Button
                                 type="submit"
@@ -506,8 +552,6 @@ export default function ModalCrear({ update }) {
                                 Registrar
                               </Button>
                             </Grid>
-
-
                           </Grid>
                         </CardContent>
                       </Card>
@@ -518,7 +562,6 @@ export default function ModalCrear({ update }) {
             </form>
           </Grid>
         </DialogContent>
-
       </Dialog>
     </div>
   );
