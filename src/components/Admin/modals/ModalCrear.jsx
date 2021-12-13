@@ -20,11 +20,30 @@ import { makeStyles } from "@mui/styles";
 import { crearRestaurante, crearRelacionRestauranteEtiquetas } from "../../../services/restaurante";
 import { getEtiquetas } from "../../../services/etiquetas";
 import { styled } from "@mui/material/styles";
-import PhotoCamera from "@mui/icons-material/PhotoCamera";
+import PhotoCamera from '@mui/icons-material/PhotoCamera';
+import Accordion from '@mui/material/Accordion';
+import AccordionDetails from '@mui/material/AccordionDetails';
+import AccordionSummary from '@mui/material/AccordionSummary';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import Checkbox from '@mui/material/Checkbox';
+import MenuItem from '@mui/material/MenuItem';
+import ListItemText from '@mui/material/ListItemText';
+import OutlinedInput from '@mui/material/OutlinedInput';
 
 import InputLabel from "@mui/material/InputLabel";
 import FormControl from "@mui/material/FormControl";
 import Select from '@mui/material/Select';
+
+  const ITEM_HEIGHT = 48;
+  const ITEM_PADDING_TOP = 8;
+  const MenuProps = {
+    PaperProps: {
+      style: {
+        maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+        width: 250,
+      },
+    },
+  };
 
 const myStyle= {
   color: "#212121",
@@ -58,10 +77,15 @@ export default function ModalCrear({ update }) {
   const [rangoDePrecios, setRango] = React.useState("");
   const [descripcion, setDescripcion] = React.useState("");
   const [ubicacionMaps, setUbicacionMaps] = React.useState("");
+  const [etiquetas, setEtiquetas] = useState([])
 
   const [validacionNombre, setValidacionNombre] = React.useState(false);
   const [validacionUbicacion, setValidacionUbicacion] = React.useState(false);
+  const [expanded, setExpanded] = React.useState(false);
 
+  const handleChangeExpand = (panel) => (event, isExpanded) => {
+    setExpanded(isExpanded ? panel : false);
+  };
   const handleInputChange = (e, nombreTipo) => {
     switch (nombreTipo) {
       case "nombre":
@@ -109,6 +133,18 @@ export default function ModalCrear({ update }) {
     setSelectedImage(null);
   }
 
+  function getDataEtiquetas() {
+    getEtiquetas()
+      .then((response) => {
+        return response.data;
+      })
+      .then((response) => {
+        setEtiquetas(response.response);
+      });
+  };
+  useEffect(() => {
+    getDataEtiquetas();
+  },[]);
   function crearNuevoRestaurante() {
     console.log(nombre);
     console.log(ubicacion);
@@ -132,10 +168,9 @@ export default function ModalCrear({ update }) {
       
     })
       .then(() => { 
-
-        for (var i = 0; i < Name.length; i++) {
+        for (var i = 0; i < nombreEtiqueta.length; i++) {
           
-          const Name2 = String(Name[i])
+          const Name2 = String(nombreEtiqueta[i])
           crearRelacionRestauranteEtiquetas({
             nombre: nombre,
             etiquetas: [ { nombreEtiqueta: Name2 } ]
@@ -239,19 +274,17 @@ export default function ModalCrear({ update }) {
     'Comida China',
     'Hamburguesas',
   ];
-  const [Name, setName] = React.useState([]);
-  const handleChangeMultiple = (event) => {
-    const { options } = event.target;
-    const value = [];
-    for (let i = 0, l = options.length; i < l; i += 1) {
-      if (options[i].selected) {
-        value.push(options[i].value);
-      }
-    }
-    setName(value);
-    console.log(value);
-  };
-
+  const [nombreEtiqueta, setNombreEtiqueta] = React.useState([]);
+    const handleChangeMultipleEtiqueta = (event) => {
+      const {
+        target: { value },
+      } = event;
+      setNombreEtiqueta(
+        // On autofill we get a the stringified value.
+        typeof value === 'string' ? value.split(',') : value,
+      );
+      console.log(nombreEtiqueta);
+    };
   return (
     <div>
       <Grid align="right"  style={{ marginLeft: 75 }}>
@@ -472,28 +505,45 @@ export default function ModalCrear({ update }) {
                             </Grid>
 
                             <Grid container justifyContent="center" alignItems="center" sx={{p: 1,m: 1,}}>     
-                              
-                            <FormControl sx={{ m: 1, width: 300 }}>
-                            <InputLabel shrink htmlFor="select-multiple-native">
-                              Etiquetas
-                            </InputLabel>
-                              <Select
-                                multiple
-                                native
-                                value={Name}
-                                onChange={handleChangeMultiple}
-                                label="Etiquetas"
-                                inputProps={{
-                                  id: 'select-multiple-native',
-                                }}
+                            <Accordion sx={{boxShadow: 0, border: 1, borderColor: 'grey.500',  width: "100%"}} expanded={expanded === 'panelEtiqueta'} onChange={handleChangeExpand('panelEtiqueta')}>
+                              <AccordionSummary
+                                expandIcon={<ExpandMoreIcon />}
+                                aria-controls="panelEtiquetabh-content"
+                                id="panelEtiquetabh-header"
                               >
-                                {names.map((name) => (
-                                  <option key={name} value={name}>
-                                    {name}
-                                  </option>
-                                ))}
-                              </Select>
-                            </FormControl> 
+                                <Typography  variant="h6" sx={{ width: '33%', flexShrink: 0, fontWeight: 'bold' }}>
+                                  Etiquetas
+                                </Typography>
+                              </AccordionSummary>
+                              <AccordionDetails>
+                                <FormControl sx={{ m: 1}}>
+    
+                                <InputLabel id="demo-multiple-checkbox-label">Etiquetas</InputLabel>
+                                <Select
+                                  labelId="demo-multiple-checkbox-label"
+                                  id="demo-multiple-checkbox"
+                                  multiple
+                                  defaultValue={''}
+                                  value={nombreEtiqueta}
+                                  onChange={handleChangeMultipleEtiqueta}
+                                  input={<OutlinedInput label="Etiquetas" />}
+                                  renderValue={(selected) => selected.join(', ')}
+                                  MenuProps={MenuProps}
+                                  sx={{width: 500}}
+                                >
+                                  <MenuItem value=''>
+                                    <em>Ninguno</em>
+                                  </MenuItem>
+                                  {etiquetas.map((etiqueta) => (
+                                    <MenuItem key={etiqueta.nombreEtiqueta} value={etiqueta.nombreEtiqueta}>
+                                      <Checkbox checked={nombreEtiqueta.indexOf(etiqueta.nombreEtiqueta) > -1} />
+                                      <ListItemText primary={etiqueta.nombreEtiqueta} />
+                                    </MenuItem>
+                                  ))}
+                                </Select>
+                                </FormControl> 
+                              </AccordionDetails>
+                            </Accordion>
                             </Grid>
 
                             <Grid container justifyContent="center" alignItems="center" sx={{p: 1,m: 1,}}>    
