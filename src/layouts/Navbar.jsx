@@ -208,6 +208,7 @@ export default function Navbar({ item }, props) {
                 onChange={handleChange}
                 autoWidth
                 displayEmpty
+                defaultValue={''}
                 input={<OutlinedInput/>}
                 sx = {{background : '#e8e6e6', height: '40px', borderStyle: 'none'}}
                 renderValue={(selected) => {
