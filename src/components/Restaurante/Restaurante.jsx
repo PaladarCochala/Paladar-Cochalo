@@ -21,7 +21,7 @@ import '../../Styles/Comentarios.css'
 
 export default function SingleRestaurante(props) {
 
-    const history = useHistory(); 
+    const history = useHistory();
     const [restaurante, setRestaurante] = useState(null);
     const [comentarios, setComentarios] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -29,29 +29,31 @@ export default function SingleRestaurante(props) {
     let fecha = new Date()
     // Vars Comments
     const [nuevoComentario, setNuevoComentario] = useState("");
+    const [comentarioUsuario, setComentarioUsuario] = useState("")
+    const [validarComentarioUsuario, setValidar] = useState("")
     const [email, setEmail] = useState("");
     const [fechaDePublicacion, setFechaDePublicacion] = useState("2021-11-29");
     const [valoracionSabor, setValoracionSabor] = useState(0.5);
     const [valoracionServicio, setValoracionServicio] = useState(3.0);
     const [transition, setTransition] = React.useState(undefined);
     const [state, setState] = React.useState({
-      openSnakbar: false,
-      vertical: 'bottom',
-      horizontal: 'center',
+        openSnakbar: false,
+        vertical: 'bottom',
+        horizontal: 'center',
     });
     const { vertical, horizontal, openSnakbar } = state;
     function TransitionDown(props) {
-      return <Slide {...props} direction="up" />;
+        return <Slide {...props} direction="up" />;
     }
-    const handleClickOpenSnakbar = (Transition,newState) => {
+    const handleClickOpenSnakbar = (Transition, newState) => {
         setTransition(() => Transition);
         setState({ openSnakbar: true, ...newState });
     };
-  
+
     const handleCloseSnakbar = () => {
         setState({ ...state, openSnakbar: false });
-        
-        
+
+
     };
     //Rating Servicio
     const labels = {
@@ -86,7 +88,7 @@ export default function SingleRestaurante(props) {
 
     useEffect(() => {
         getDataRestaurante(props.match.params.id);
-        getDataComentarios(props.match.params.id)
+        getDataComentarios(props.match.params.id);
         window.scrollTo(0, 0);
     }, [props.match.params.id]);
 
@@ -113,17 +115,18 @@ export default function SingleRestaurante(props) {
     const handleChange = (prop) => (event) => {
         prop === 'email' ? setEmail(event.target.value) : setNuevoComentario(event.target.value);
     };
-    async function  validation() {
-
+    async function validation() {
         var validar = await getComentarioDeUsuario(props.match.params.id, user.email)
+        setValidar(validar.data.estaComentadoElRestaurante)
+        setComentarioUsuario(validar.data.response)
         return validar.data.estaComentadoElRestaurante
     }
     async function crearComentario() {
-        if(isAuthenticated) {
+        if (isAuthenticated) {
             const result = await validation()
-            if(result) {
-                handleClickOpenSnakbar( TransitionDown,{ vertical: 'bottom', horizontal: 'center' });
-            }else{   
+            if (result) {
+                handleClickOpenSnakbar(TransitionDown, { vertical: 'bottom', horizontal: 'center' });
+            } else {
                 postUsuarioUpdate({
                     email: user.email,
                     nickname: user.nickname,
@@ -131,20 +134,19 @@ export default function SingleRestaurante(props) {
                     contrasenia: "nohaycontrasenia",
                     contadorComentario: 0,
                     urlImagenPerfil: user.picture,
-                    esAdmin: false,
                     estaActivo: true
                 })
                     .then((x) => {
-                    return postComentario({
-                        descripcion: nuevoComentario,
-                        fechaDePublicacion: fecha,
-                        valoracionSabor: valorS2,
-                        valoracionServicio: valorS1,
-                        emailUsuario: user.email,
-                        restauranteId: props.match.params.id,
-                        sesionIniciado: true
+                        return postComentario({
+                            descripcion: nuevoComentario,
+                            fechaDePublicacion: fecha,
+                            valoracionSabor: valorS2,
+                            valoracionServicio: valorS1,
+                            emailUsuario: user.email,
+                            restauranteId: props.match.params.id,
+                            sesionIniciado: true
+                        })
                     })
-                })
                     .then((x) => {
                         return x.data;
                     })
@@ -157,7 +159,7 @@ export default function SingleRestaurante(props) {
                     });
             }
         } else {
-            handleClickOpenSnakbar( TransitionDown,{ vertical: 'bottom', horizontal: 'center' });
+            handleClickOpenSnakbar(TransitionDown, { vertical: 'bottom', horizontal: 'center' });
         }
     }
 
@@ -178,78 +180,81 @@ export default function SingleRestaurante(props) {
                     <Typography style={{ margin: '0.5rem' }} variant="h5" gutterBottom component="div">
                         COMENTARIOS
                     </Typography>
-                    <Grid container >
+                        {isAuthenticated && validation() && comentarioUsuario? 
+                        <Comentario comentario={comentarioUsuario}></Comentario>:
+                        <Grid container >
 
-                        <FormControl className={'input'} sx={{ width: '98%'}}>
-                            <InputLabel htmlFor="nuevo-comentario" style={{fontFamily:"san-serif"}}>Comentario</InputLabel>
-                            <OutlinedInput
-                                multiline
-                                maxRows ={2}
-                                id="nuevo-comentario"
-                                value={nuevoComentario}
-                                onChange={handleChange('comentario')}
-                                placeholder="Escribe un comentario"
-                                label="Comentario"
-                              
-                                
-                            />
-                        </FormControl>
 
-                        <Button onClick={() => { crearComentario() }} className={'button'}>
-                            Comentar
-                        </Button>
-                        <Snackbar
-                            anchorOrigin={{ vertical, horizontal }}
-                            open={openSnakbar}
-                            autoHideDuration={1500}
-                            onClose={handleCloseSnakbar}
-                            TransitionComponent={transition}
-                            key={transition ? transition.name : ''}
-                        >
-                            {isAuthenticated? <Alert onClose={handleCloseSnakbar} severity="error" variant="filled">
-                                Usted ya tiene un comentario en este restaurante
-                            </Alert>:
-                            <Alert onClose={handleCloseSnakbar} severity="warning" variant="filled">
-                                Necesita ingresar una cuenta para crear un comentario
-                            </Alert>}
-                        </Snackbar>
-                        <Grid sx={{fontFamily:"sans-serif"}}>
-                            <StyledRating
-                                name="rating sabor"
-                                defaultValue={3}
-                                getLabelText={(value) => `${value} Flatware${value !== 1 ? 's' : ''}`}
-                                precision={0.5}
-                                icon={<DiningIcon fontSize="inherit" />}
-                                value={valorS2}
-                                onChange={(event, newValue) => {
-                                    setValor2(newValue);
-                                }} onChangeActive={(event, newHover) => {
-                                    setHover2(newHover);
-                                }} emptyIcon={<DiningOutlined style={{ opacity: 0.55 }} fontSize="inherit" />}
-                            />
-                            {valorS2 !== null && (<Box sx={{ ml: 2 }} >{labels2[hoverS2 !== -1 ? hoverS2 : valorS2]}</Box>)}
-                        </Grid>
-                        <Grid sx={{fontFamily:"sans-serif"}}>
-                            <Rating 
-                                name="rating-servicio" value={valorS1} precision={0.5} onChange={(event, newValue) => {
-                                    setValor1(newValue);
-                                }} onChangeActive={(event, newHover) => {
-                                    setHover1(newHover);
-                                }}
-                                emptyIcon={<StarIcon style={{ opacity: 0.55 }} fontSize="inherit" />}
+                            <FormControl className={'input'} sx={{ width: '98%' }}>
+                                <InputLabel htmlFor="nuevo-comentario" style={{ fontFamily: "san-serif" }}>Comentario</InputLabel>
+                                <OutlinedInput
+                                    multiline
+                                    maxRows={2}
+                                    id="nuevo-comentario"
+                                    value={nuevoComentario}
+                                    onChange={handleChange('comentario')}
+                                    placeholder="Escribe un comentario"
+                                    label="Comentario"
 
-                            />
-                            {valorS1 !== null && (<Box sx={{ ml: 2 }}>{labels[hoverS1 !== -1 ? hoverS1 : valorS1]}</Box>)}
-                        </Grid>
 
-                        
-                    </Grid>
+                                />
+                            </FormControl>
+
+                            <Button onClick={() => { crearComentario() }} className={'button'}>
+                                Comentar
+                            </Button>
+                            <Snackbar
+                                anchorOrigin={{ vertical, horizontal }}
+                                open={openSnakbar}
+                                autoHideDuration={1500}
+                                onClose={handleCloseSnakbar}
+                                TransitionComponent={transition}
+                                key={transition ? transition.name : ''}
+                            >
+                                {isAuthenticated ? <Alert onClose={handleCloseSnakbar} severity="error" variant="filled">
+                                    Usted ya tiene un comentario en este restaurante
+                                </Alert> :
+                                    <Alert onClose={handleCloseSnakbar} severity="warning" variant="filled">
+                                        Necesita ingresar una cuenta para crear un comentario
+                                    </Alert>}
+                            </Snackbar>
+                            <Grid sx={{ fontFamily: "sans-serif" }}>
+                                <StyledRating
+                                    name="rating sabor"
+                                    defaultValue={3}
+                                    getLabelText={(value) => `${value} Flatware${value !== 1 ? 's' : ''}`}
+                                    precision={0.5}
+                                    icon={<DiningIcon fontSize="inherit" />}
+                                    value={valorS2}
+                                    onChange={(event, newValue) => {
+                                        setValor2(newValue);
+                                    }} onChangeActive={(event, newHover) => {
+                                        setHover2(newHover);
+                                    }} emptyIcon={<DiningOutlined style={{ opacity: 0.55 }} fontSize="inherit" />}
+                                />
+                                {valorS2 !== null && (<Box sx={{ ml: 2 }} >{labels2[hoverS2 !== -1 ? hoverS2 : valorS2]}</Box>)}
+                            </Grid>
+                            <Grid sx={{ fontFamily: "sans-serif" }}>
+                                <Rating
+                                    name="rating-servicio" value={valorS1} precision={0.5} onChange={(event, newValue) => {
+                                        setValor1(newValue);
+                                    }} onChangeActive={(event, newHover) => {
+                                        setHover1(newHover);
+                                    }}
+                                    emptyIcon={<StarIcon style={{ opacity: 0.55 }} fontSize="inherit" />}
+
+                                />
+                                {valorS1 !== null && (<Box sx={{ ml: 2 }}>{labels[hoverS1 !== -1 ? hoverS1 : valorS1]}</Box>)}
+                            </Grid>
+
+
+                        </Grid>}
 
                     {!loading ? comentarios.map(comentario => (
                         <Comentario comentario={comentario}></Comentario>
-                        
+
                     )) : null}
-                    
+
                 </div>
             </Grid>
         </>
