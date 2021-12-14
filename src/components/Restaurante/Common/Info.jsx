@@ -165,11 +165,16 @@ export default function Informacion({ restaurante }) {
                       }
                     />
                   </ListItem>
-                  <ListItem>
+                  {restaurante.ubicacionMaps? <ListItem>
                     <div>
                       <GoogleMap ubicacion= {restaurante.ubicacionMaps}/>
                     </div>
-                  </ListItem>
+                  </ListItem> : 
+                  <ListItem>
+                    <div>
+                      <GoogleMap ubicacion= "-17.385949878677998, -66.15706714557766"/>
+                    </div>
+                  </ListItem>}
                   <ListItem style={{marginTop:"350px"}}>
                     <ListItemText
                       primary={
