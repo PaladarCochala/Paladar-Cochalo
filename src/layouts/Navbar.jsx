@@ -283,18 +283,6 @@ export default function Navbar({ item }, props) {
               <PersonIcon sx={{ marginRight: "15px" }}/>
               <ListItemText disableTypography primary={"Usuarios"} />
             </ListItem>
-            <ListItem className="PersonTypo" button onClick={() => history.push("/reportes")}>
-              <ReportRoundedIcon sx={{ marginRight: "15px" }}/>
-              <ListItemText disableTypography primary={"Reportes"} />
-            </ListItem>
-            <ListItem className="PersonTypo" button onClick={() => history.push("/solicitudes-creacion")}>
-              <AddCircleRoundedIcon sx={{ marginRight: "15px" }}/>
-              <ListItemText disableTypography primary={"Solicitudes Creacion"} />
-            </ListItem>
-            <ListItem className="PersonTypo" button onClick={() => history.push("/solicitudes-edicion")}>
-              <EditRoundedIcon  sx={{ marginRight: "15px" }}/>
-              <ListItemText disableTypography primary={"Solicitudes Edicion"} />
-            </ListItem>
           </List></>:
         <>
           <Divider sx={{ background: "white" }}/>
@@ -310,14 +298,6 @@ export default function Navbar({ item }, props) {
             <RestaurantMenuRoundedIcon sx={{ marginRight: "15px" }}/>
               <ListItemText disableTypography primary={"Restaurantes"} />
             </ListItem>
-            {/* <ListItem className="PersonTypo" button onClick={() => history.push("/about-us")}>
-              <InfoRoundedIcon sx={{ marginRight: "15px" }}/>
-              <ListItemText disableTypography primary={"Acerca de Nosotros"} />
-            </ListItem>
-            <ListItem className="PersonTypo" button onClick={() => history.push("/about-us")}>
-              <MailIcon sx={{ marginRight: "15px" }}/>
-              <ListItemText disableTypography primary={"Sugerencias"} />
-            </ListItem> */}
           </List></>}
         <Divider sx={{ background: "white" }}/>
             <List sx={{ color: "white" }}>

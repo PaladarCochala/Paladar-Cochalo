@@ -180,8 +180,6 @@ export default function SingleRestaurante(props) {
                     <Typography style={{ margin: '0.5rem' }} variant="h5" gutterBottom component="div">
                         COMENTARIOS
                     </Typography>
-                        {isAuthenticated && validation() && comentarioUsuario? 
-                        <Comentario comentario={comentarioUsuario}></Comentario>:
                         <Grid container >
 
 
@@ -248,7 +246,7 @@ export default function SingleRestaurante(props) {
                             </Grid>
 
 
-                        </Grid>}
+                        </Grid>
 
                     {!loading ? comentarios.map(comentario => (
                         <Comentario comentario={comentario}></Comentario>
