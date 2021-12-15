@@ -73,7 +73,8 @@ export default function RestaurantCard({ restaurante }) {
             <Grid container spacing={2}>
               <Grid item md={6}>
                 <Typography variant="body2" gutterBottom color="#9e9e9e">
-                  10.235 valoraciones
+                {restaurante.contadorDeComentarios}
+                 {restaurante.contadorDeComentarios === 1? " valoracion" : " valoraciones"}
                 </Typography>
               </Grid>
               <Grid item md={6}>
